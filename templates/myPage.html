@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이음 : 세대와 세대를 이어주는 단어 사전</title>
+    <link rel="stylesheet" href="../static/css/myPage/myPage.css">
+</head>
+<body>
+    <div class="navBar">
+        <ul class="navList">
+            <li class="navFirst">
+                <a href="#">
+                    <img src="../static/img/Logo.png" alt="mainLogo">
+                </a>
+            </li>
+            <div class="navWrap">
+                <li>
+                    <ul class="navSecond">
+                        <li>
+                            <a class="navDicBtn" href="#">
+                                사전
+                            </a>
+                        </li>
+                        <li>
+                            <a class="navBoardBtn" href="#">
+                                게시판
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="navThird">
+                        <li class="navAlert">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="31.5" height="36" viewBox="0 0 33 36" fill="none">
+                                <g clip-path="url(#clip0_262_3877)">
+                                  <path d="M16.7086 0C15.4641 0 14.4586 1.00547 14.4586 2.25V3.6C9.3258 4.64062 5.45861 9.18281 5.45861 14.625V15.9469C5.45861 19.2516 4.24221 22.4438 2.04846 24.9187L1.52815 25.5023C0.937521 26.1633 0.796896 27.1125 1.15549 27.9211C1.51408 28.7297 2.32268 29.25 3.20861 29.25H30.2086C31.0945 29.25 31.8961 28.7297 32.2617 27.9211C32.6274 27.1125 32.4797 26.1633 31.8891 25.5023L31.3688 24.9187C29.175 22.4438 27.9586 19.2586 27.9586 15.9469V14.625C27.9586 9.18281 24.0914 4.64062 18.9586 3.6V2.25C18.9586 1.00547 17.9531 0 16.7086 0ZM19.8938 34.6852C20.7375 33.8414 21.2086 32.6953 21.2086 31.5H16.7086H12.2086C12.2086 32.6953 12.6797 33.8414 13.5235 34.6852C14.3672 35.5289 15.5133 36 16.7086 36C17.9039 36 19.05 35.5289 19.8938 34.6852Z" 
+                                  fill="#232427"/>
+                                </g>
+                                <defs>
+                                  <clipPath id="clip0_262_3877">
+                                    <rect width="31.5" height="36" fill="white" transform="translate(0.958496)"/>
+                                  </clipPath>
+                                </defs>
+                              </svg>
+                        </li>
+                        <li class="navVoca">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="31.5" height="36" viewBox="0 0 32 36" fill="none">
+                                <g clip-path="url(#clip0_168_1828)">
+                                  <path d="M0.212158 6.75C0.212158 3.02344 3.2356 0 6.96216 0H13.7122V13.4086C13.7122 14.3508 14.802 14.8781 15.5403 14.2875L19.3372 11.25L23.134 14.2875C23.8723 14.8781 24.9622 14.3508 24.9622 13.4086V0H27.2122H29.4622C30.7067 0 31.7122 1.00547 31.7122 2.25V24.75C31.7122 25.9945 30.7067 27 29.4622 27V31.5C30.7067 31.5 31.7122 32.5055 31.7122 33.75C31.7122 34.9945 30.7067 36 29.4622 36H27.2122H6.96216C3.2356 36 0.212158 32.9766 0.212158 29.25V6.75ZM4.71216 29.25C4.71216 30.4945 5.71763 31.5 6.96216 31.5H24.9622V27H6.96216C5.71763 27 4.71216 28.0055 4.71216 29.25Z" 
+                                  fill="#232427"/>
+                                </g>
+                                <defs>
+                                  <clipPath id="clip0_168_1828">
+                                    <rect width="31.5" height="36" fill="white" transform="translate(0.212158)"/>
+                                  </clipPath>
+                                </defs>
+                              </svg>
+                        </li>
+                        <li>
+                            <img class="userProfile" src="../static/img/profile/원숭이.png" alt="원숭이">
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="myPageInfo">
+            <img src="../static/img/profile/원숭이.png" class="myPageProfile"><img/>
+            <div class="myPageText">
+                <p class="myPageAge">20대</p>
+                <p class="myPageName">귀여운 원숭이</p>
+                <div class="levelWrap">
+                    <p class="myPageLevel">돌멩이</p>
+                    <a href="../templates/level_detail.html">등급 설명</a>
+                </div>
+            </div>
+        </div>
+        <div class="gridContainer">
+            <div class="myUserInfo">
+                <p class="gridTitle">개인정보</p>
+                <div class="inputContainer">
+                    <div class="nameInput">
+                        <p class="inputTitle">닉네임</p>
+                        <div class="nameContainer">
+                            <input type="text" class="inputBox" value="귀여운 원숭이">
+                            <input type="button" class="editBtn" value="수정">
+                        </div>
+                    </div>
+                    <div class="AgeInput">
+                        <p class="inputTitle">연령</p>
+                        <p class="inputBox">20대</p>
+                    </div>
+                    <div class="loginInput">
+                        <p class="inputTitle">로그인 정보</p>
+                        <p class="inputBox">카카오 로그인</p>
+                    </div>
+                </div>
+            </div>
+            <div class="myUserWord">
+                <p class="gridTitle">등록한 단어</p>
+                    <ul class="userWordCardList">
+                        <li class="userWordCard">
+                            <div class="wordCardTop">
+                                <img src="../static/img/age/age_20.png" alt="20대" class="userWordAge">
+                            </div>
+                            <div class="wordCardBottom">
+                                <div class="wordCardBottomTxt">
+                                    <p class="userWord">어쩔티비</p>
+                                    <p class="userWordUser">귀여운 원숭이</p>
+                                </div>
+                                <div class="userWordLike">
+                                    <svg class="userWordLikeHeart" xmlns="http://www.w3.org/2000/svg" width="1.233rem" height="1rem" viewBox="0 0 21 16" fill="none">
+                                        <path d="M9.55806 15.5646L9.46174 15.4804L2.71122 9.52724C1.52834 8.48442 0.85791 7.02082 0.85791 5.4877V5.36696C0.85791 2.79102 2.78443 0.580988 5.45073 0.0980001C6.96882 -0.180084 8.5216 0.152885 9.75842 0.979818C10.1052 1.21399 10.4288 1.48476 10.7217 1.79577C10.8835 1.62014 11.0569 1.45915 11.2418 1.30913C11.3844 1.19204 11.5308 1.08227 11.6849 0.979818C12.9218 0.152885 14.4745 -0.180084 15.9926 0.0943412C18.6589 0.577329 20.5854 2.79102 20.5854 5.36696V5.4877C20.5854 7.02082 19.915 8.48442 18.7321 9.52724L11.9816 15.4804L11.8853 15.5646C11.5693 15.8427 11.1532 16 10.7217 16C10.2901 16 9.87401 15.8463 9.55806 15.5646ZM10.0705 3.7387C10.0551 3.72772 10.0435 3.71309 10.032 3.69845L9.34614 2.96665L9.34229 2.96299C8.45224 2.01531 7.10753 1.58355 5.7975 1.82139C4.00199 2.14704 2.70737 3.63259 2.70737 5.36696V5.4877C2.70737 6.53052 3.16588 7.52942 3.97116 8.23927L10.7217 14.1925L17.4722 8.23927C18.2775 7.52942 18.736 6.53052 18.736 5.4877V5.36696C18.736 3.63625 17.4414 2.14704 15.6497 1.82139C14.3397 1.58355 12.9911 2.01897 12.1049 2.96299C12.1049 2.96299 12.1049 2.96299 12.1011 2.96665C12.0972 2.97031 12.1011 2.96665 12.0972 2.97031L11.4114 3.70211C11.3998 3.71675 11.3844 3.72773 11.3728 3.74236C11.1995 3.90702 10.9644 3.99849 10.7217 3.99849C10.4789 3.99849 10.2439 3.90702 10.0705 3.74236V3.7387Z" fill="#232427"/>
+                                      </svg>
+                                    <p class="userWordLikeNum">24</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="userWordCard">
+                            <div class="wordCardTop">
+                                <img src="../static/img/age/age_20.png" alt="20대" class="userWordAge">
+                            </div>
+                            <div class="wordCardBottom">
+                                <div class="wordCardBottomTxt">
+                                    <p class="userWord">어쩔티비</p>
+                                    <p class="userWordUser">귀여운 원숭이</p>
+                                </div>
+                                <div class="userWordLike">
+                                    <svg class="userWordLikeHeart" xmlns="http://www.w3.org/2000/svg" width="1.233rem" height="1rem" viewBox="0 0 21 16" fill="none">
+                                        <path d="M9.55806 15.5646L9.46174 15.4804L2.71122 9.52724C1.52834 8.48442 0.85791 7.02082 0.85791 5.4877V5.36696C0.85791 2.79102 2.78443 0.580988 5.45073 0.0980001C6.96882 -0.180084 8.5216 0.152885 9.75842 0.979818C10.1052 1.21399 10.4288 1.48476 10.7217 1.79577C10.8835 1.62014 11.0569 1.45915 11.2418 1.30913C11.3844 1.19204 11.5308 1.08227 11.6849 0.979818C12.9218 0.152885 14.4745 -0.180084 15.9926 0.0943412C18.6589 0.577329 20.5854 2.79102 20.5854 5.36696V5.4877C20.5854 7.02082 19.915 8.48442 18.7321 9.52724L11.9816 15.4804L11.8853 15.5646C11.5693 15.8427 11.1532 16 10.7217 16C10.2901 16 9.87401 15.8463 9.55806 15.5646ZM10.0705 3.7387C10.0551 3.72772 10.0435 3.71309 10.032 3.69845L9.34614 2.96665L9.34229 2.96299C8.45224 2.01531 7.10753 1.58355 5.7975 1.82139C4.00199 2.14704 2.70737 3.63259 2.70737 5.36696V5.4877C2.70737 6.53052 3.16588 7.52942 3.97116 8.23927L10.7217 14.1925L17.4722 8.23927C18.2775 7.52942 18.736 6.53052 18.736 5.4877V5.36696C18.736 3.63625 17.4414 2.14704 15.6497 1.82139C14.3397 1.58355 12.9911 2.01897 12.1049 2.96299C12.1049 2.96299 12.1049 2.96299 12.1011 2.96665C12.0972 2.97031 12.1011 2.96665 12.0972 2.97031L11.4114 3.70211C11.3998 3.71675 11.3844 3.72773 11.3728 3.74236C11.1995 3.90702 10.9644 3.99849 10.7217 3.99849C10.4789 3.99849 10.2439 3.90702 10.0705 3.74236V3.7387Z" fill="#232427"/>
+                                      </svg>
+                                    <p class="userWordLikeNum">24</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="userWordCard">
+                            <div class="wordCardTop">
+                                <img src="../static/img/age/age_20.png" alt="20대" class="userWordAge">
+                            </div>
+                            <div class="wordCardBottom">
+                                <div class="wordCardBottomTxt">
+                                    <p class="userWord">어쩔티비</p>
+                                    <p class="userWordUser">귀여운 원숭이</p>
+                                </div>
+                                <div class="userWordLike">
+                                    <svg class="userWordLikeHeart" xmlns="http://www.w3.org/2000/svg" width="1.233rem" height="1rem" viewBox="0 0 21 16" fill="none">
+                                        <path d="M9.55806 15.5646L9.46174 15.4804L2.71122 9.52724C1.52834 8.48442 0.85791 7.02082 0.85791 5.4877V5.36696C0.85791 2.79102 2.78443 0.580988 5.45073 0.0980001C6.96882 -0.180084 8.5216 0.152885 9.75842 0.979818C10.1052 1.21399 10.4288 1.48476 10.7217 1.79577C10.8835 1.62014 11.0569 1.45915 11.2418 1.30913C11.3844 1.19204 11.5308 1.08227 11.6849 0.979818C12.9218 0.152885 14.4745 -0.180084 15.9926 0.0943412C18.6589 0.577329 20.5854 2.79102 20.5854 5.36696V5.4877C20.5854 7.02082 19.915 8.48442 18.7321 9.52724L11.9816 15.4804L11.8853 15.5646C11.5693 15.8427 11.1532 16 10.7217 16C10.2901 16 9.87401 15.8463 9.55806 15.5646ZM10.0705 3.7387C10.0551 3.72772 10.0435 3.71309 10.032 3.69845L9.34614 2.96665L9.34229 2.96299C8.45224 2.01531 7.10753 1.58355 5.7975 1.82139C4.00199 2.14704 2.70737 3.63259 2.70737 5.36696V5.4877C2.70737 6.53052 3.16588 7.52942 3.97116 8.23927L10.7217 14.1925L17.4722 8.23927C18.2775 7.52942 18.736 6.53052 18.736 5.4877V5.36696C18.736 3.63625 17.4414 2.14704 15.6497 1.82139C14.3397 1.58355 12.9911 2.01897 12.1049 2.96299C12.1049 2.96299 12.1049 2.96299 12.1011 2.96665C12.0972 2.97031 12.1011 2.96665 12.0972 2.97031L11.4114 3.70211C11.3998 3.71675 11.3844 3.72773 11.3728 3.74236C11.1995 3.90702 10.9644 3.99849 10.7217 3.99849C10.4789 3.99849 10.2439 3.90702 10.0705 3.74236V3.7387Z" fill="#232427"/>
+                                      </svg>
+                                    <p class="userWordLikeNum">24</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+            </div>
+            <div class="myUserQuest">
+                <p class="gridTitle">등록한 질문</p>
+                    <ul class="userQuestCardList">
+                        <li class="userQuestCard">
+                            <div class="userQuestText">
+                                <p class="userQuestTitle">
+                                    움짤이 무슨 뜻인가요?
+                                </p>
+                                <p class="userQuestDate">
+                                    2023/07/25 11:30
+                                </p>
+                            </div>
+                        </li>
+                        <li class="userQuestCard">
+                            <div class="userQuestText">
+                                <p class="userQuestTitle">
+                                    움짤이 무슨 뜻인가요?
+                                </p>
+                                <p class="userQuestDate">
+                                    2023/07/25 11:30
+                                </p>
+                            </div>
+                        </li>
+                        <li class="userQuestCard">
+                            <div class="userQuestText">
+                                <p class="userQuestTitle">
+                                    움짤이 무슨 뜻인가요?
+                                </p>
+                                <p class="userQuestDate">
+                                    2023/07/25 11:30
+                                </p>
+                            </div>
+                        </li>
+                        <li class="userQuestCard">
+                            <div class="userQuestText">
+                                <p class="userQuestTitle">
+                                    움짤이 무슨 뜻인가요?
+                                </p>
+                                <p class="userQuestDate">
+                                    2023/07/25 11:30
+                                </p>
+                            </div>
+                        </li>
+                        <li class="userQuestCard">
+                            <div class="userQuestText">
+                                <p class="userQuestTitle">
+                                    움짤이 무슨 뜻인가요?
+                                </p>
+                                <p class="userQuestDate">
+                                    2023/07/25 11:30
+                                </p>
+                            </div>
+                        </li>
+                        <li class="userQuestCard">
+                            <div class="userQuestText">
+                                <p class="userQuestTitle">
+                                    움짤이 무슨 뜻인가요?
+                                </p>
+                                <p class="userQuestDate">
+                                    2023/07/25 11:30
+                                </p>
+                            </div>
+                        </li>
+                        <li class="userQuestCard">
+                            <div class="userQuestText">
+                                <p class="userQuestTitle">
+                                    움짤이 무슨 뜻인가요?
+                                </p>
+                                <p class="userQuestDate">
+                                    2023/07/25 11:30
+                                </p>
+                            </div>
+                        </li>
+                        
+                    </ul>
+            </div>
+            <div class="myUserRequest">
+                <p class="gridTitle">수정 요청 목록</p>
+                <ul class="userRequestCardList">
+                    <li class="userRequestCard">
+                        <div class="userRequestText">
+                            <p class="userRequestTitle">
+                                움짤이 무슨 뜻인가요?
+                            </p>
+                            <p class="userRequestDate">
+                                2023/07/25 11:30
+                            </p>
+                        </div>
+                    </li>
+                    <li class="userRequestCard">
+                        <div class="userRequestText">
+                            <p class="userRequestTitle">
+                                움짤이 무슨 뜻인가요?
+                            </p>
+                            <p class="userRequestDate">
+                                2023/07/25 11:30
+                            </p>
+                        </div>
+                    </li>
+                    <li class="userRequestCard">
+                        <div class="userRequestText">
+                            <p class="userRequestTitle">
+                                움짤이 무슨 뜻인가요?
+                            </p>
+                            <p class="userRequestDate">
+                                2023/07/25 11:30
+                            </p>
+                        </div>
+                    </li>
+                    <li class="userRequestCard">
+                        <div class="userRequestText">
+                            <p class="userRequestTitle">
+                                움짤이 무슨 뜻인가요?
+                            </p>
+                            <p class="userRequestDate">
+                                2023/07/25 11:30
+                            </p>
+                        </div>
+                    </li>
+                    <li class="userRequestCard">
+                        <div class="userRequestText">
+                            <p class="userRequestTitle">
+                                움짤이 무슨 뜻인가요?
+                            </p>
+                            <p class="userRequestDate">
+                                2023/07/25 11:30
+                            </p>
+                        </div>
+                    </li>
+                    <li class="userRequestCard">
+                        <div class="userRequestText">
+                            <p class="userRequestTitle">
+                                움짤이 무슨 뜻인가요?
+                            </p>
+                            <p class="userRequestDate">
+                                2023/07/25 11:30
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
