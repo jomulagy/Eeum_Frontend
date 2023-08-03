@@ -1,0 +1,171 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    list-style: none;
+    font-family: 'Pretendard-Regular';
+    font-style: normal;
+    text-decoration-line: none;
+    border-style: none;
+}
+
+
+body{
+    background: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+
+.navBar{
+    z-index: 2;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* gap: 39.0625rem; */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 14.0741vh;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
+}
+
+.navList{
+    display: flex;
+    align-items: center;
+    gap: 39.0625rem;
+}
+
+.navList li{
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+
+.navSecond{
+    display: flex;
+    flex-direction: row;
+    gap: 3.56rem;
+    /* margin-left: 39.06rem;
+    margin-right: 28.88rem; */
+}
+
+.navThird{
+    display: flex;
+    flex-direction: row;
+    gap: 2.19rem;
+    align-items: center;
+}
+
+.navWrap{
+    display: flex;
+    flex-direction: row;
+    gap: 28.875rem;
+    align-items: center;
+}
+
+.navDicBtn{
+    display: flex;
+    padding: 0.625rem 1.25rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+
+    color: #232427;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 130%; /* 2.6rem */
+}
+
+.navBoardBtn{
+    display: flex;
+    padding: 0.625rem 1.25rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+
+    color: #232427;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 130%; /* 2.6rem */
+}
+
+.mainLogo{
+    width: 4rem;
+    height: 2.09325rem;
+}
+
+.userInfo{
+    display: flex;
+    align-items: center;
+    gap: 2.1875rem;
+}
+
+.userProfile{
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 4.5rem;
+}
+
+.loginBtn{
+    border-radius: 1.25rem;
+    background: #FFE173;
+    filter: drop-shadow(0px 4px 4px rgba(160, 160, 160, 0.25));
+    
+    display: flex;
+    padding: 0rem 1.875rem;
+    align-items: center;
+    gap: 1rem;
+}
+
+.loginBtnTxt{
+    margin-top: 0.9rem;
+    margin-bottom: 0.9rem;
+    color: #232427;
+    text-align: center;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%; /* 1.625rem */
+}
+
+/*container*/
+.container{
+    position: relative;
+    width: 100%;
+}
+
+/*플로팅 버튼 css 시작 부분*/
+#floating_button_wrap {
+    position: fixed;
+    bottom: 6em;
+    z-index: 1;
+}
+
+.floating_button {
+    width: 49.25rem;
+    height: 4rem;
+    border-radius: 1.875rem;
+    background: #232427;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.floating_button_name{
+    color: #FFF;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+/*플로팅 버튼 css 끝 부분*/
