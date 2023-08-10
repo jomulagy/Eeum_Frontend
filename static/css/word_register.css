@@ -237,6 +237,57 @@ body {
     /* 마우스를 올렸을 때의 배경색 */
 }
 
+#word_register_nextbtn[disabled]{
+    background-color: lightgray;
+    font-weight: lighter;
+    cursor: default;
+    color: gray;
+}
+
+#word_registre_nextbtn[disabled]:hover{
+    background-color: lightgray;
+    cursor: default;
+    color: gray;
+    font-weight: lighter;
+}
+
+#word_register_nextbtn1 {
+    color: #232427;
+    text-align: center;
+    font-family: 'Pretendard-regular';
+    padding: 0.5rem 0.8rem 0.5rem;
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%;
+    outline: none;
+    border: none;
+    border-radius: 5rem;
+    background-color: #FFE173;
+    box-shadow: 1px 1px 1.5px 1px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}/* 다음으로 첫번째 버튼 */
+
+#word_register_nextbtn1:hover {
+    background-color: #FFD87D;
+    /* 마우스를 올렸을 때의 배경색 */
+}
+
+#word_register_nextbtn1[disabled]{
+    background-color: lightgray;
+    font-weight: lighter;
+    cursor: default;
+    color: gray;
+}
+
+#word_registre_nextbtn1[disabled]:hover{
+    background-color: lightgray;
+    cursor: default;
+    color: gray;
+    font-weight: lighter;
+}
+
 /* 수정 요청 제출 버튼 hover*/
 .word_register_availability{
     font-size: 0.8rem;
@@ -381,6 +432,45 @@ body {
     /* 마우스를 올렸을 때의 배경색 */
 }/* 수정 요청 제출 버튼 hover*/
 
+#word_register_nextbtn2[disabled] {
+    background-color: lightgray;
+    cursor: default;
+}
+#word_register_nextbtn2[disabled]:hover{
+    background-color: lightgray;
+    cursor: default;
+}
+
+#word_register_nextbtn3 {
+    display: inline-block;
+    width: 44rem;
+    padding: 0.7rem 0.5rem;
+    border-radius: 1.5rem;
+    font-size: 0.8rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%;
+    outline: none;
+    border: none;
+    border-radius: 5rem;
+    background-color: #FFE173;
+    box-shadow: 1px 1px 1.5px 1px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+#word_register_nextbtn3:hover {
+    background-color: #FFD87D;
+    /* 마우스를 올렸을 때의 배경색 */
+}/* 수정 요청 제출 버튼 hover*/
+
+#word_register_nextbtn3[disabled] {
+    background-color: lightgray;
+    cursor: default;
+}
+#word_register_nextbtn3[disabled]:hover{
+    background-color: lightgray;
+    cursor: default;
+}
 /* 이미지 프리뷰 관련 스타일 */
 .image-preview {
     display: flex;

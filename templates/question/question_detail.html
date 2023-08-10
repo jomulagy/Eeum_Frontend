@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/word_question.css">
+    <link rel="stylesheet" href="/static/css/question_detail.css">
     <script src="https://kit.fontawesome.com/ba49d39b5e.js" crossorigin="anonymous"></script>
     <title>이음 : 세대와 세대를 이어주는 단어 사전</title>
 </head>
@@ -50,32 +50,22 @@
                 2. 다른 사용자들을 존중하고 상대방의 의견에 예의를 갖춰주세요. 공격적인 언어 사용이나 비방, 욕설은 엄격히 금지됩니다.<br>
                 3. 질문이나 댓글에는 정확한 정보를 제공해주세요. 부정확한 정보를 전달하는 것은 다른 사용자들에게 혼란을 줄 수 있습니다.</p>
         </div>
-        
-        <div class="word_question_question" id="q1">
-            <P id="word_question_q1">1. 질문하고 싶은 단어를 입력해 주세요.</P>
-            <input type="text" class="word_question_input" id="word_question_input">
-            <button disabled class="nextButton" id="word_question_nextbtn" data-next="#q2">계속 질문하기</button>
-            <div class="word_question_availability">
-                <p id="success" style="display: none;"><i class="fa-solid fa-check"></i> 등록 되지 않은 단어입니다.</p>
-                <p id="fail" style="display: none;">!  이미 등록된 단어입니다.</p>
-            </div>
-        </div>
-        <div class="word_question_question" id="q2" style="display: none;">
-            <p id="word_question_q2">2. 질문을 200자 이내로 작성해 주세요.</p>
+        <div class="question_detail_question" id="q1">
+            <p id="question_detail_q1">1. 질문을 200자 이내로 작성해 주세요.</p>
             <p>
-                <textarea id="word_question_textarea" cols="70" rows="10"></textarea>
-                <div class="word_question_text-length">
+                <textarea id="question_detail_textarea" cols="70" rows="10"></textarea>
+                <div class="question_detail_text-length">
                     <span class="text-length-cnt">0</span>/
                     <span class="text-length-total">200</span>
                 </div>
             </p>
             <div>
-                <button disabled="disabled" class="submitButton" id="word_question_submitbtn">등록하고 50 경험치 받기</button>
+                <button class="submitButton" id="question_detail_submitbtn">등록하고 50 경험치 받기</button>
             </div>
         </div>
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/static/js/word_question.js"></script>
+<script src="/static/js/question_detail.js"></script>
 <script src="/static/js/navList_check.js"></script>
 </html>

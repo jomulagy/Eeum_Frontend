@@ -51,17 +51,17 @@
                 3. 단어 등록시 단어가 의미하는 뜻과 다른 설명은 쓰지 않습니다. (ex. 킹받는다 → 너무 신난다는 의미를 가짐.)<br>
                 4. 포인트를 얻기 위한 과도한 단어 등록 행위는 제한합니다.</p>
         </div>
-        <!-- <div class="word_register_question" id="word_register_q1">
+        <div class="word_register_question" id="q1">
             <P id="word_register_q1">1. 등록하고 싶은 단어를 입력해 주세요.</P>
-            <input type="text" class="word_register_input">
-            <button id="word_register_nextbtn">다음으로</button>
+            <input type="text" class="word_register_input" id="word_register_input">
+            <button disabled class="nextButton" id="word_register_nextbtn" data-next="#q2">다음으로</button>
+            <div class="word_register_availability">
+                <p id="success" style="display: none;"><i class="fa-solid fa-check"></i> 등록 가능한 단어입니다.</p>
+                <p id="fail" style="display: none;"><i class="fa-solid fa-xmark"></i> 이미 등록된 단어입니다.</p>
+            </div>
         </div>
-        <div class="word_register_availability">
-            <p id="success"><i class="fa-solid fa-check"></i> 등록 가능한 단어입니다.</p>
-            <p id="fail"><i class="fa-solid fa-xmark"></i> 이미 등록된 단어입니다.</p>
-        </div> -->
-        <!-- <div class="word_register_question" id="word_register_q2">
-            <P id="word_register_q2">2. 어쩔티비는 어떤 세대의 단어인가요?</P><br>
+        <div class="word_register_question" id="q2" style="display: none;">
+            <P id="word_register_q2">2. 어쩔티비는 어떤 세대의 단어인가요? (최대 2개 선택)</P><br>
             <div class="word_register_genselect">
                 <input type="checkbox" id="age10" name="age" value="10">
                 <label for="age10" class="selectbtn" id="selectbtn_10">10대</label>
@@ -78,10 +78,10 @@
                 <input type="checkbox" id="age50" name="age" value="50">
                 <label for="age50" class="selectbtn"id="selectbtn_50">50대 이상</label>
     
-                <button id="word_register_nextbtn">다음으로</button>
+                <button disabled class="nextButton" id="word_register_nextbtn1" data-next="#q3">다음으로</button>
               </div>
-        </div> -->
-        <div class="word_register_question" id="word_register_q3">
+        </div>
+        <div class="word_register_question" id="q3" style="display: none;">
             <p id="word_register_q3">3. 어쩔티비의 뜻을 한 줄로 작성해주세요.</p>
             <p>
                 <textarea id="q3_word_register_textarea" cols="70" rows="3"></textarea>
@@ -91,10 +91,10 @@
             </div>
             </p>
             <div>
-                <button id="word_register_nextbtn2">다음으로</button>
+                <button disabled class="nextButton" id="word_register_nextbtn2" data-next="#q4">다음으로</button>
             </div>
         </div>
-        <!-- <div class="word_register_question" id="word_register_q4">
+        <div class="word_register_question" id="q4" style="display: none;">
             <p id="word_register_q4">4. 어쩔티비에 대한 설명을 300자 이내로 작성해 주세요.</p>
             <p>
                 <textarea id="q4_word_register_textarea" cols="70" rows="10"></textarea>
@@ -103,12 +103,12 @@
                 <span class="q4_text-length-total">300</span>
             </div>
             </p>
+            <div>
+                <button disabled class="nextButton" id="word_register_nextbtn3" data-next="#q5">다음으로</button>
+            </div>
         </div>
-        <div>
-            <button id="word_register_nextbtn2">다음으로</button>
-        </div> -->
-<!-- 
-        <div class="word_register_question" id="word_register_q5">
+        
+        <div class="word_register_question" id="q5" style="display: none;">
             <p id="word_register_q5">5. 설명에 도움이 되는 사진을 추가해주세요.</p>
             <div class="image-preview">
                 <div class="preview-container" id="preview-container">
@@ -121,12 +121,13 @@
                 <input type="file" id="image-input" accept="image/*">
             </div>
             <div>
-                <button id="word_register_submitbtn">등록하고 100 경험치 받기</button>
-            </div> 
-        </div> -->
+                <button class="submitButton" id="word_register_submitbtn">등록하고 100 경험치 받기</button>
+            </div>  
+        </div>
 
     </div>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/static/js/word_register.js"></script>
 <script src="/static/js/image_input.js"></script>
 <script src="/static/js/navList_check.js"></script>

@@ -126,7 +126,7 @@ body {
 }
 
 
-.word_question_container{
+.question_detail_container{
     max-width: 768px; /* 최대 가로 폭을 768px로 제한 */
     padding: 1rem; /* 컨테이너 주위에 약간의 간격을 추가*/
     text-align: left; /* 컨테이너 안의 요소들을 왼쪽 정렬*/
@@ -135,7 +135,7 @@ body {
 }
 
     
-.word_question_header p{
+.question_detail_header p{
     color: black;
     font-family: 'Pretendard-Regular';
     font-size: 1.2rem;
@@ -145,7 +145,7 @@ body {
     /* 2.6rem */
 }
 
-.word_question_input {
+.question_detail_input {
     border-radius: 0.3rem;
     padding: 0.5rem 0.5rem;
     width: 30rem;
@@ -156,7 +156,7 @@ body {
     background: #FFF;
 } /* 단어 등록 입력창 CSS */
 
-.word_question_header p strong {
+.question_detail_header p strong {
     font-weight: 700;
 } /*이음 강조*/
 
@@ -190,6 +190,7 @@ body {
     left: 0;
     top: -5; /* 팝업이 .readNotices 요소 아래에 위치하도록 설정하고 여유 공간 확보 */
     right: 0;
+    margin-left: 26%;
     padding: 1rem 1rem;
     width: 49rem;
     line-height: 2rem;
@@ -213,57 +214,15 @@ body {
 }
 /* 주의 사항 열람하기 박스 CSS */
 
-.word_question_question{
+.question_detail_question{
     font-weight: bold;
 }
 
-#word_question_nextbtn {
-    color: #232427;
-    text-align: center;
-    font-family: 'Pretendard-regular';
-    padding: 0.5rem 0.8rem 0.5rem;
-    margin-left: 0.5rem;
-    font-size: 0.8rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 130%;
-    outline: none;
-    border: none;
-    border-radius: 5rem;
-    background-color: #FFE173;
-    box-shadow: 1px 1px 1.5px 1px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-}/* '계속 질문하기' 첫번째 버튼 */
-
-#word_question_nextbtn:hover {
+#question_detail_nextbtn:hover {
     background-color: #FFD87D;
 }
 
-#word_question_nextbtn[disabled] {
-    background-color: lightgray;
-    cursor: default;
-    color: gray;
-    font-weight: lighter;
-}
-
-#word_question_nextbtn[disabled]:hover{
-    background-color: lightgray;
-    cursor: default;
-}
-
-.word_question_availability{
-    font-size: 0.8rem;
-}
-
-.word_question_availability #success {
-    color: #A3D9CB;
-}
-
-.word_question_availability #fail {
-    color: #232427;
-}
-
-.word_question_question textarea {
+.question_detail_question textarea {
     resize: none;
     border: none;
     outline: none;
@@ -275,13 +234,13 @@ body {
 }/*textarea CSS*/
 
 /* textarea-length span 오른쪽 배치 CSS*/
-.word_question_text-length{
+.question_detail_text-length{
     margin-top: -1rem;
     float: right;
     margin-bottom: 1rem;
 }
 
-#word_question_submitbtn{
+#question_detail_submitbtn{
     display: inline-block;
     width: 44rem;
     padding: 0.7rem 0.5rem;
@@ -298,16 +257,16 @@ body {
     cursor: pointer;
 }
 
-#word_question_submitbtn:hover {
+#question_detail_submitbtn:hover {
     background-color: #FFD87D; /* 마우스를 올렸을 때의 배경색 */
 } /* 질문 작성 제출 버튼 hover*/
 
-#word_question_submitbtn[disabled]{
-    background-color: lightgray; 
+#question_detail_submitbtn[disabled] {
+    background-color: lightgray;
     cursor: default;
 }
-
-#word_question_submitbtn[disabled]:hover{
-    background-color: lightgray; 
+    
+#question_detail_submitbtn[disabled]:hover{ 
+    background-color: lightgray;
     cursor: default;
 }
