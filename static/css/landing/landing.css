@@ -1,0 +1,182 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    list-style: none;
+    font-family: 'Pretendard-Regular';
+    font-style: normal;
+    text-decoration-line: none;
+    border-style: none;
+}
+
+
+body{
+    background: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.navBar {
+    z-index: 1;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10vh;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
+}
+
+.navWrap {
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+    width: 100%;
+    padding: 0 2rem;
+}
+
+.navFirst {
+    flex: 1;
+}
+
+.navSecond {
+    flex: 1;
+    font-weight: bold;
+}
+
+
+/* nav icon list를 수평으로 표시하기 위해 수정 */
+.navicon {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.naviconList {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.naviconList li img {
+    width: 30px;
+    height: 32px;
+    fill: #232427;
+}
+
+
+.navList li {
+    font-size: 1.2rem;
+    border: none;
+    background-color: #FFF;
+    border-radius: 2rem;
+    padding: 8px 12px;
+}
+
+.navList li.selected{
+    font-size: 1.2rem;
+    border: none;
+    background-color: #FFE173;
+    border-radius: 2rem;
+    padding: 8px 12px;
+}
+
+.mainLogo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navList {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navList li {
+    white-space: nowrap;
+}
+
+.navList li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    border-radius: 4.5rem;
+}
+
+.userProfile {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+}
+
+.loginBtn{
+    border-radius: 1.25rem;
+    background: #FFE173;
+    filter: drop-shadow(0px 4px 4px rgba(160, 160, 160, 0.25));
+    
+    display: flex;
+    padding: 0rem 1.875rem;
+    align-items: center;
+    gap: 1rem;
+}
+
+.loginBtnTxt{
+    margin-top: 0.9rem;
+    margin-bottom: 0.9rem;
+    color: #232427;
+    text-align: center;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%; /* 1.625rem */
+}
+
+/*container*/
+.container{
+    position: relative;
+    width: 100%;
+}
+
+/*플로팅 버튼 css 시작 부분*/
+#floating_button_wrap {
+    position: fixed;
+    bottom: 6em;
+    z-index: 1;
+}
+
+.floating_button {
+    width: 49.25rem;
+    height: 4rem;
+    border-radius: 1.875rem;
+    background: #232427;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.floating_button_name{
+    color: #FFF;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+/*플로팅 버튼 css 끝 부분*/

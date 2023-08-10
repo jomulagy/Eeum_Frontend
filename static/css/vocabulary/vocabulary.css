@@ -1,0 +1,320 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    list-style: none;
+    font-family: 'Pretendard-Regular';
+    font-style: normal;
+    text-decoration-line: none;
+    border-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: #FAFAFA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+
+}
+
+.navBar {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10vh;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
+}
+
+.navWrap {
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+    width: 100%;
+    padding: 0 2rem;
+}
+
+.navFirst {
+    flex: 1;
+}
+
+.navSecond {
+    flex: 1;
+    font-weight: bold;
+}
+
+/* nav icon list를 수평으로 표시하기 위해 수정 */
+.navicon {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.naviconList {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.naviconList li img {
+    width: 24px;
+    height: 26px;
+    fill: #232427;
+}
+
+.navList li {
+    font-size: 1.2rem;
+    border: none;
+    background-color: #FFF;
+    border-radius: 2rem;
+    padding: 8px 12px;
+}
+
+.navList li.selected{
+    font-size: 1.2rem;
+    border: none;
+    background-color: #FFE173;
+    border-radius: 2rem;
+    padding: 8px 12px;
+}
+
+.mainLogo > img {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-decoration: none;
+    width: 48px;
+    height: 25.12px;
+}
+
+.navList {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navList li {
+    white-space: nowrap;
+}
+
+.navList li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    border-radius: 4.5rem;
+}
+
+.userProfile {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+}
+
+/*container*/
+.container{
+    min-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    padding-top: 14.0741vh;
+}
+
+/* fix부분 */
+.fix > p{
+    color: #232427;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%; 
+    margin-bottom: 1.5rem;
+}
+
+.delSelect{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1.875rem;
+    background: #D9D9D9;
+
+    width: 6.375rem;
+    height: 3.75rem;
+    color: #232427;
+    text-align: center;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%; /* 26px */
+    
+    /* Drop Shadow */
+    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
+}
+
+.delSelect:active{
+    position: relative;
+    top: 2px;
+}
+
+.main{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* 질문 부분 */
+.main_mword > p{
+    width: 17.375rem;
+    color: #232427;
+    font-size: 1.75rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%; /* 2.275rem */
+    margin-top: 4rem;
+    margin-bottom: 0.75rem;
+}
+
+/* 단어 부분 */
+.word_container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1.88rem;
+    margin-top: 3rem;
+}
+
+.word{
+    width: 17.375rem;
+    height: 12.5rem;
+    border-radius: 1.25rem;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
+    cursor: pointer;
+}
+
+.word:active{
+    position: relative;
+    top: 2px;
+}
+
+.word:hover{
+    opacity: 0.8;
+}
+
+.word_name{
+    margin-top: 0.86rem;
+    margin-left: 1.48rem;
+    column-count: 2;
+    column-gap: 8rem;
+}
+
+.word_name > p{
+    width: 9.455rem;
+    height: 1.5rem;
+    color: #232427;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.word_name > img{
+    width: 2.36931rem;
+    height: 2.25rem;
+}
+
+.word_what{
+    width: 14.35644rem;
+    height: 6.27069rem;
+    margin-top: 0.75rem;
+}
+
+.word_what > p{
+    color: #232427;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 1.6875rem */
+    margin-left: 1.5rem;
+}
+
+.word_heart{
+    width: 1.233rem;
+    height: 1rem;
+    margin-top: 0.34rem;
+    margin-left: 1.48rem;
+    column-count: 2;
+}
+
+.word_heart > p{
+    margin-left: 0.62rem;
+    color: #232427;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
+
+/* 페이지네이션 */
+.pagenation{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    display: flex;
+    justify-content: center;
+    margin-top: 4.5rem;
+}
+
+.pre{
+    width: 3rem;
+    height: 3rem;
+}
+
+.pag_btn{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1rem;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
+    border: none;
+    cursor: pointer;
+}
+
+.pag_btn > p{
+    color: #232427;
+    align-items: center;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.25rem; /* 100% */
+    margin: 0;
+}
+
+.pag_btn:active{
+    position: relative;
+    top: 2px;
+}
+
+.pag_btn:hover{
+    opacity: 0.8;
+}
