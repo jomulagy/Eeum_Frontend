@@ -173,6 +173,10 @@ body {
 #word_restore i {
     margin-right: 0.5rem; /* 아이콘과 글씨 사이 간격 조정 */
 }
+
+#like_count, #bookmark_icon{
+    width: 10px; /*숫자 변경 시 위치가 변하는 것을 방지하기 위해 위치 고정 */
+}
 /*fontawesome 아이콘 활용 . 좋아용. 단어장 담기 기능 자리 배치 css -끝- */
 
 
@@ -233,6 +237,22 @@ body {
     font-size: 1.1rem;
 } /*탭의 소제목 css*/
 
+.tab_content_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1rem;
+}
+
+.tab_content_title {
+    font-size: 1rem;
+}
+
+.tab_content_date {
+    font-size: 1rem;
+    color: gray;
+}
+
 #word_title{
     font-weight: bold;
     font-size: 1.5rem;
@@ -245,6 +265,10 @@ body {
 .word_detail_content p{
     line-height: 2rem;
 } /*단어 설명 css*/
+
+#word_detail_footer a{
+    margin-left: 15px;
+}/*사이 간격 조정*/
 
 /* 사용자 레벨 css */
 .word_detail_userlevel {

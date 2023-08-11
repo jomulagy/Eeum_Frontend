@@ -1,3 +1,17 @@
+//질문 id를 받아서 다음 질문으로 넘어갈 수 있도록 하는 js
+$(document).ready(function () {
+    $(".nextButton").on("click", function () {
+        // 현재 표시되고 있는 질문의 ID를 가져옴
+        var currentQuestion = $(this).closest(".modify_word_question").attr("id");
+        // 다음 질문의 ID를 data-next 속성으로부터 가져옴
+        var nextQuestion = $(this).data("next");
+
+        // 현재 질문을 숨기고 다음 질문을 표시
+        $("#" + currentQuestion).hide();
+        $(nextQuestion).show();
+    });
+});
+
 // 질문 1 타이핑 수 제한
 const q1_textarea = document.getElementById('q1_modify_word_textarea');
 const q1_textLengthCnt = document.querySelector('.q1_text-length-cnt');

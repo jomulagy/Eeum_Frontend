@@ -130,7 +130,7 @@ body {
   padding: 1rem; /* 컨테이너 주위에 약간의 간격을 추가*/
   text-align: left; /* 컨테이너 안의 요소들을 왼쪽 정렬*/
   position: relative;
-  top:-70px; /* 컨테이너를 위로 옮기기 */
+  top:-50px; /* 컨테이너를 위로 옮기기 */
 }
 
   
@@ -237,6 +237,20 @@ body {
   background-color: #FFD87D;
 }
 
+#changing_inform_nextbtn[disabled]{
+  background-color: lightgray;
+  color: gray;
+  font-weight: lighter;
+  cursor: default;
+}
+
+#changing_inform_nextbtn[disabled]:hover{
+  background-color: lightgray;
+  color: gray;
+  font-weight: lighter;
+  cursor: default;
+}
+
 .changing_inform_question textarea {
   resize: none;
   border: none;
@@ -248,6 +262,11 @@ body {
   box-shadow: 1px 1px 1.5px 1px rgba(0, 0, 0, 0.2);
 }/*textarea CSS*/
 
+.changing_inform_text-length{
+  margin-top: -1rem;
+  float: right;
+  margin-bottom: 1rem;
+}
 
 #changing_inform_submitbtn {
   display: inline-block;
@@ -269,6 +288,15 @@ body {
   background-color: #FFD87D; /* 마우스를 올렸을 때의 배경색 */
 } /* 수정 요청 제출 버튼 hover*/
 
+#changing_inform_submitbtn[disabled] {
+  background-color: lightgray;
+  cursor: default;
+}
+
+#changing_inform_submitbtn[disabled]:hover{
+  background-color: lightgray;
+  cursor: default;
+}/* 비활성화 제출 버튼 hover 스타일*/
 
 /*드롭 다운 수정 중*/
 
@@ -290,10 +318,21 @@ body {
   border: none;
   box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2);
   /* 그림자 이 수치로 통일 */
-  background: #FFF;
-  padding: 10px 20px;
+  padding: 10px 30px 10px 20px;
   font-size: 16px;
   cursor: pointer;
+  text-align: left;
+}
+
+/* 아래를 향하는 화살표 모양 스타일 */
+.dropdown-btn::after {
+  content: "\25BE";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: black;
 }
 
 /* 드롭다운 컨텐츠 스타일 */
@@ -310,25 +349,6 @@ body {
 /* 드롭다운 버튼 위에 마우스를 올렸을 때 */
 .dropdown-btn:focus + .dropdown-content {
   display: block;
-}
-
-/* 드롭다운 메뉴 항목 스타일 */
-.dropdown-content a {
-  color: #333;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* 드롭다운 메뉴 항목 위에 마우스를 올렸을 때 */
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
-}
-
-/* 아래를 향하는 화살표 모양 스타일 */
-.dropdown-btn::after {
-  content: "\25BE";
-  margin-left: 27rem;
 }
 
 /* 드롭다운 메뉴 영역 스타일 */
