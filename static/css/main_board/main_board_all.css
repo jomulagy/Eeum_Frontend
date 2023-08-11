@@ -15,17 +15,6 @@
     border-style: none;
 }
 
-
-body{
-    background: #FAFAFA;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-}
-
-
 .navBar {
     position: fixed;
     display: flex;
@@ -131,8 +120,6 @@ body{
     height: 3rem;
     border-radius: 50%;
 }
-
-
 /* main container */
 .container{
     display: flex;
@@ -141,112 +128,157 @@ body{
     margin: 14.0741vh 22.5rem;
 }
 
-/* 댓글 버튼 */
-.comment_container{
-    width: 62.1875rem;
-    height: 4rem;
-    border-radius: 1.875rem;
-    background: #FFF;
-    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
-    display: flex;
-    margin-top: 1.5rem;
+/* fix부분 */
+.fix > p{
+    color: #232427;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%; 
+    margin-top: 4.5rem;
+    margin-bottom: 1.5rem;
 }
 
-.comment_btn{
-    width: 8.25rem;
-    height: 2.25rem;
-    border-radius: 1.25rem;
-    background: #232427;
+.main{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* 검색바 부분 */
+.search > p{
+    color: #232427;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%; 
+    margin-top: 4.5rem;
+}
+
+.search_btn{
+    margin-top: 0.75rem;
+    align-items: flex-start;
     display: flex;
-    margin-top: 0.88rem;
-    margin-left: 52.06rem;
+}
+
+.search_btn > input{
+    width: 30.125rem;
+    height: 3.75rem;
+    border-radius: 1.25rem;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
+    justify-content: center;
+}
+
+.search_btn > button{
+    width: 4.5rem;
+    height: 3.75rem;
+    background: #FFE173;
+    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
+    border-radius: 1.25rem;
+    margin-left: 0.75rem;
+    justify-content: center;
     cursor: pointer;
 }
 
-.comment_btn > img{
-    width: 1.5rem;
+.search_btn > button > svg{
+    width: 1.49969rem;
     height: 1.5rem;
-    margin-top: 0.37rem;
-    margin-left: 1.21rem;
+    left: 1.50013rem;
+    top: 1.125rem;
+    fill: var(--black, #232427);
 }
 
-.comment_btn > p{
+/* 단어 추가 버튼 부분 */
+.rword{
+    align-items: flex-start;
+    display: flex;
+    margin-left: 0.75rem;
+}
+
+.rword > button{
+    width: 12.5rem;
+    height: 3.75rem;
+    border-radius: 1.25rem;
+    background: #232427;
+    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
+    display: flex;
+    cursor: pointer;
+}
+
+.rword > button > img{
+    width: 2rem;
+    height: 2rem;
+    margin-left: 0.84rem;
+    float: left;
+    margin-top: 0.94rem;
+}
+
+.rword > button > p{
     color: #FFF;
+    font-size: 1.3rem;
+    font-style: normal;
+    font-weight: 500;
+    margin-left: 0.85rem;
+    margin-top: 0.94rem;
+}
+
+/* 조회수가 많은 단어 부분 */
+.option_container{
+    display: flex;
+}
+
+.option_container > p{
+    width: 17.375rem;
+    color: #232427;
+    font-size: 1.75rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%; /* 2.275rem */
+    margin-top: 4rem;
+    margin-bottom: 0.75rem;
+}
+
+.option_container > select{
+    width: 5.894rem;
+    height: 2.25rem;
+    border-radius: 1.25rem;
+    background: #FFE173;
+    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
+    margin-top: 4rem;
+    margin-left: 51.81rem;
+    color: #232427;
     font-size: 1rem;
     font-style: normal;
     font-weight: 500;
     line-height: 130%; /* 1.3rem */
-    margin-top: 0.47rem;
-    margin-left: 0.5rem;
 }
 
-/* 질문한 단어 등록 */
-.comment_txt{
+/* 질문 부분 */
+.main_mword > p{
+    width: 17.375rem;
     color: #232427;
     font-size: 1.75rem;
     font-style: normal;
     font-weight: 600;
     line-height: 130%; /* 2.275rem */
     margin-top: 4rem;
-    display: flex;
+    margin-bottom: 0.75rem;
 }
-
-/* 등록된 댓글 */
-.comment_sbm{
-    color: #232427;
-    font-size: 1.75rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 130%; /* 2.275rem */
-    margin-top: 4rem;
-    display: flex;
-}
-
-/* 등록하기 */
-.submit_btn_container{
-    display: flex;
-    margin-top: 4rem;
-    margin-left: 17.24rem;
-}
-
-.submit_btn_container > a{
-    color: #232427;
-    font-size: 1.25rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 130%; /* 1.625rem */
-}
-
-.submit_btn_container > p{
-    color: #232427;
-    font-size: 1.25rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 130%; /* 1.625rem */
-}
-
-.submit_btn{
-    margin-left: 3.12rem;
-    text-decoration: underline;
-}
-
 
 /* 카드 부분 */
+.qna_card_container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1.88rem;
+}
 
 .qna_card{
     display: flex;
     position: relative;
-    margin-top: 4.5rem;
-    width: 62.1875rem;
-    height: 15.85969rem;
-}
-
-.qna_card_comment{
-    display: flex;
-    position: relative;
-    margin-top: 1.5rem;
-    width: 62.1875rem;
-    height: 15.85969rem;
+    width: 36.625rem;
+    height: 15.1435rem;
 }
 
 .qna_card_img > img{
@@ -262,8 +294,8 @@ body{
 .qna_card_background{
     position: absolute;
     top: 2.6435rem;
-    width: 62.1875rem;
-    height: 12.48469rem;
+    width: 36.625rem;
+    height: 12.5rem;
     border-radius: 1.25rem;
     background: #FFF;
     box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
@@ -343,7 +375,7 @@ body{
     align-items: center;
     z-index: 5;
     top: 12.89rem;
-    left: 49.38rem;
+    left: 12rem;
     width: 10.9375rem;
     height: 2.25rem;
     border-radius: 1.25rem;
@@ -368,100 +400,121 @@ body{
     margin-left: 0.2rem;
 }
 
-
-/* 단어 부분 */
-.word_container{
+.qna_card_a > button{
+    position: absolute;
+    top: 12.89rem;
+    left: 23.69rem;
     display: flex;
-    margin-top: 1.5rem;
-}
-
-.word{
-    width: 17.375rem;
-    height: 12.5rem;
+    align-items: center;
+    width: 10.9375rem;
+    height: 2.25rem;
     border-radius: 1.25rem;
-    background: #FFF;
+    border: 3px solid var(--black, #232427);
+    background: var(--black, #232427);
+    z-index: 6;
     box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
     cursor: pointer;
 }
 
-.word:active{
+.qna_card_a > button > img{
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: 0.9rem;
+}
+
+.qna_card_a > button > p{
+    color: #FFF;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%; /* 1.3rem */
+    margin-left: 0.2rem;
+}
+
+/* 페이지네이션 */
+.pagenation{
+    display: flex;
+    margin-top: 4.5rem;
+    width: 75.125rem;
+    justify-content: center;
+}
+
+.pagination_container{
+    display: flex;
+    gap: 0.5rem;
+}
+
+.pre{
+    width: 3rem;
+    height: 3rem;
+}
+
+.pag_btn{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1rem;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
+    border: none;
+    cursor: pointer;
+}
+
+.pag_btn.current {
+    background: #FFD700; /* 노란색 배경 */
+    color: #232427; /* 검은색 글자 색상 */
+}
+
+.pag_btn > p{
+    color: #232427;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.25rem; /* 100% */
+    margin: 0;
+    align-items: center;
+}
+
+/* 버튼 눌림 효과 */
+.pag_btn:active{
     position: relative;
     top: 2px;
 }
 
-.word:hover{
+.pag_btn:hover{
     opacity: 0.8;
 }
 
-.word_name{
-    margin-top: 0.86rem;
-    margin-left: 1.48rem;
-    column-count: 2;
-    column-gap: 5rem;
+.qna_card_a >button:hover{
+    opacity: 0.8;
 }
 
-.word_name > p{
-    width: 9.455rem;
-    height: 1.5rem;
-    color: #232427;
-    font-size: 1.25rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-
-.img_container{
-    display: flex;
-}
-
-
-.word_name > img{
-    width: 2.36931rem;
-    height: 2.25rem;
-}
-
-.word_what{
-    width: 14.35644rem;
-    height: 6.27069rem;
-    margin-top: 0.75rem;
-}
-
-.word_what > p{
-    color: #232427;
-    font-size: 1.125rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 150%; /* 1.6875rem */
-    margin-left: 1.5rem;
-}
-
-.word_heart{
-    width: 1.233rem;
-    height: 1rem;
-    margin-top: 0.34rem;
-    margin-left: 1.48rem;
-    column-count: 2;
-}
-
-.word_heart > p{
-    margin-left: 0.62rem;
-    color: #232427;
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-
-/* 버튼 눌림 효과 */
 .qna_card_q >button:hover{
     opacity: 0.8;
 }
 
-.comment_btn:active{
+.pag_btn:active{
     position: relative;
     top: 2px;
 }
 
-.comment_btn:hover{
+.pag_btn:hover{
+    opacity: 0.8;
+}
+
+.rword > button:active{
+    position: relative;
+    top: 2px;
+}
+
+.rword > button:active{
+    opacity: 0.8;
+}
+
+.search_btn > button:active{
+    position: relative;
+    top: 2px;
+}
+
+.search_btn > button:active{
     opacity: 0.8;
 }
