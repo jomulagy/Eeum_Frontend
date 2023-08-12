@@ -135,7 +135,8 @@ body{
     display: flex;
     flex-direction: column;
     justify-items: center;
-    padding-top: 14.0741vh;
+    margin-top: 10vh;
+    padding-top: 3rem;
 }
 
 /* fix부분 */
@@ -274,20 +275,29 @@ body{
 }
 
 
-
 /* 페이지네이션 */
+
 .pagenation{
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.5rem;
     display: flex;
-    justify-content: center;
     margin-top: 4.5rem;
+    width: 75.125rem;
+    margin-left: -3rem;
+    justify-content: center;
+}
+
+.pagination_container{
+    display: flex;
+    gap: 0.5rem;
 }
 
 .pre{
     width: 3rem;
     height: 3rem;
+}
+
+.pag_btn.current {
+    background: #FFD700; /* 노란색 배경 */
+    color: #232427; /* 검은색 글자 색상 */
 }
 
 .pag_btn{
@@ -317,4 +327,107 @@ body{
 
 .pag_btn:hover{
     opacity: 0.8;
+}
+
+/*퀴즈 버튼*/
+.quizWrap{
+    margin-top: 3rem;   
+    display: flex;
+    justify-content: center;
+}
+
+.quizBtn{
+    width: 50%;
+    padding: 1rem;
+    border-radius: 1.875rem;
+    background: #FFE173;
+    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
+    cursor: pointer;
+}
+
+.quizBtn:hover{
+    opacity: 0.8;
+}
+
+.quizBtn:active{
+    position: relative;
+    top: 2px;
+}
+
+.quizBtn > p{
+    color: #232427;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 130%; /* 1.625rem */
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.noWordPage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+
+.noWordContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+.noWordTitle{
+    color: #232427;
+    text-align: center;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%; /* 2.6rem */
+}
+
+.noWordSymbol{
+    width: 6.25rem;
+    height: 6.25rem;
+}
+
+.noWordContent{
+    color: #232427;
+    text-align: center;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 1.875rem */
+}
+
+.wordBrowserBtn{
+    cursor: pointer;
+    border-radius: 1.875rem;
+    background: #FFF;
+
+    color: #232427;
+    text-align: center;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%; /* 1.625rem */
+                
+    width: 14.6875rem;
+    height: 3.75rem;
+    /* Drop Shadow */
+    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
+}
+
+.wordBrowserBtn:hover{
+    opacity: 0.8;
+}
+
+.wordBrowserBtn:active{
+    position: relative;
+    top: 2px;
 }
