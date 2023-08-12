@@ -10,6 +10,14 @@ $(document).ready(function () {
         $("#" + currentQuestion).hide();
         $(nextQuestion).show();
     });
+    $(".backButton").click(function() {
+        // 현재 표시되고 있는 단계를 숨깁니다.
+        var currentStep = $(".word_question_question:visible");
+        currentStep.hide();
+
+        // 이전 단계를 보이도록 설정합니다.
+        currentStep.prev(".word_question_question").show();
+    });
       // 질문 1 입력값 감지하여 버튼 활성화/비활성화
       $('#word_question_input').on('input', function () {
         var inputVal = $(this).val(); // 입력된 텍스트 값

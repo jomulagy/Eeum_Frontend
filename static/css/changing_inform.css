@@ -130,7 +130,7 @@ body {
   padding: 1rem; /* 컨테이너 주위에 약간의 간격을 추가*/
   text-align: left; /* 컨테이너 안의 요소들을 왼쪽 정렬*/
   position: relative;
-  top:-50px; /* 컨테이너를 위로 옮기기 */
+  top:-30px; /* 컨테이너를 위로 옮기기 */
 }
 
   
@@ -215,6 +215,24 @@ body {
   font-weight: bold;
 }
 
+#word_register_backbtn{
+  display: inline-block;
+  width: 44rem;
+  padding: 0.7rem 0.5rem;
+  border-radius: 1.5rem;
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 130%;
+  outline: none;
+  border: none;
+  border-radius: 5rem;
+  background-color: #FFF;
+  box-shadow: 1px 1px 1.5px 1px rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+  cursor: pointer;
+}
+
 #changing_inform_nextbtn {
   color: #232427;
   text-align: center;
@@ -282,6 +300,7 @@ body {
   border-radius: 5rem;
   background-color: #FFE173;
   box-shadow: 1px 1px 1.5px 1px rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
   cursor: pointer;
 }
 #changing_inform_submitbtn:hover {

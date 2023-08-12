@@ -10,6 +10,54 @@ $(document).ready(function () {
         $("#" + currentQuestion).hide();
         $(nextQuestion).show();
     });
+    $(".backButton").click(function() {
+        // 현재 표시되고 있는 단계를 숨깁니다.
+        var currentStep = $(".modify_word_question:visible");
+        currentStep.hide();
+  
+        // 이전 단계를 보이도록 설정합니다.
+        currentStep.prev(".modify_word_question").show();
+    });
+    // 텍스트 영역에 입력이 있을 때
+    $('#q1_modify_word_textarea').on('input', function () {
+        var inputVal = $(this).val(); // 입력된 텍스트 값
+        var nextButton = $('#modify_word_nextbtn1');
+        
+        // 입력된 텍스트 길이 계산
+        var textLength = inputVal.length;
+        var maxLength = 40; // 최대 길이
+        
+        // 텍스트 길이 정보 업데이트
+        $('.q1_text-length-cnt').text(textLength);
+        $('.q1_text-length-total').text(maxLength);
+
+        // 텍스트 값이 비어있거나 최대 길이를 넘지 않을 때 버튼 활성화
+        if (textLength <= maxLength && textLength > 0) {
+            nextButton.prop('disabled', false);
+        } else {
+            nextButton.prop('disabled', true);
+        }
+    });
+    // 텍스트 영역에 입력이 있을 때
+    $('#q2_modify_word_textarea').on('input', function () {
+        var inputVal = $(this).val(); // 입력된 텍스트 값
+        var nextButton = $('#modify_word_nextbtn2');
+        
+        // 입력된 텍스트 길이 계산
+        var textLength = inputVal.length;
+        var maxLength = 40; // 최대 길이
+        
+        // 텍스트 길이 정보 업데이트
+        $('.q2_text-length-cnt').text(textLength);
+        $('.q2_text-length-total').text(maxLength);
+
+        // 텍스트 값이 비어있거나 최대 길이를 넘지 않을 때 버튼 활성화
+        if (textLength <= maxLength && textLength > 0) {
+            nextButton.prop('disabled', false);
+        } else {
+            nextButton.prop('disabled', true);
+        }
+    });
 });
 
 // 질문 1 타이핑 수 제한

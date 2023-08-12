@@ -7,6 +7,14 @@ $(document).ready(function () {
         currentQuestion.hide();
         $(nextQuestion).show();
     });
+    $(".backButton").click(function() {
+        // 현재 표시되고 있는 단계를 숨깁니다.
+        var currentStep = $(".word_register_question:visible");
+        currentStep.hide();
+
+        // 이전 단계를 보이도록 설정합니다.
+        currentStep.prev(".word_register_question").show();
+    });
 
     // 질문 1 입력값 감지하여 버튼 활성화/비활성화
     $('#word_register_input').on('input', function () {
@@ -28,7 +36,7 @@ $(document).ready(function () {
     checkboxes.on("click", function() {
         var checkedCount = checkboxes.filter(":checked").length;
 
-        if (checkedCount >= maxChecked) {
+        if (checkedCount > maxChecked) {
             checkboxes.not(":checked").prop("disabled", true);
         } else {
             checkboxes.prop("disabled", false);
@@ -39,6 +47,12 @@ $(document).ready(function () {
         } else {
             nextButton.prop("disabled", true); // 버튼 비활성화
         }
+
+        if (checkedCount === 3) {
+            // 세 번째 체크박스가 선택되었을 때 해제하고 알림창을 띄웁니다.
+            alert("최대 2개까지 선택해주시기 바랍니다.");
+            checkboxes.filter(":checked").last().prop("checked", false);   
+          }
     });
 
     // 질문 3 입력값 감지하여 버튼 활성화/비활성화

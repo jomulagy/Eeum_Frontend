@@ -21,7 +21,7 @@ document.getElementById('image-input').addEventListener('change', function (even
 function deleteImage() {
     const previewImage = document.getElementById('preview-image');
     const imageInput = document.getElementById('image-input');
-    imageInput.value = ''; // Clear the file input value
+    imageInput.value = ''; 
     previewImage.style.backgroundImage = '';
     previewImage.classList.add('empty-preview');
 }
