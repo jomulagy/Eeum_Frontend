@@ -11,21 +11,19 @@
     font-style: normal;
     text-decoration-line: none;
     border-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 
 body{
-    background: #FFEEB0;
+    background: #FAFAFA;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0;
 }
 
-ul{
-    padding: 0;
-}
 .navBar {
     position: fixed;
     display: flex;
@@ -55,7 +53,6 @@ ul{
     flex: 1;
     font-weight: bold;
 }
-
 
 /* nav icon list를 수평으로 표시하기 위해 수정 */
 .navicon {
@@ -133,179 +130,143 @@ ul{
 
 /*container*/
 .container{
-    min-width: 996px;
+    min-width: 994px; 
     display: flex;
     flex-direction: column;
     justify-items: center;
-    align-items: center;
     gap: 1.5rem;
-    margin-top: 14.0741vh;
-    padding-top: 6rem;
+    margin-top: 10vh;
+    padding-top: 3rem;
 }
 
-.scoreContainer{
+.guideContainer{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 3rem;
+    gap: 1.5rem;
+    flex-wrap: wrap;
 }
 
-.quizScore{
+.guideTxt{
     color: #232427;
-    text-align: center;
     font-size: 2rem;
-    font-style: normal;
     font-weight: 600;
     line-height: 130%; /* 2.6rem */
-}
+} 
 
-.scoreContent{
-    color: #232427;
-    text-align: center;
-    font-size: 1.25rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 150%; /* 1.875rem */
-}
-
-.reviewContainer{
+.guideBtn{
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.5rem;
-}
-
-.reviewTxt{
-    color: #232427;
-    font-size: 1.75rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 130%; /* 2.275rem */
-}
-
-.reviewWordList{
-    display: grid;  
-    grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 5rem;
-    row-gap: 3rem;
-}
-
-/*
-
-.reviewWordCard{
-    cursor: pointer;
-    width: 17.375rem;
-    height: 12.5rem;
-    padding: 1.51rem;
-
-    border-radius: 1.25rem;
-    background: #FFF;
-
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.wordCardTitle{
-    color: #232427;
-    font-size: 1.25rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-
-.wordCardTop{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     align-items: center;
+    gap: 0.75rem;
 }
 
-.wordCardContent{
-    color: #232427;
-    font-size: 1.125rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 150%; 
-
-    width: 14.35644rem;
-    height: 6.27069rem;
-} */
-
-.word{
-    width: 17.375rem;
-    height: 12.5rem;
-    border-radius: 1.25rem;
-    background: #FFF;
-    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
-}
-
-.word_name{
-    margin-top: 0.86rem;
-    margin-left: 1.48rem;
-    column-count: 2;
-    column-gap: 8rem;
-}
-
-.word_name > p{
-    width: 9.455rem;
-    height: 1.5rem;
-    color: #232427;
-    font-size: 1.25rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-
-.word_name > img{
-    width: 2.36931rem;
-    height: 2.25rem;
-}
-
-.word_what{
-    width: 14.35644rem;
-    height: 5rem;
-}
-
-.word_what > p{
-    color: #232427;
-    font-size: 1.125rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 150%; /* 1.6875rem */
-    margin-left: 1.5rem;
-}
-
-.word_heart{
-    width: 1.233rem;
-    height: 1rem;
-    margin-left: 1.48rem;
-    column-count: 2;
-}
-
-.word_heart > p{
-    margin-left: 0.62rem;
-    color: #232427;
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-
-.wordBrowserBtn{
+.guideBtn > input{
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 1.875rem;
-    background: #FFF;
-
+    background: #D9D9D9;
+    padding: 1.25rem;
     color: #232427;
     text-align: center;
-    font-size: 1.25rem;
+    font-size: 20px;
     font-style: normal;
     font-weight: 600;
-    line-height: 130%; /* 1.625rem */
-                
-    width: 14.6875rem;
-    height: 3.75rem;
+    line-height: 130%; /* 26px */
+    
     /* Drop Shadow */
     box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
 }
+
+.guideBtn > input:hover{
+    opacity: 0.8;
+}
+
+.guideBtn > input:active{
+    background-color: #FFE173;
+    position: relative;
+    top: 2px;
+}
+
+.alertList{
+    min-width: 994px;
+}
+
+.alertCardList{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    height: 41.5rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.alertCardList::-webkit-scrollbar {
+    width: 0.625rem;
+}
+
+.alertCardList::-webkit-scrollbar-thumb {
+    background-color: #FFE173;
+    border-radius: 0.625rem;
+    height: 30%;
+}
+
+.alertCard{
+    width: 94%;
+    border-radius: 1.875rem;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
+
+    padding: 1.25rem 1.59rem;
+    cursor: pointer;
+}
+
+.alertCard:hover{
+    opacity: 0.8;
+}
+
+.alertCard:active{
+    position: relative;
+    top: 2px;
+}
+
+.alertCard.selected {
+    border: 2px solid #FFE173;
+    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
+}
+
+.alertCard.checked {
+    background-color: #FAFAFA;
+}
+
+.alertText{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.cardInfo{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cardInfo p{
+    color: #232427;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 130%; /* 23.4px */
+}
+
+.alertContent{
+    color: #232427;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 30px */
+}
+
+  
