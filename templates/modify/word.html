@@ -61,7 +61,7 @@
             </div>
             </p>
             <div>
-                <button class="nextButton" id="modify_word_nextbtn" data-next="#q2">다음으로</button>
+                <button disabled class="nextButton" id="modify_word_nextbtn1" data-next="#q2">다음으로</button>
             </div>
         </div>
         <div class="modify_word_question" id="q2" style="display: none;">
@@ -74,7 +74,10 @@
                 </div>
             </p>
             <div>
-                <button class="nextButton" id="modify_word_nextbtn" data-next="#q3">다음으로</button>
+                <button class="backButton" id="word_register_backbtn">이전으로</button>
+            </div>
+            <div>
+                <button disabled class="nextButton" id="modify_word_nextbtn2" data-next="#q3">다음으로</button>
             </div>
         </div>
         <div class="modify_word_question" id="q3" style="display: none;">
@@ -88,6 +91,9 @@
                     <button id="delete-btn" onclick="deleteImage()">삭제하기</button>
                 </div>
                 <input type="file" id="image-input" accept="image/*">
+            </div>
+            <div>
+                <button class="backButton" id="word_register_backbtn">이전으로</button>
             </div>
             <div>
                 <button class="submitButton" id="modify_word_submitbtn">등록하고 50 경험치 받기</button>

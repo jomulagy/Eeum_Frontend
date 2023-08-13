@@ -77,8 +77,10 @@
                 
                 <input type="checkbox" id="age50" name="age" value="50">
                 <label for="age50" class="selectbtn"id="selectbtn_50">50대 이상</label>
-    
+
+                <button class="backButton" id="word_register_backbtn1" data-next="#q3">이전으로</button>
                 <button disabled class="nextButton" id="word_register_nextbtn1" data-next="#q3">다음으로</button>
+                
               </div>
         </div>
         <div class="word_register_question" id="q3" style="display: none;">
@@ -90,6 +92,9 @@
                 <span class="q3_text-length-total">40</span>
             </div>
             </p>
+            <div>
+                <button class="backButton" id="word_register_backbtn" data-next="#q4">이전으로</button>
+            </div>
             <div>
                 <button disabled class="nextButton" id="word_register_nextbtn2" data-next="#q4">다음으로</button>
             </div>
@@ -103,6 +108,9 @@
                 <span class="q4_text-length-total">300</span>
             </div>
             </p>
+            <div>
+                <button class="backButton" id="word_register_backbtn" data-next="#q5">이전으로</button>
+            </div>
             <div>
                 <button disabled class="nextButton" id="word_register_nextbtn3" data-next="#q5">다음으로</button>
             </div>
@@ -119,6 +127,9 @@
                     <button id="delete-btn" onclick="deleteImage()">삭제하기</button>
                 </div>
                 <input type="file" id="image-input" accept="image/*">
+            </div>
+            <div>
+                <button class="backButton" id="word_register_backbtn">이전으로</button>
             </div>
             <div>
                 <button class="submitButton" id="word_register_submitbtn">등록하고 100 경험치 받기</button>

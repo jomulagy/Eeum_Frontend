@@ -29,6 +29,14 @@ $(document).ready(function () {
         $("#" + currentQuestion).hide();
         $(nextQuestion).show();
     });
+    $(".backButton").click(function() {
+      // 현재 표시되고 있는 단계를 숨깁니다.
+      var currentStep = $(".changing_inform_question:visible");
+      currentStep.hide();
+
+      // 이전 단계를 보이도록 설정합니다.
+      currentStep.prev(".changing_inform_question").show();
+    });
     //질문 2 텍스트 입력 감지 및 버튼 활성화/비활성화
     $('#changing_inform_textarea').on('input', function () {
       var inputVal = $(this).val(); // 입력된 텍스트 값
