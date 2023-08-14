@@ -9,12 +9,16 @@ document.getElementById('image-input').addEventListener('change', function (even
         reader.onload = function () {
             previewImage.style.backgroundImage = `url(${reader.result})`;
             previewImage.classList.remove('empty-preview');
+
+            uploadedimage = reader.result;
         };
 
         reader.readAsDataURL(file);
     } else {
         previewImage.style.backgroundImage = '';
         previewImage.classList.add('empty-preview');
+
+        uploadedimage = null;
     }
 });
 
@@ -24,4 +28,6 @@ function deleteImage() {
     imageInput.value = ''; 
     previewImage.style.backgroundImage = '';
     previewImage.classList.add('empty-preview');
+
+    uploadedimage = null;
 }

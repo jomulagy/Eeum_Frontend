@@ -97,6 +97,37 @@ $(document).ready(function () {
             nextButton.prop('disabled', true);
         }
     });
+    
+    $('#word_register_submitbtn').click(function () {
+        var answer1 = $('#word_register_input').val();
+        var answer2 = [];//질문..
+        var answer3 = $('#q3_word_register_textarea').val();
+        var answer4 = $('#q4_word_register_textarea').val();
+        var answer5 = [];//질문..
+
+        var registerdata = {
+            title: answer1,
+            age: answer2,
+            mean: answer3,
+            content: answer4,
+            image: answer5
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "#",
+            data: JSON.stringify(registerdata),
+            contentType: "application/json",
+            success: function (response) {
+                // 서버로부터의 응답을 처리
+                console.log("데이터가 성공적으로 전송");
+                window.location.href = "/templates/word/register_complete"
+            },
+            error: function (error) {
+                console.log("데이터 전송 중 오류가 발생");
+            }
+        });
+    });
 });
 
 // 질문 3 타이핑 수 제한
