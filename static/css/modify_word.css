@@ -131,7 +131,7 @@ body {
     padding: 1rem; /* 컨테이너 주위에 약간의 간격을 추가*/
     text-align: left; /* 컨테이너 안의 요소들을 왼쪽 정렬*/
     position: relative;
-    top:-50px; /* 컨테이너를 위로 옮기기 */
+    top:-20px; /* 컨테이너를 위로 옮기기 */
 }
 
     
@@ -237,9 +237,25 @@ body {
     margin-bottom: 1rem;
 }/*textarea CSS*/
 
+#word_register_backbtn{
+    display: inline-block;
+    width: 44rem;
+    padding: 0.7rem 0.5rem;
+    border-radius: 1.5rem;
+    font-size: 0.8rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%;
+    outline: none;
+    border: none;
+    border-radius: 5rem;
+    background-color: #FFF;
+    box-shadow: 1px 1px 1.5px 1px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+    cursor: pointer;
+}
 
-
-#modify_word_nextbtn {
+#modify_word_nextbtn1 {
     display: inline-block;
     width: 44rem;
     padding: 0.7rem 0.5rem;
@@ -253,13 +269,62 @@ body {
     border-radius: 5rem;
     background-color: #FFE173;
     box-shadow: 1px 1px 1.5px 1px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
     cursor: pointer;
 }
 
-#modify_word_nextbtn:hover {
+#modify_word_nextbtn1:hover {
     background-color: #FFD87D;
     /* 마우스를 올렸을 때의 배경색 */
 }/* 수정 요청 제출 버튼 hover*/
+
+#modify_word_nextbtn1[disabled] {
+    background-color: lightgray;
+    cursor: default;
+    color: gray;
+    font-weight: lighter;
+}
+
+#modify_word_nextbtn1[disabled]:hover{
+    background-color: lightgray;
+    cursor: default;
+}
+
+#modify_word_nextbtn2 {
+    display: inline-block;
+    width: 44rem;
+    padding: 0.7rem 0.5rem;
+    border-radius: 1.5rem;
+    font-size: 0.8rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%;
+    outline: none;
+    border: none;
+    border-radius: 5rem;
+    background-color: #FFE173;
+    box-shadow: 1px 1px 1.5px 1px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#modify_word_nextbtn2:hover {
+    background-color: #FFD87D;
+    /* 마우스를 올렸을 때의 배경색 */
+}/* 수정 요청 제출 버튼 hover*/
+
+#modify_word_nextbtn2[disabled] {
+    background-color: lightgray;
+    cursor: default;
+    color: gray;
+    font-weight: lighter;
+}
+
+#modify_word_nextbtn2[disabled]:hover{
+    background-color: lightgray;
+    cursor: default;
+}
+
 
 /* 이미지 프리뷰 관련 스타일 */
 .image-preview {
@@ -359,6 +424,7 @@ label[for="image-input"] {
     border-radius: 5rem;
     background-color: #FFE173;
     box-shadow: 1px 1px 1.5px 1px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
     cursor: pointer;
 } /*최종 제출 버튼*/
 
