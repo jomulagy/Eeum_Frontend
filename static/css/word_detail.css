@@ -145,8 +145,13 @@ body {
     align-items: center; /* 이미지를 블록 요소로 변경 후, 한줄에 위치하도록 설정*/
 }
 
-#word_age_icon{
+#word_age_icon1{
     margin-left: auto;
+    display: block;
+}
+
+#word_age_icon2{
+    margin-left: 1rem;
     display: block;
 }
 /*단어 와 아이콘의 배치 css -끝-*/
