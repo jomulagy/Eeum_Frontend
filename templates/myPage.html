@@ -5,31 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이음 : 세대와 세대를 이어주는 단어 사전</title>
     <link rel="stylesheet" href="../static/css/myPage/myPage.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <body>
     <nav class="navBar">
         <div class="navWrap">
             <div class="navFirst">
-                <a class="mainLogo" href="#"><img src="../static/img/Logo.png" alt="로고 아이콘"></a>
+                <a class="mainLogo" href="../templates/main_templates/main.html"><img src="../static/img/Logo.png" alt="로고 아이콘"></a>
             </div>
             <div class="navSecond">
                 <ul class="navList">
-                    <li><a href="#">사전</a></li>
-                    <li><a href="#">게시판</a></li>
+                    <li><a href="../templates/main_templates/main.html">사전</a></li>
+                    <li><a href="../templates/main_templates/main_board.html">게시판</a></li>
                 </ul>
             </div>
             <div class="userInfo">
                 <div class="navicon">
                     <ul class="naviconList">
                         <li>
-                            <a href="#"><img src="../static/img/icon/bell-solid 1.png" alt="종 아이콘"></a>
+                            <a href="../templates/alert.html"><img src="../static/img/icon/bell-solid 1.png" alt="종 아이콘"></a>
                         </li>
                         <li>
-                            <a href="#"><img src="../static/img/icon/book-bookmark-solid 1.png" alt="북마크 아이콘"></a>
+                            <a href="../templates/vocabulary.html"><img src="../static/img/icon/book-bookmark-solid 1.png" alt="북마크 아이콘"></a>
                         </li>
                     </ul>
                 </div>
-                <a href=""><img class="userProfile" src="../static/img/profile/원숭이.png" alt="유저프로필 사진"></a>
+                <a href="../templates/myPage.html"><img class="userProfile" src="../static/img/profile/원숭이.png" alt="유저프로필 사진"></a>
             </div>
         </div>
     </nav>
@@ -38,12 +39,18 @@
         <div class="myPageInfo">
             <img src="../static/img/profile/원숭이.png" class="myPageProfile"><img/>
             <div class="myPageText">
-                <p class="myPageAge">20대</p>
-                <p class="myPageName">귀여운 원숭이</p>
-                <div class="levelWrap">
+                <div class="infoWrap">
+                    <p class="myPageAge">20대</p>
                     <p class="myPageLevel">돌멩이</p>
+                </div>
+
+                <p class="myPageName">귀여운 원숭이</p>
+                <div class="pointWrap">
+                    <p class="myPagePoint">나의 경험치:</p>
+                    <p class="pointNum">1234</p>
                     <a href="../templates/level_detail.html">등급 설명</a>
                 </div>
+
             </div>
         </div>
         <div class="gridContainer">
@@ -53,8 +60,8 @@
                     <div class="nameInput">
                         <p class="inputTitle">닉네임</p>
                         <div class="nameContainer">
-                            <input type="text" class="inputBox" value="귀여운 원숭이">
-                            <input type="button" class="editBtn" value="수정">
+                            <input type="text" class="inputBox" id="inputBox" value="귀여운 원숭이" readonly>
+                            <input type="button" class="editBtn" id="editBtn" value="수정">
                         </div>
                     </div>
                     <div class="AgeInput">
@@ -77,7 +84,7 @@
                             <div class="wordCardBottom">
                                 <div class="wordCardBottomTxt">
                                     <p class="userWord">어쩔티비</p>
-                                    <p class="userWordUser">귀여운 원숭이</p>
+                                    <p class="userWordName">귀여운 원숭이</p>
                                 </div>
                                 <div class="userWordLike">
                                     <svg class="userWordLikeHeart" xmlns="http://www.w3.org/2000/svg" width="1.233rem" height="1rem" viewBox="0 0 21 16" fill="none">
@@ -94,7 +101,7 @@
                             <div class="wordCardBottom">
                                 <div class="wordCardBottomTxt">
                                     <p class="userWord">어쩔티비</p>
-                                    <p class="userWordUser">귀여운 원숭이</p>
+                                    <p class="userWordName">귀여운 원숭이</p>
                                 </div>
                                 <div class="userWordLike">
                                     <svg class="userWordLikeHeart" xmlns="http://www.w3.org/2000/svg" width="1.233rem" height="1rem" viewBox="0 0 21 16" fill="none">
@@ -111,7 +118,7 @@
                             <div class="wordCardBottom">
                                 <div class="wordCardBottomTxt">
                                     <p class="userWord">어쩔티비</p>
-                                    <p class="userWordUser">귀여운 원숭이</p>
+                                    <p class="userWordName">귀여운 원숭이</p>
                                 </div>
                                 <div class="userWordLike">
                                     <svg class="userWordLikeHeart" xmlns="http://www.w3.org/2000/svg" width="1.233rem" height="1rem" viewBox="0 0 21 16" fill="none">
@@ -267,5 +274,7 @@
         </div>
     </div>
     <script src="../static/js/navList_check.js"></script>
+    <script src="../static/js/myPage/userInfo.js"></script>
+    <script src="../static/js/myPage/userData.js"></script>
 </body>
 </html>
