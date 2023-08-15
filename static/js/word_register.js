@@ -110,7 +110,6 @@ $(document).ready(function () {
             nextButton.prop('disabled', true);
         }
     });
-    
     $('#word_register_submitbtn').click(function () {
         var answer1 = $('#word_register_input').val();
         var answer2 = [];
@@ -119,31 +118,67 @@ $(document).ready(function () {
         });
         var answer3 = $('#q3_word_register_textarea').val();
         var answer4 = $('#q4_word_register_textarea').val();
-        var answer5 = [];//질문..
-
-        var registerdata = {
-            title: answer1,
-            age: answer2,
-            mean: answer3,
-            content: answer4,
-            image: answer5
-        };
-
+        var answer5 = $('#image-input')[0]; // 이미지 관련 데이터를 추가
+        console.log(answer5);
+        var formData = new FormData();
+    
+        formData.append("title", answer1);
+        formData.append("age", JSON.stringify(answer2));
+        formData.append("mean", answer3);
+        formData.append("content", answer4);
+        formData.append("image", answer5.files[0]);
+    
         $.ajax({
             type: "POST",
-            url: "#",
-            data: JSON.stringify(registerdata),
-            contentType: "application/json",
+            url: "http://3.34.3.84/api/word/create/", // 실제 URL로 변경해야 합니다.
+            data: formData,
+            processData: false, // 필요한 경우 FormData 처리 방지
+            contentType: 'multipart/form-data', // 필요한 경우 Content-Type 설정 방지
             success: function (response) {
                 // 서버로부터의 응답을 처리
                 console.log("데이터가 성공적으로 전송");
-                window.location.href = "/templates/word/register_complete"
+                window.location.href = "/templates/word/register_complete";
             },
-            error: function (error) {
-                console.log("데이터 전송 중 오류가 발생");
+            error: function (xhr, status, error) {
+                console.log('이미지 업로드 중 오류 발생:', error);
+                // 오류 처리
             }
         });
     });
+    
+    
+    // $('#word_register_submitbtn').click(function (formData) {
+    //     var answer1 = $('#word_register_input').val();
+    //     var answer2 = [];
+    //     $("input[name='age']:checked").each(function () {
+    //         answer2.push($(this).val());
+    //     });
+    //     var answer3 = $('#q3_word_register_textarea').val();
+    //     var answer4 = $('#q4_word_register_textarea').val();
+    //     var answer5 = []
+    //     var registerdata = {
+    //         title: answer1,
+    //         age: answer2,
+    //         mean: answer3,
+    //         content: answer4,
+    //         image: answer5
+    //     };
+
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "#",
+    //         data: JSON.stringify(registerdata),
+    //         contentType: 'application/JSON',
+    //         success: function (response) {
+    //             // 서버로부터의 응답을 처리
+    //             console.log("데이터가 성공적으로 전송");
+    //             window.location.href = "/templates/word/register_complete"
+    //         },
+    //         error: function (error) {
+    //             console.log("데이터 전송 중 오류가 발생");
+    //         }
+    //     });
+    // });
 });
 
 // 질문 3 타이핑 수 제한
