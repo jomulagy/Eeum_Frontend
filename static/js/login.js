@@ -23,7 +23,12 @@ function onclickLogin() {
         
             success: function(res){
               alert('로그인을 진짜 성공했습니다.');
-              console.log(res);
+              // console.log(res);
+              var access = res.access;
+              var refresh = res.refresh;
+
+              localStorage.setItem('access', access);
+              localStorage.setItem('refresh', refresh);
             },
         
             // error: function (jqXHR, textStatus, errorThrown) {
