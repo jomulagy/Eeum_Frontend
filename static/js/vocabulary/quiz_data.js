@@ -1,141 +1,57 @@
-// var requestURL = "http://127.0.0.1:5500/templates/quiz.html#";
-// var request = new XMLHttpRequest();
-// request.open("GET", requestURL);
-// request.responseType = "json";
+document.addEventListener("DOMContentLoaded", function() {
+  var response = {
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY5MjE5Mjk5NSwiaWF0IjoxNjkyMTA2NTk1LCJqdGkiOiI2ZGQwMDYxZmNkNGU0MzVjYTMyMjBmNzk2MWZjMWUwOCIsInVzZXJfaWQiOjMxfQ.EbkGSDqtK1XcZQ1W6hiB_rSycswLCzx4xZuGT6NFmb8"
+};
+refreshAccessToken(response)
 
-// request.onload = function () {
-//     var quizes = request.response;
-//     showQuiz(quizes);
-//   };
+  .then(function(access_token) {
+      $.ajax({
+          type: 'GET',
+          url: 'http://3.34.3.84:8000/api/vocabulary/quiz/',
+          contentType: 'application/json',
+          beforeSend: function(xhr) {
+              xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+          },
+          success: function(response){
+              alert('불러오기 성공');
+              console.log("data : ", response);
+              showQuiz(response);
+          },
+          error: function(request, status, error){
+              alert('불러오기 실패');
+          }
+      });
+  })
 
-// request.send();
+  .catch(function(error) {
+      console.error('Refresh token 재발급 실패:', error);
+  });
 
-var data = {
-  "quizes": [
-    {
-      "title": "4의 뜻은?",
-      "choices": [
-        {
-          "choice": "4",
-          "is_answer": true
-        },
-        {
-          "choice": "5",
-          "is_answer": false
-        },
-        {
-          "choice": "3",
-          "is_answer": false
-        }
-      ]
-    },
-    {
-      "title": "3의 뜻은?",
-      "choices": [
-        {
-          "choice": "5",
-          "is_answer": false
-        },
-        {
-          "choice": "3",
-          "is_answer": true
-        },
-        {
-          "choice": "7",
-          "is_answer": false
-        }
-      ]
-    },
-    {
-      "title": "5의 뜻은?",
-      "choices": [
-        {
-          "choice": "1",
-          "is_answer": false
-        },
-        {
-          "choice": "1",
-          "is_answer": false
-        },
-        {
-          "choice": "5",
-          "is_answer": true
-        }
-      ]
-    },
-    {
-      "title": "6의 뜻은?",
-      "choices": [
-        {
-          "choice": "1",
-          "is_answer": false
-        },
-        {
-          "choice": "6",
-          "is_answer": true
-        },
-        {
-          "choice": "8",
-          "is_answer": false
-        }
-      ]
-    },
-    {
-      "title": "7의 뜻은?",
-      "choices": [
-        {
-          "choice": "8",
-          "is_answer": false
-        },
-        {
-          "choice": "7",
-          "is_answer": true
-        },
-        {
-          "choice": "3",
-          "is_answer": false
-        }
-      ]
-    }
-  ],
+// Refresh Token 재발급 함수
+function refreshAccessToken(response) {
+  return new Promise((resolve, reject) => {
 
-  "words": [
-    {
-      "id": 3,
-      "title": 3,
-      "ages": [],
-      "content": "방가방가",
-      "likes": 0
-    },
-    {
-      "id": 4,
-      "title": 4,
-      "ages": [],
-      "content": "4",
-      "likes": 0
-    },
-    {
-      "id": 5,
-      "title": 5,
-      "ages": [],
-      "content": "5",
-      "likes": 0
-    },
-    {
-      "id": 6,
-      "title": 6,
-      "ages": [],
-      "content": "6",
-      "likes": 0
-    },
-    {
-      "id": 7,
-      "title": 7,
-      "ages": [],
-      "content": "7",
-      "likes": 0
-    }
-  ]
+      $.ajax({
+          type: 'POST',
+          url: 'http://3.34.3.84/api/account/refresh/',
+          contentType: 'application/json',
+          dataType: 'json',
+          data: JSON.stringify({
+              "refresh": response.refresh // response 객체에서 refresh token 가져옴
+          }),
+          success: function(res) {
+              var access = res.access;
+              var refresh = res.refresh;
+                  
+              localStorage.setItem('access', access);
+              localStorage.setItem('refresh', refresh);
+              resolve(access);
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+              reject(errorThrown);
+          }
+      });
+  });
 }
 
 var reviewContainer = document.getElementById("review");
@@ -145,51 +61,113 @@ var currentQuizIndex = 0;
 var score = 0;
 var buttonIds = ["A", "B", "C"];
 
-
 function showQuiz(data) {
-    var quizes = data.quizes;
+  var quizes = data.quizes;
+  console.log(quizes);
 
-    quizContainer.innerHTML = '';
+  quizContainer.innerHTML = '';
 
-    var quiz = quizes[currentQuizIndex];
-    var choices = quiz.choices;
+  var quiz = quizes[currentQuizIndex];
+  var choices = quiz.choices;
 
-    var quizDiv = document.createElement('div');
-    quizDiv.setAttribute("class", "quizWrap");
+  var quizDiv = document.createElement('div');
+  quizDiv.setAttribute("class", "quizWrap");
 
-    var titleElement = document.createElement('p');
-    titleElement.setAttribute("class", "quizQuestion");
-    titleElement.textContent = quiz.title;
-    quizDiv.appendChild(titleElement);
+  var titleElement = document.createElement('p');
+  titleElement.setAttribute("class", "quizQuestion");
+  titleElement.textContent = quiz.title;
+  quizDiv.appendChild(titleElement);
 
-    var choiceContainer = document.createElement('ul');
-    choiceContainer.setAttribute("class", "choiceContainer");
+  var choiceContainer = document.createElement('ul');
+  choiceContainer.setAttribute("class", "choiceContainer");
 
-    for (var j = 0; j < choices.length; j++) {
-        var choice = choices[j].choice;
+  for (var j = 0; j < choices.length; j++) {
+      var choice = choices[j].choice;
 
-        var choiceCard = document.createElement('li');
+      var choiceCard = document.createElement('li');
 
-        var button = document.createElement('button');
-        button.setAttribute("type", "button");
-        button.setAttribute("class", "choiceCard");
-        button.setAttribute("id", buttonIds[j]); // Set unique button id
+      var button = document.createElement('button');
+      button.setAttribute("type", "button");
+      button.setAttribute("class", "choiceCard");
+      button.setAttribute("id", buttonIds[j]); // Set unique button id
 
-        // 넘어가기
-        button.addEventListener('click', onChoiceClick);
+      // 넘어가기
+      button.addEventListener('click', onChoiceClick);
 
-        var choiceTxt = document.createElement('p');
-        choiceTxt.setAttribute("class", "choiceTxt");
-        choiceTxt.textContent = choice;
+      var choiceTxt = document.createElement('p');
+      choiceTxt.setAttribute("class", "choiceTxt");
+      choiceTxt.textContent = choice;
 
-        button.appendChild(choiceTxt);
-        choiceCard.appendChild(button);
-        choiceContainer.appendChild(choiceCard);
-    }
+      button.appendChild(choiceTxt);
+      choiceCard.appendChild(button);
+      choiceContainer.appendChild(choiceCard);
+  }
 
-    quizDiv.appendChild(choiceContainer);
-    quizContainer.appendChild(quizDiv);
+  quizDiv.appendChild(choiceContainer);
+  quizContainer.appendChild(quizDiv);
 }
+
+// 퀴즈 완료 시 호출되는 함수
+function completeQuiz() {
+    // 퀴즈 섹션을 숨김
+    document.getElementById('quiz').style.display = 'none';
+    // 결과 섹션을 표시
+    document.getElementById('result').removeAttribute('hidden');
+
+    var totalScore = document.querySelector(".quizScore");
+    var scoreContent = document.querySelector(".scoreContent");
+    var expContent = document.querySelector(".expContent");
+    
+    totalScore.textContent = (score*20)+"점";
+    scoreContent.textContent = "5문제 중 "+score+"문제 맞췄어요!";
+    expContent.textContent = "(경험치 "+(score*10)+"이 적립되었습니다.)";
+}
+
+
+// function showQuiz(data) {
+//     var quizes = data.quizes;
+
+//     quizContainer.innerHTML = '';
+
+//     var quiz = quizes[currentQuizIndex];
+//     var choices = quiz.choices;
+
+//     var quizDiv = document.createElement('div');
+//     quizDiv.setAttribute("class", "quizWrap");
+
+//     var titleElement = document.createElement('p');
+//     titleElement.setAttribute("class", "quizQuestion");
+//     titleElement.textContent = quiz.title;
+//     quizDiv.appendChild(titleElement);
+
+//     var choiceContainer = document.createElement('ul');
+//     choiceContainer.setAttribute("class", "choiceContainer");
+
+//     for (var j = 0; j < choices.length; j++) {
+//         var choice = choices[j].choice;
+
+//         var choiceCard = document.createElement('li');
+
+//         var button = document.createElement('button');
+//         button.setAttribute("type", "button");
+//         button.setAttribute("class", "choiceCard");
+//         button.setAttribute("id", buttonIds[j]); // Set unique button id
+
+//         // 넘어가기
+//         button.addEventListener('click', onChoiceClick);
+
+//         var choiceTxt = document.createElement('p');
+//         choiceTxt.setAttribute("class", "choiceTxt");
+//         choiceTxt.textContent = choice;
+
+//         button.appendChild(choiceTxt);
+//         choiceCard.appendChild(button);
+//         choiceContainer.appendChild(choiceCard);
+//     }
+
+//     quizDiv.appendChild(choiceContainer);
+//     quizContainer.appendChild(quizDiv);
+// }
 
 // function showReview(data){
 //     var reviewData = data.words;
@@ -240,6 +218,7 @@ function showReview(data) {
         //     imageHtml += `<img src="${data.image_snd}">`;
         // }
     
+      const word = reviewData[i];
       wordItem.innerHTML = `
       <li class="word_name">
           <p>${reviewData.title}</p>
@@ -253,7 +232,7 @@ function showReview(data) {
       // 클릭 이벤트 처리
       wordItem.addEventListener("click", function() {
           // 해당 단어 카드의 링크로 이동
-          window.location.href = data.link;
+          window.location.href = "detail.html";
       });
   
       reviewContainer.appendChild(wordItem);
@@ -290,3 +269,4 @@ function onChoiceClick(event) {
 
 showQuiz(data);
 showReview(data); // 기존 데이터로 단어 카드 생성
+});
