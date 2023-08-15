@@ -44,41 +44,54 @@ function toggleBookmark() {
 }
 
 $(document).ready(function () {
-    var jsonData = {
-            "title": "핑프",
-            "mean": "핑거프린스",
-            "content": "찾아보지도 않고 물어보는 사람",
-            "age": [
-              10,
-              20
-            ],
-            "likes": 3,
-            "views": 24,
-            "created_at": "2023/08/06 23:54",
-            "image": "null",
-            "author": {
-              "nickname": "김지훈",
-              "level": "에메랄드"
-            },
-            "edits": [],
-            "questions": [],
-            "my_words": [
-              "핑프2",
-              "핑프",
-              "~라고 할뻔",
-              "바보",
-              "멍청이"
-            ],
-            "like_ages": {
-              "10": 30,
-              "20": 10,
-              "30": 10,
-              "40": 40,
-              "50": 50
-            }
-    };
+    var jsonData;
+    //         "title": "핑프",
+    //         "mean": "핑거프린스",
+    //         "content": "찾아보지도 않고 물어보는 사람",
+    //         "age": [
+    //           10,
+    //           20
+    //         ],
+    //         "likes": 3,
+    //         "views": 24,
+    //         "created_at": "2023/08/06 23:54",
+    //         "image": "null",
+    //         "author": {
+    //           "nickname": "김지훈",
+    //           "level": "에메랄드"
+    //         },
+    //         "edits": [],
+    //         "questions": [],
+    //         "my_words": [
+    //           "핑프2",
+    //           "핑프",
+    //           "~라고 할뻔",
+    //           "바보",
+    //           "멍청이"
+    //         ],
+    //         "like_ages": {
+    //           "10": 30,
+    //           "20": 10,
+    //           "30": 10,
+    //           "40": 40,
+    //           "50": 50
+    //         }
+    // };
+    $.ajax({
+        type:"POST",
+        url: "http://3.34.3.84/api/word/detail/",
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({word_id:localStorage.getItem("word_id")}),
+        success: function(response){
+            jsonData = response;
+            console.log(jsonData);
+            createElement(jsonData);
+        }
+    });
 
-    // 단어와 단어 뜻 삽입
+    function createElement(jsonData){
+        // 단어와 단어 뜻 삽입
     document.getElementById("word_title").textContent = jsonData.title;
     document.getElementById("word_age_icon1").src = "/static/img/age/age_" + jsonData.age[0] + ".png";
     document.getElementById("word_age_icon2").src = "/static/img/age/age_" + jsonData.age[1] + ".png";
@@ -96,6 +109,46 @@ $(document).ready(function () {
     document.querySelector(".word_detail_userinfo p").textContent = "작성자 : " + jsonData.author.nickname;
     var authorTitle = document.querySelector(".detail_tab#word_register_tab .tab_title");
     authorTitle.textContent = jsonData.author.nickname + " 님의 등록 단어";
+
+    // 수정 요청 목록 삽입
+    var editList = jsonData.edits;
+    var editListContainer = document.querySelector(".detail_tab#changing_inform_tab .tab_content");
+    for (var i = 0; i < Math.min(editList.length, 4); i++) {
+        var editContainer = document.createElement("div");
+        editContainer.className = "tab_content_container";
+
+        var titleElement = document.createElement("div");
+        titleElement.className = "tab_content_title";
+        titleElement.textContent = editList[i].title;
+
+        var dateElement = document.createElement("div");
+        dateElement.className = "tab_content_date";
+        dateElement.textContent = editList[i].created_at;
+
+        editContainer.appendChild(titleElement);
+        editContainer.appendChild(dateElement);
+        editListContainer.appendChild(editContainer);
+    }
+    
+    // 관련 질문 목록 삽입
+    var questionList = jsonData.questions;
+    var questionListContainer = document.querySelector(".detail_tab#relative_question_tab");
+    for (var i = 0; i < Math.min(questionList.length, 4); i++){
+        var questionContainer = document.createElement("div");
+        questionContainer.className = "tab_content_container";
+
+        var titleElement = document.createElement("div");
+        titleElement.className = "tab_content_title";
+        titleElement.textContent = questionList[i].title;
+
+        var dateElement = document.createElement("div");
+        dateElement.className = "tab_content_date";
+        dateElement.textContent = questionList[i].created_at;
+
+        questionContainer.appendChild(titleElement);
+        questionContainer.appendChild(dateElement);
+        questionListContainer.appendChild(questionContainer);
+    }
 
     // 등록한 단어 목록 삽입
     var wordList = jsonData.my_words;
@@ -153,4 +206,6 @@ $(document).ready(function () {
             }
         }
     });
+    }
+    
 });
