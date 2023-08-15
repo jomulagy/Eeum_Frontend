@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-
     const itemsPerPage = 12; // 페이지당 보여줄 아이템 개수
     const wordContainer = document.getElementById("wordContainer");
     const paginationContainer = document.getElementById("paginationContainer");
