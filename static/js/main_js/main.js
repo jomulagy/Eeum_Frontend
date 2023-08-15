@@ -53,10 +53,11 @@ function createWordCard(item) {
         // 클릭 이벤트 처리
         wordItem.addEventListener("click", function () {
             // 해당 단어 카드의 링크로 이동
-            if (data.link) {
-                window.location.href = data.link;
-            }
+            var wordId = data.id;
+            localStorage.setItem('word_id', wordId);
+            window.location.href = "/word/detail.html";
         });
+        
 
 
         wordContainer.appendChild(wordItem);
