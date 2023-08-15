@@ -1,3 +1,29 @@
+// Refresh Token 재발급 함수
+function refreshAccessToken(response) {
+  return new Promise((resolve, reject) => {
+          console.log(response.refresh)
+      $.ajax({
+          type: 'POST',
+          url: 'http://3.34.3.84/api/account/refresh/',
+          contentType: 'application/json',
+          dataType: 'json',
+          data: JSON.stringify({
+              refresh: response.refresh // response 객체에서 refresh token 가져옴
+          }),
+          success: function(res) {
+              var access = res.access;
+              var refresh = res.refresh;
+                  
+              localStorage.setItem('access', access);
+              localStorage.setItem('refresh', refresh);
+              resolve(access);
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+              reject(errorThrown);
+          }
+      });
+  });
+}   
 //드롭 다운 버튼 js
 const dropdownButton = document.getElementById("dropdown-btn");
 const dropdownContent = document.getElementById("dropdown-content");
@@ -13,7 +39,7 @@ for (const item of dropdownItems) {
     const value = item.getAttribute("data-value"); //항목의 값을 value 에 저장하고 
     dropdownButton.textContent = value; //버튼에 있는 내용을 항목 값으로 바꿔주고 
     dropdownContent.style.display = "none"; 
-    nextButton.removeAttribute("disabled"); //nextButton 의 비활성화를 풀어줌.
+    nextButton.removeAttribute("disabled"); //nextButton 의 비활성화를 풀어줌
   });
 }
 
@@ -57,6 +83,71 @@ $(document).ready(function () {
           submitButton.prop('disabled', true);
       }
   });
+  $('#changing_inform_submitbtn').click(function () {
+    var answer1 = $('#changing_inform_textarea').val(); // 선택된 드롭다운 값 저장
+    var answer2 = $('#changing_inform_textarea').val();
+
+    var questionData = {
+      title: answer1,
+      content: answer2,
+      type:'수정 요청',
+      word_id: 52
+    }
+
+    var response = {
+      "refresh": localStorage.getItem("refresh")
+    };
+
+    refreshAccessToken(response)
+      .then(function (access_token) {
+        $.ajax({
+          type: 'POST',
+          url: 'http://3.34.3.84/api/word/edit/create/',
+          contentType: 'application/json',
+          data:JSON.stringify(questionData),
+          beforeSend: function () {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access"));
+          },
+          success: function (response) {
+            alert('성공');
+          },
+          error: function (request, status, error) {
+            alert('실패')
+          }
+        });
+      })
+      .catch(function (error) {
+        console.error('Refresh token 재발급 실패:', error);
+      });
+
+    $.ajax({
+      type: "POST",
+      url: "http://3.34.3.84/api/word/edit/create/", // 실제 URL로 변경해야 합니다.
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('access')}`
+      },
+      data: JSON.stringify(questionData),
+      contentType: 'application/json', // 필요한 경우 Content-Type 설정 방지
+      success: function (response) {
+        // 서버로부터의 응답을 처리
+        if (response.status === 401) {
+          console.error("Unauthorized:", jqXHR.responseText);
+          refreshAccessToken(refresh)
+        }
+        console.log("데이터가 성공적으로 전송");
+        window.location.href = "inform_complete.html";
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        if (jqXHR.status === 404) {
+          console.error("Not found:", jqXHR.responseText);
+          alert("사용자가 존재하지 않습니다.");
+        } else {
+          console.error("Error:", jqXHR.status, errorThrown);
+          alert("서버 에러");
+        }
+      }
+    });
+  })
 });
 
 //질문 2 타이핑 수 제한
@@ -74,7 +165,6 @@ textarea.addEventListener('input', function () {
         textLengthCnt.textContent = maxLength;
     }
 });
-
 
 
 

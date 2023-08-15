@@ -1,3 +1,30 @@
+// Refresh Token 재발급 함수
+function refreshAccessToken(response) {
+    return new Promise((resolve, reject) => {
+            console.log(response.refresh)
+        $.ajax({
+            type: 'POST',
+            url: 'http://3.34.3.84/api/account/refresh/',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify({
+                refresh: response.refresh // response 객체에서 refresh token 가져옴
+            }),
+            success: function(res) {
+                var access = res.access;
+                var refresh = res.refresh;
+                    
+                localStorage.setItem('access', access);
+                localStorage.setItem('refresh', refresh);
+                resolve(access);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                reject(errorThrown);
+            }
+        });
+    });
+}   
+
 //질문 넘어가기에 대한 js
 $(document).ready(function () {
     $(".nextButton").on("click", function () {
@@ -118,31 +145,69 @@ $(document).ready(function () {
         });
         var answer3 = $('#q3_word_register_textarea').val();
         var answer4 = $('#q4_word_register_textarea').val();
-        var answer5 = $('#image-input')[0]; // 이미지 관련 데이터를 추가
-        console.log(answer5);
+        var answer5 = document.querySelector('#image-input'); // 이미지 관련 데이터를 추가
+        console.log(answer5.files[0]);
         var formData = new FormData();
     
         formData.append("title", answer1);
-        formData.append("age", JSON.stringify(answer2));
+        formData.append("age", answer2);
         formData.append("mean", answer3);
         formData.append("content", answer4);
         formData.append("image", answer5.files[0]);
+
+
+        var response = {
+            "refresh": localStorage.getItem('refresh')
+        };
     
+        refreshAccessToken(response)
+            .then(function (access_token) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://3.34.3.84/api/word/create/',
+                    contentType: 'application/json',
+
+                    beforeSend: function () {
+                        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('access'));
+                    },
+                    success: function (response) {
+                        alert('성공')
+                    },
+                    error: function (request, status, error) {
+                        alert('실패')
+                    }
+                });
+            })
+            .catch(function (error) {
+                console.error('Refresh token 재발급 실패:', error);
+            });
+
         $.ajax({
             type: "POST",
             url: "http://3.34.3.84/api/word/create/", // 실제 URL로 변경해야 합니다.
+            headers: {
+                'Authorization' : `Bearer ${localStorage.getItem('access')}`
+            },
             data: formData,
             processData: false, // 필요한 경우 FormData 처리 방지
-            contentType: 'multipart/form-data', // 필요한 경우 Content-Type 설정 방지
+            contentType: false, 
             success: function (response) {
                 // 서버로부터의 응답을 처리
                 console.log("데이터가 성공적으로 전송");
-                window.location.href = "/templates/word/register_complete";
+                window.location.href = "register_complete.html";
             },
-            error: function (xhr, status, error) {
-                console.log('이미지 업로드 중 오류 발생:', error);
-                // 오류 처리
-            }
+            error: function (jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status === 401) {
+                  console.error("Unauthorized:", jqXHR.responseText);
+                  refreshAccessToken(refresh)
+                } else if (jqXHR.status === 404) {
+                  console.error("Not found:", jqXHR.responseText);
+                  alert("사용자가 존재하지 않습니다.");
+                } else {
+                  console.error("Error:", jqXHR.status, errorThrown);
+                  alert("서버 에러");
+                }
+            }          
         });
     });
     
@@ -212,6 +277,3 @@ q4_textarea.addEventListener('input', function () {
         q4_textLengthCnt.textContent = q4_maxLength;
     }
 });
-
-
-
