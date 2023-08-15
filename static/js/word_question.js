@@ -30,6 +30,30 @@ $(document).ready(function () {
             nextButton.prop('disabled', true);
         }
     });
+    $('#word_question_submitbtn').click(function () {
+        var answer1 = $('#word_question_input').val();
+        var answer2 = $('#word_question_textarea').val();
+
+        var questionData = {
+            title: answer1,
+            content: answer2
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "#", // 실제 URL로 변경해야 합니다.
+            data: JSON.stringify(questionData),
+            contentType: 'application/json', // 필요한 경우 Content-Type 설정 방지
+            success: function (response) {
+                // 서버로부터의 응답을 처리
+                console.log("데이터가 성공적으로 전송");
+                window.location.href = "/templates/word/question_complete";
+            },
+            error: function (error) {
+                console.log("데이터 전송 중 오류가 발생");
+            }
+        });
+    })
 });
 
 //질문 2 타이핑 수 제한
