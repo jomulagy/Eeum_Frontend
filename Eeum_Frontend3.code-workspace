@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../Eeum_Frontend3333333/board"
+		},
+		{
+			"path": "../Eeum_Frontend3333333/dictionary"
+		},
+		{
+			"path": "../Eeum_Frontend3333333/fix"
+		},
+		{
+			"path": "../Eeum_Frontend3333333/qna"
+		}
+	],
+	"settings": {
+		"liveServer.settings.port": 5501
+	}
+}
