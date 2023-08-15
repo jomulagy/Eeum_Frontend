@@ -1,6 +1,7 @@
-const wordContainer = document.getElementById("wordContainer");
+const wordContainerRecent = document.getElementById("wordContainerRecent");
 
-function createWordCard(item) {
+
+function createWordCard_snd(item) {
     console.log(item)
     $.each(item, function (index, data) {
         const wordItem = document.createElement("ul");
@@ -59,7 +60,8 @@ function createWordCard(item) {
         });
 
 
-        wordContainer.appendChild(wordItem);
+
+        wordContainerRecent.appendChild(wordItem);
     })
 
 
@@ -74,7 +76,7 @@ $.ajax({
 
     success: function (result) {
         console.log(JSON.stringify(result));
-        createWordCard(result.data.word);
+        createWordCard_snd(result.data.word);
     },
 
     error: function (xhr, textStatus, thrownError) {
@@ -87,4 +89,5 @@ $.ajax({
     },
 })
 //ajax 끝===========================================
+
 
