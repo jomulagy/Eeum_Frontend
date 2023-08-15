@@ -37,17 +37,17 @@
 
     <div class="container">
         <div class="myPageInfo">
-            <img src="../static/img/profile/원숭이.png" class="myPageProfile"><img/>
+            <img id="myProfile" src="" class="myPageProfile"><img/>
             <div class="myPageText">
                 <div class="infoWrap">
-                    <p class="myPageAge">20대</p>
-                    <p class="myPageLevel">돌멩이</p>
+                    <p id="myAge" class="myPageAge"></p>
+                    <p id="myLevel"class="myPageLevel"></p>
                 </div>
 
-                <p class="myPageName">귀여운 원숭이</p>
+                <p id="myNickname" class="myPageName"></p>
                 <div class="pointWrap">
                     <p class="myPagePoint">나의 경험치:</p>
-                    <p class="pointNum">1234</p>
+                    <p id="myPoint" class="pointNum"></p>
                     <a href="../templates/level_detail.html">등급 설명</a>
                 </div>
 
@@ -60,13 +60,13 @@
                     <div class="nameInput">
                         <p class="inputTitle">닉네임</p>
                         <div class="nameContainer">
-                            <input type="text" class="inputBox" id="inputBox" value="귀여운 원숭이" readonly>
-                            <input type="button" class="editBtn" id="editBtn" value="수정">
+                            <input type="text" id="inputName" class="inputBox" value="" readonly>
+                            <input type="button" id="editBtn" class="editBtn" value="수정">
                         </div>
                     </div>
                     <div class="AgeInput">
                         <p class="inputTitle">연령</p>
-                        <p class="inputBox">20대</p>
+                        <p id="inputAge" class="inputBox"></p>
                     </div>
                     <div class="loginInput">
                         <p class="inputTitle">로그인 정보</p>
@@ -274,7 +274,6 @@
         </div>
     </div>
     <script src="../static/js/navList_check.js"></script>
-    <script src="../static/js/myPage/userInfo.js"></script>
     <script src="../static/js/myPage/userData.js"></script>
 </body>
 </html>

@@ -1,192 +1,12 @@
+let access_token = localStorage.getItem("access");
+
 document.addEventListener("DOMContentLoaded", function() {
     const itemsPerPage = 12; // 페이지당 보여줄 아이템 개수
     const wordContainer = document.getElementById("wordContainer");
     const paginationContainer = document.getElementById("paginationContainer");
     const prevButton = document.getElementById("prevButton");
     const nextButton = document.getElementById("nextButton");
-    const wordsData = [
-        // 데이터 배열
-        // (여기에 데이터를 추가해주세요)
-        {
-            index: 1,
-            name: "~라고 할뻔",
-            image: "../src/age/age_10.png",
-            image_snd: "../src/age/age_20.png",
-            what: "하고싶은 말 뒤에 쓴다",
-            heart: 30,
-            heart_img: "../src/heartred.png",
-            link: "practice.html"
-        },
-        {
-            index: 2,
-            name: "차도남",
-            image: "../src/age/age_10.png",
-            image_snd: "../src/age/age_20.png",
-            what: "차가운 도시 남자",
-            heart_img: "../src/heart.png",
-            heart: 21,
-        },
-        {
-            index: 3,
-            name: "차도남",
-            image: "../src/age_10.png",
-            image_snd: "../src/age_30.png",
-            what: "차가운 도시 남자",
-            heart_img: "../src/heart.png",
-            heart: 25,
-        },
-        {
-            index: 4,
-            name: "차도남",
-            image: "../src/age_10.png",
-            image_snd: "../src/age_40.png",
-            what: "차가운 도시 남자",
-            heart_img: "../src/heart.png",
-            heart: 27,
-        },
-        {
-            index: 5,
-            name: "차도남",
-            image: "../src/age_10.png",
-            what: "차가운 도시 남자",
-            heart_img: "../src/heart.png",
-            heart: 29,
-        },
-        {
-            index: 6,
-            name: "~라고 할뻔",
-            image: "../src/age_10.png",
-            image_snd: "../src/age_20.png",
-            what: "하고싶은 말 뒤에 쓴다",
-            heart_img: "../src/heart.png",
-            heart: 28,
-        },
-        {
-            index: 7,
-            name: "차도남",
-            image: "../src/age_10.png",
-            image_snd: "../src/age_20.png",
-            what: "차가운 도시 남자",
-            heart_img: "../src/heart.png",
-            heart: 24,
-        },
-        {
-            index: 8,
-            name: "차도남",
-            image: "../src/age_10.png",
-            image_snd: "../src/age_30.png",
-            what: "차가운 도시 남자",
-            heart_img: "../src/heart.png",
-            heart: 24,
-        },
-        {
-            index: 9,
-            name: "차도남",
-            image: "../src/age_10.png",
-            image_snd: "../src/age_40.png",
-            what: "차가운 도시 남자",
-            heart_img: "../src/heart.png",
-            heart: 24,
-        },
-        {
-            index: 10,
-            name: "차도남",
-            image: "../src/age_10.png",
-            what: "차가운 도시 남자",
-            heart_img: "../src/heart.png",
-            heart: 24,
-        },
-        {
-            index: 11,
-            name: "~라고 할뻔",
-            image: "../src/age_10.png",
-            image_snd: "../src/age_20.png",
-            what: "하고싶은 말 뒤에 쓴다",
-            heart: 24,
-            heart_img: "../src/heartred.png",
-            link: "practice.html"
-        },
-        {
-            index: 12,
-            name: "차도남",
-            image: "../src/age_10.png",
-            image_snd: "../src/age_20.png",
-            what: "차가운 도시 남자",
-            heart_img: "../src/heart.png",
-            heart: 24,
-        },
-        {
-            index: 13,
-            name: "차도남",
-            image: "../src/age_10.png",
-            image_snd: "../src/age_30.png",
-            what: "차가운 도시 남자",
-            heart_img: "../src/heart.png",
-            heart: 24,
-        },
-        {
-            index: 14,
-            name: "차도남",
-            image: "../src/age_10.png",
-            image_snd: "../src/age_40.png",
-            what: "차가운 도시 남자",
-            heart_img: "../src/heart.png",
-            heart: 24,
-        },
-        {
-            index: 15,
-            name: "차도남",
-            image: "../src/age_10.png",
-            what: "차가운 도시 남자",
-            heart_img: "../src/heart.png",
-            heart: 24,
-        },
-        {
-            index: 16,
-            name: "~라고 할뻔",
-            image: "../src/age_10.png",
-            image_snd: "../src/age_20.png",
-            what: "하고싶은 말 뒤에 쓴다",
-            heart_img: "../src/heart.png",
-            heart: 24,
-        },
-        {
-            index: 17,
-            name: "차도남",
-            image: "../src/age_10.png",
-            image_snd: "../src/age_20.png",
-            what: "차가운 도시 남자",
-            heart_img: "../src/heart.png",
-            heart: 24,
-        },
-        {
-            index: 18,
-            name: "차도남",
-            image: "../src/age_10.png",
-            image_snd: "../src/age_30.png",
-            what: "차가운 도시 남자",
-            heart_img: "../src/heart.png",
-            heart: 24,
-        },
-        {
-            index: 19,
-            name: "차도남",
-            image: "../src/age_10.png",
-            image_snd: "../src/age_40.png",
-            what: "차가운 도시 남자",
-            heart_img: "../src/heart.png",
-            heart: 24,
-        },
-        {
-            index: 20,
-            name: "차도남",
-            image: "../src/age_10.png",
-            what: "차가운 도시 남자",
-            heart_img: "../src/heart.png",
-            heart: 24,
-        },
 
-    ];
 
     function createWordCard(data) {
         const wordItem = document.createElement("ul");
@@ -311,6 +131,38 @@ document.addEventListener("DOMContentLoaded", function() {
             noWordSection.style.display = 'none';
         }
     }
+
+    // 선택 삭제 버튼 클릭 이벤트 핸들러
+    deleteSelectBtn.addEventListener("click", function() {
+        const selectedCards = $(".word.selected");
+
+        if ($(deleteSelectBtn).val() === "삭제하기") {
+            if (selectedCards.length > 0) {
+                var deleteSelectAnswer = confirm('선택한 단어를 삭제하시겠습니까?');
+                if (deleteSelectAnswer) {
+                    selectedCards.remove(); // 선택된 카드 삭제
+                }
+            }
+
+            selectedCards.removeClass("selected"); // 선택된 카드 상태 초기화
+            $(deleteSelectBtn).val("선택삭제"); // 버튼 값을 다시 "선택삭제"로 변경
+            $(deleteSelectBtn).css("background-color", ""); // 원래 색상으로 되돌리기
+        } else {
+            $(deleteSelectBtn).css("background-color", "#FFE173");
+            $(deleteSelectBtn).val("삭제하기");
+        }
+    });
+
+    // 단어 카드 클릭 이벤트 핸들러 (이벤트 위임)
+    wordContainer.addEventListener("click", function(event) {
+        const clickedCard = event.target.closest(".word");
+
+        if (!clickedCard) return; // 클릭된 요소가 단어 카드가 아니면 종료
+
+        if ($(deleteSelectBtn).val() === "삭제하기") {
+            event.preventDefault(); // 클릭 이벤트 무시
+        }
+    });
 
     // 페이지 로딩 완료 시 호출하여 초기 가시성 설정
     // 초기 페이지 설정 함수 호출

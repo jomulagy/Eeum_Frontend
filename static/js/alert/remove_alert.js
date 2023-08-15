@@ -1,3 +1,40 @@
+let access_token = localStorage.getItem("access");
+
+document.addEventListener("DOMContentLoaded", function () {
+        const response = { 
+                "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY5MjE5Mjk5NSwiaWF0IjoxNjkyMTA2NTk1LCJqdGkiOiI2ZGQwMDYxZmNkNGU0MzVjYTMyMjBmNzk2MWZjMWUwOCIsInVzZXJfaWQiOjMxfQ.EbkGSDqtK1XcZQ1W6hiB_rSycswLCzx4xZuGT6NFmb8"
+        }
+
+refreshAccessToken(response)
+getAlertData();
+
+// Refresh Token 재발급 함수
+function refreshAccessToken(response) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: 'POST',
+                url: 'http://3.34.3.84/api/account/refresh/',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify({
+                    "refresh": response.refresh // response 객체에서 refresh token 가져옴
+                }),
+                success: function(res) {
+                    const access = res.access;
+                    const refresh = res.refresh;
+                        
+                    localStorage.setItem('access', access);
+                    localStorage.setItem('refresh', refresh);
+                    console.log(2);
+               
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    reject(errorThrown);
+                }
+            });
+        });
+    }
+
 //카드 클릭 시 알림 처리 (alcheck값 변경)
 
 //읽은 알림 배경 색 변경
@@ -50,4 +87,23 @@ $(".alertCard").click(function() {
             $(this).addClass("selected");
         }
     }
+});
+
+function getAlertData(){
+        $.ajax({
+                type: 'GET',
+                url: 'http://3.34.3.84/api/message/',
+                contentType: 'application/json',
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+                },
+                success: function(response) {
+                    alert('불러오기 성공');
+                    console.log("data : ", response);
+                },
+                error: function(request, status, error) {
+                    alert('불러오기 실패');
+                }
+            });
+        }
 });
