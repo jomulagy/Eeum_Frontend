@@ -6,6 +6,19 @@ $(document).ready(function () {
 
         currentQuestion.hide();
         $(nextQuestion).show();
+
+        if (nextQuestion === "#q2") {
+            var wordToDefine = $('#word_register_input').val();
+            $('#wordToDefine').text(wordToDefine);
+        }
+        if (nextQuestion === "#q3") {
+            var wordToDefine = $('#word_register_input').val();
+            $('#wordToDefine2').text(wordToDefine);
+        }
+        if (nextQuestion === "#q4") {
+            var wordToDefine = $('#word_register_input').val();
+            $('#wordToDefine3').text(wordToDefine);
+        }
     });
     $(".backButton").click(function() {
         // 현재 표시되고 있는 단계를 숨깁니다.
@@ -100,7 +113,10 @@ $(document).ready(function () {
     
     $('#word_register_submitbtn').click(function () {
         var answer1 = $('#word_register_input').val();
-        var answer2 = [];//질문..
+        var answer2 = [];
+        $("input[name='age']:checked").each(function () {
+            answer2.push($(this).val());
+        });
         var answer3 = $('#q3_word_register_textarea').val();
         var answer4 = $('#q4_word_register_textarea').val();
         var answer5 = [];//질문..
