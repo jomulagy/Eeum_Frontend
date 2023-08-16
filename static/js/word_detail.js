@@ -83,39 +83,43 @@ $(document).ready(function () {
         var response = {
             "refresh": localStorage.getItem("refresh")
         }; //재발급
-        refreshAccessToken(response)
-        .then(function (access_token) {
-            $.ajax({
-                type: 'POST',
-                url: 'http://3.34.3.84/api/word/like/',
-                contentType: 'application/json',
-                data: JSON.stringify({word_id:localStorage.getItem("word_id")}),
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access"));
-                },
-                success: function (response) {
-                    console.log('성공')
-                },
-                error: function (request, status, error) {
-                    console.log('실패')
-                }
-            });
-        })
-        .catch(function (error) {
-            console.error('Refresh token 재발급 실패:', error);
-        });
+        
         $.ajax({
             type: "POST",
             url: "http://3.34.3.84/api/word/like/",
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('access')}`
             },
-            data: JSON.stringify({word_id:localStorage.getItem("word_id")}),
+            data: JSON.stringify({ word_id: localStorage.getItem("word_id") }),
             contentType: 'application/json',
             success: function (response) {
                 // 서버로부터의 응답을 처리
                 if (response.status === 401) {
+                    console.log("401")
                     refreshAccessToken(refresh)
+                        .then(function (access_token) {
+                            $.ajax({
+                                type: 'POST',
+                                url: 'http://3.34.3.84/api/word/like/',
+                                contentType: 'application/json',
+                                data: JSON.stringify({ word_id: localStorage.getItem("word_id") }),
+                                beforeSend: function (xhr) {
+                                    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access"));
+                                },
+                                success: function (response) {
+                                    document.getElementById("like_count").textContent = response.likes;
+                                    console.log('성공')
+                                },
+                                error: function (request, status, error) {
+                                    console.log('실패')
+                                }
+                            });
+                        })
+                        .catch(function (error) {
+                            console.error('Refresh token 재발급 실패:', error);
+                        });
+                } else {
+                    document.getElementById("like_count").textContent = response.likes;
                 }
                 console.log("데이터가 성공적으로 전송");
             },
@@ -125,7 +129,7 @@ $(document).ready(function () {
                     alert("사용자가 존재하지 않습니다.");
                 } else {
                     console.error("Error:", jqXHR.status, errorThrown);
-                    alert("이미 존재하는 단어입니다.");
+
 
                 }
             }
@@ -256,6 +260,11 @@ $(document).ready(function () {
         success: function(response){
             jsonData = response;
             console.log(jsonData);
+            localStorage.setItem('title',jsonData.title)
+            localStorage.setItem('mean',jsonData.mean);
+            localStorage.setItem('content',jsonData.content);
+            localStorage.setItem('image',jsonData.image);
+            console.log(localStorage);
             createElement(jsonData);
             displayhrefElement(userData,jsonData);
             //data localstorage에 저장
