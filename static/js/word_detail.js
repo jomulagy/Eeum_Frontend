@@ -1,12 +1,13 @@
+
 function clearPlaceholder() {
     const searchInput = document.getElementById('searchInput');
     searchInput.placeholder = '';
 }
 
-let likeCount = 0;
 let isLiked = false;
 let isBookmarked = false;
 
+  
 function toggleHeart() {
     isLiked = !isLiked;
 
@@ -17,18 +18,17 @@ function toggleHeart() {
         heartIcon.classList.add('filled-heart');
         heartIcon.classList.remove('fa-regular');
         heartIcon.classList.add('fa-solid');
-        likeCount++;
+        
     } else {
         heartIcon.classList.remove('filled-heart');
         heartIcon.classList.remove('fa-solid');
         heartIcon.classList.add('fa-regular');
-        likeCount--;
     }
 
-    likeCountElement.innerText = likeCount;
 
 }
 
+//단어장 담기 함수
 function toggleBookmark() {
     isBookmarked = !isBookmarked;
 
@@ -43,40 +43,210 @@ function toggleBookmark() {
     }
 }
 
+// Refresh Token 재발급 함수
+function refreshAccessToken(response) {
+    return new Promise((resolve, reject) => {
+            console.log(response.refresh)
+        $.ajax({
+            type: 'POST',
+            url: 'http://3.34.3.84/api/account/refresh/',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify({
+                refresh: response.refresh // response 객체에서 refresh token 가져옴
+            }),
+            success: function(res) {
+                var access = res.access;
+                var refresh = res.refresh;
+                    
+                localStorage.setItem('access', access);
+                localStorage.setItem('refresh', refresh);
+                resolve(access);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                reject(errorThrown);
+            }
+        });
+    });
+}  
+
 $(document).ready(function () {
     var jsonData;
-    //         "title": "핑프",
-    //         "mean": "핑거프린스",
-    //         "content": "찾아보지도 않고 물어보는 사람",
-    //         "age": [
-    //           10,
-    //           20
-    //         ],
-    //         "likes": 3,
-    //         "views": 24,
-    //         "created_at": "2023/08/06 23:54",
-    //         "image": "null",
-    //         "author": {
-    //           "nickname": "김지훈",
-    //           "level": "에메랄드"
-    //         },
-    //         "edits": [],
-    //         "questions": [],
-    //         "my_words": [
-    //           "핑프2",
-    //           "핑프",
-    //           "~라고 할뻔",
-    //           "바보",
-    //           "멍청이"
-    //         ],
-    //         "like_ages": {
-    //           "10": 30,
-    //           "20": 10,
-    //           "30": 10,
-    //           "40": 40,
-    //           "50": 50
-    //         }
-    // };
+    var userData;
+
+    var response = {
+        "refresh": localStorage.getItem("refresh")
+    };
+
+    //하트 클릭 이벤트
+    $('#heart_icon').click(function (){
+        var response = {
+            "refresh": localStorage.getItem("refresh")
+        }; //재발급
+        refreshAccessToken(response)
+        .then(function (access_token) {
+            $.ajax({
+                type: 'POST',
+                url: 'http://3.34.3.84/api/word/like/',
+                contentType: 'application/json',
+                data: JSON.stringify({word_id:localStorage.getItem("word_id")}),
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access"));
+                },
+                success: function (response) {
+                    console.log('성공')
+                },
+                error: function (request, status, error) {
+                    console.log('실패')
+                }
+            });
+        })
+        .catch(function (error) {
+            console.error('Refresh token 재발급 실패:', error);
+        });
+        $.ajax({
+            type: "POST",
+            url: "http://3.34.3.84/api/word/like/",
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('access')}`
+            },
+            data: JSON.stringify({word_id:localStorage.getItem("word_id")}),
+            contentType: 'application/json',
+            success: function (response) {
+                // 서버로부터의 응답을 처리
+                if (response.status === 401) {
+                    refreshAccessToken(refresh)
+                }
+                console.log("데이터가 성공적으로 전송");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status === 404) {
+                    console.error("Not found:", jqXHR.responseText);
+                    alert("사용자가 존재하지 않습니다.");
+                } else {
+                    console.error("Error:", jqXHR.status, errorThrown);
+                    alert("이미 존재하는 단어입니다.");
+
+                }
+            }
+        });
+    })
+
+    //단어장 담기 클릭 이벤트
+    $('#bookmark_icon').click(function (){
+        var response = {
+            "refresh": localStorage.getItem("refresh")
+        }; //재발급
+
+        refreshAccessToken(response)
+        .then(function (access_token) {
+            $.ajax({
+                type: 'POST',
+                url: 'http://3.34.3.84/api/vocabulary/',
+                contentType: 'application/json',
+                data: JSON.stringify({id:localStorage.getItem("word_id")}),
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access"));
+                },
+                success: function (response) {
+                    console.log('성공')
+                },
+                error: function (request, status, error) {
+                    console.log('실패')
+                }
+            });
+        })
+        .catch(function (error) {
+            console.error('Refresh token 재발급 실패:', error);
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "http://3.34.3.84/api/vocabulary/",
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('access')}`
+            },
+            data: JSON.stringify({id:localStorage.getItem("word_id")}),
+            contentType: 'application/json',
+            success: function (response) {
+                // 서버로부터의 응답을 처리
+                if (response.status === 401) {
+                    refreshAccessToken(refresh)
+                }
+                console.log("데이터가 성공적으로 전송");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status === 404) {
+                    console.error("Not found:", jqXHR.responseText);
+                    alert("사용자가 존재하지 않습니다.");
+                } else {
+                    console.error("Error:", jqXHR.status, errorThrown);
+                    alert("이미 존재하는 단어입니다.");
+
+                }
+            }
+        });
+    });
+
+    refreshAccessToken(response)
+    .then(function (access_token) {
+        $.ajax({
+            type: 'GET',
+            url: 'http://3.34.3.84/api/account/user/',
+            contentType: 'application/json',
+            dataType: 'json',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access"));
+            },
+            success: function (response) {
+                console.log('성공')
+                userData = response;
+                console.log(userData);
+            },
+            error: function (request, status, error) {
+                console.log('실패')
+            }
+        });
+    })
+    .catch(function (error) {
+        console.error('Refresh token 재발급 실패:', error);
+    });
+
+    $.ajax({
+        type:"GET",
+        url: "http://3.34.3.84/api/account/user/",
+        headers: {
+            'Authorization' : `Bearer ${localStorage.getItem('access')}`
+        },
+        dataType: 'json',
+        success: function(response){
+               // 서버로부터의 응답을 처리
+               if (response.status === 401) {
+                refreshAccessToken(refresh)
+              } 
+              else{
+                userData = response;
+                console.log(userData);
+              }
+             
+        },
+        error: function(xhr, status, error) {
+            console.log("데이터를 불러오지 못함");
+        }
+    })
+
+    function displayhrefElement(userData,jsonData){
+        console.log(userData.id);
+        console.log(jsonData.author.id);
+        if(userData.id === jsonData.author.id){
+            console.log(userData.id);
+            console.log("작성자 일 때")
+            document.querySelector(".word_detail_hrefcontainer").style.display = "block"
+        } else{
+            document.querySelector(".word_detail_hrefcontainer").style.display = "none"
+        }
+    }
+
     $.ajax({
         type:"POST",
         url: "http://3.34.3.84/api/word/detail/",
@@ -87,8 +257,12 @@ $(document).ready(function () {
             jsonData = response;
             console.log(jsonData);
             createElement(jsonData);
+            displayhrefElement(userData,jsonData);
+            //data localstorage에 저장
+            localStorage.setItem('modifyData', JSON.stringify(jsonData));
         }
     });
+   
 
     function createElement(jsonData){
         // 단어와 단어 뜻 삽입
