@@ -28,7 +28,7 @@ function onclickLogin() {
 
               localStorage.setItem('access', access);
               localStorage.setItem('refresh', refresh);
-              window.location.href = 'main.html';
+              window.location.href = 'dictionary/list.html';
             },
         
             // error: function (jqXHR, textStatus, errorThrown) {
@@ -45,20 +45,3 @@ function onclickLogin() {
     }
   });
 }
-
-
-function onclickLogOut(){
-  Kakao.API.request({
-    url: '/v1/user/unlink',
-  })
-    .then(function(response) {
-      console.log(response);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
-}
-
-
-// post 데이터에 아이디+레인지 보내기
-// http://3.34.3.84/api/account/kakao/callback

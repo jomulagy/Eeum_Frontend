@@ -5,41 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이음 : 세대와 세대를 이어주는 단어 사전</title>
     <link rel="stylesheet" href="../static/css/vocabulary/vocabulary.css">
+    <link rel="stylesheet" href="../static/css/nav_logout.css">
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <body>
   <nav class="navBar">
     <div class="navWrap">
         <div class="navFirst">
-            <a class="mainLogo" href="../templates/main_templates/main.html"><img src="../static/img/Logo.png" alt="로고 아이콘"></a>
+            <a class="mainLogo" href="dictionary/list.html"><img src="../static/img/Logo.png" alt="로고 아이콘"></a>
         </div>
         <div class="navSecond">
             <ul class="navList">
-                <li><a href="../templates/main_templates/main.html">사전</a></li>
-                <li><a href="../templates/main_templates/main_board.html">게시판</a></li>
+                <li><a href="dictionary/list.html">사전</a></li>
+                <li><a href="board/list.html">게시판</a></li>
             </ul>
         </div>
         <div class="userInfo">
             <div class="navicon">
                 <ul class="naviconList">
                     <li>
-                        <a href="../templates/alert.html"><img src="../static/img/icon/bell-solid 1.png" alt="종 아이콘"></a>
+                        <a href="alert.html"><img src="../static/img/icon/bell-solid 1.png" alt="종 아이콘"></a>
                     </li>
                     <li>
-                        <a href="../templates/vocabulary.html"><img src="../static/img/icon/book-bookmark-solid 1.png" alt="북마크 아이콘"></a>
+                        <a href="vocabulary_list.html"><img src="../static/img/icon/book-bookmark-solid 1.png" alt="북마크 아이콘"></a>
                     </li>
                 </ul>
             </div>
-            <a href="../templates/myPage.html"><img class="userProfile" src="../static/img/profile/원숭이.png" alt="유저프로필 사진"></a>
+        <div class="profileNavDiv">
+        <img id="navProfile" class="userProfile" src="../static/img/profile/원숭이.png" alt="유저프로필 사진">
+                    <ul class="btnWrap">
+                    <li class="profileBrowserBtn">
+                        <a href="myPage.html">마이페이지</a>
+                    </li>
+                    <li class="profileBrowserBtn" onclick="onclickLogOut()">
+                        <p>로그아웃</p>
+                    </li>
+                    </ul>
         </div>
     </div>
 </nav>
 
   <div class="container">
-  <section id="vocabulary">
+  <section id="vocabulary" style="display: block;">
     <div class="fix">
       <p>귀여운 원숭이님의<br>단어장 입니다.</p>
-      <input type="button" id="deleteSelectBtn" class="delSelect" value="선택삭제">
   </div>
   <div class="main">
       <div class="main_left">
@@ -51,22 +61,18 @@
   </div>
   <div class="pagenation">
     <div class="word_container" id="wordContainer">
-        <!-- 단어 카드가 동적으로 생성될 공간 -->
     </div>
     <div class="pagination_container" id="paginationContainer">
-        <!-- 페이지네이션 버튼이 동적으로 생성될 공간 -->
+
     </div>
 </div>
   <div class="quizWrap">
       <div class="quizBtn">
-          <!-- <p>
-          단어 퀴즈 풀고 경험치 쌓으세요!
-          </p> -->
       </div>
   </div>
   </section>
 
-  <section class="noWordPage" id="noWord" hidden>
+  <section class="noWordPage" id="noWord" style="display: none;">
         <div class="noWordContainer">
             <span class="noWordTitle">
                 저장된 단어가 없습니다.
@@ -134,6 +140,7 @@
         <input type="button" class="wordBrowserBtn" value="단어 저장하러 가기">
   </section>
 </div>
+<script src="/static/js/logout.js"></script>
 <script src="../static/js/navList_check.js"></script>
 <script src="../static/js/vocabulary/vocabulary_data.js"></script>
 </body>

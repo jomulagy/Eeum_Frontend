@@ -1,58 +1,38 @@
+let access_token = localStorage.getItem("access");
+
 document.addEventListener("DOMContentLoaded", function() {
-  var response = {
-    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY5MjE5Mjk5NSwiaWF0IjoxNjkyMTA2NTk1LCJqdGkiOiI2ZGQwMDYxZmNkNGU0MzVjYTMyMjBmNzk2MWZjMWUwOCIsInVzZXJfaWQiOjMxfQ.EbkGSDqtK1XcZQ1W6hiB_rSycswLCzx4xZuGT6NFmb8"
-};
-refreshAccessToken(response)
+    const response = { 
+        "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY5MjE5Mjk5NSwiaWF0IjoxNjkyMTA2NTk1LCJqdGkiOiI2ZGQwMDYxZmNkNGU0MzVjYTMyMjBmNzk2MWZjMWUwOCIsInVzZXJfaWQiOjMxfQ.EbkGSDqtK1XcZQ1W6hiB_rSycswLCzx4xZuGT6NFmb8"
+    }
 
-  .then(function(access_token) {
-      $.ajax({
-          type: 'GET',
-          url: 'http://3.34.3.84:8000/api/vocabulary/quiz/',
-          contentType: 'application/json',
-          beforeSend: function(xhr) {
-              xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
-          },
-          success: function(response){
-              alert('불러오기 성공');
-              console.log("data : ", response);
-              showQuiz(response);
-          },
-          error: function(request, status, error){
-              alert('불러오기 실패');
-          }
-      });
-  })
-
-  .catch(function(error) {
-      console.error('Refresh token 재발급 실패:', error);
-  });
+    refreshAccessToken(response)
+    getQuizData();
 
 // Refresh Token 재발급 함수
-function refreshAccessToken(response) {
-  return new Promise((resolve, reject) => {
-
-      $.ajax({
-          type: 'POST',
-          url: 'http://3.34.3.84/api/account/refresh/',
-          contentType: 'application/json',
-          dataType: 'json',
-          data: JSON.stringify({
-              "refresh": response.refresh // response 객체에서 refresh token 가져옴
-          }),
-          success: function(res) {
-              var access = res.access;
-              var refresh = res.refresh;
-                  
-              localStorage.setItem('access', access);
-              localStorage.setItem('refresh', refresh);
-              resolve(access);
-          },
-          error: function(jqXHR, textStatus, errorThrown) {
-              reject(errorThrown);
-          }
-      });
-  });
-}
+    function refreshAccessToken(response) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: 'POST',
+                url: 'http://3.34.3.84/api/account/refresh/',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify({
+                    "refresh": response.refresh // response 객체에서 refresh token 가져옴
+                }),
+                success: function(res) {
+                    const access = res.access;
+                    const refresh = res.refresh;
+                        
+                    localStorage.setItem('access', access);
+                    localStorage.setItem('refresh', refresh);
+                    console.log(access);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    reject(errorThrown);
+                }
+            });
+        });
+    }
 
 var reviewContainer = document.getElementById("review");
 var quizContainer = document.getElementById('quiz');
@@ -123,86 +103,25 @@ function completeQuiz() {
     expContent.textContent = "(경험치 "+(score*10)+"이 적립되었습니다.)";
 }
 
-
-// function showQuiz(data) {
-//     var quizes = data.quizes;
-
-//     quizContainer.innerHTML = '';
-
-//     var quiz = quizes[currentQuizIndex];
-//     var choices = quiz.choices;
-
-//     var quizDiv = document.createElement('div');
-//     quizDiv.setAttribute("class", "quizWrap");
-
-//     var titleElement = document.createElement('p');
-//     titleElement.setAttribute("class", "quizQuestion");
-//     titleElement.textContent = quiz.title;
-//     quizDiv.appendChild(titleElement);
-
-//     var choiceContainer = document.createElement('ul');
-//     choiceContainer.setAttribute("class", "choiceContainer");
-
-//     for (var j = 0; j < choices.length; j++) {
-//         var choice = choices[j].choice;
-
-//         var choiceCard = document.createElement('li');
-
-//         var button = document.createElement('button');
-//         button.setAttribute("type", "button");
-//         button.setAttribute("class", "choiceCard");
-//         button.setAttribute("id", buttonIds[j]); // Set unique button id
-
-//         // 넘어가기
-//         button.addEventListener('click', onChoiceClick);
-
-//         var choiceTxt = document.createElement('p');
-//         choiceTxt.setAttribute("class", "choiceTxt");
-//         choiceTxt.textContent = choice;
-
-//         button.appendChild(choiceTxt);
-//         choiceCard.appendChild(button);
-//         choiceContainer.appendChild(choiceCard);
-//     }
-
-//     quizDiv.appendChild(choiceContainer);
-//     quizContainer.appendChild(quizDiv);
-// }
-
-// function showReview(data){
-//     var reviewData = data.words;
-//     var reviewContainer = document.getElementById("review");
-
-//     for(var i=0; i < reviewData.length; i++){
-//         var words = reviewData[i];
-
-//         //단어명
-//         var wordName = document.createElement('li');
-//         wordName.setAttribute("class", "word_name");
-//         wordName.textContent = words.title; 
-
-//         //단어 카드
-//         var wordCard = document.createElement('ul');
-//         wordCard.setAttribute("class", "word");
-
-//         //단어 설명
-//         var wordWhat = document.createElement('li');
-//         wordWhat.setAttribute("class", "word_what");
-//         wordWhat.textContent = words.content; 
-
-//         //하트 수
-//         var wordHeart = document.createElement('li');
-//         wordHeart.setAttribute("class", "word_heart");
-//         wordHeart.textContent = words.likes;
-
-
-//         reviewContainer.appendChild(wordCard); 
-//         wordCard.appendChild(wordName); 
-//         wordCard.appendChild(wordWhat); 
-//         wordCard.appendChild(wordHeart);
-//     }
-
-// }
+function getQuizData(){
+    $.ajax({
+        type: 'GET',
+        url: 'http://3.34.3.84/api/vocabulary/quiz/',
+        contentType: 'application/json',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+        },
+        success: function(response){
+            alert('불러오기 성공');
+            console.log("data : ", response);
+            showQuiz(response);
+        },
+        error: function(request, status, error){
+            alert('불러오기 실패');
+            console.log(access_token)
+        }
+    });
+}
 
     // 함수를 통해 단어 카드 생성
 function showReview(data) {
@@ -267,6 +186,5 @@ function onChoiceClick(event) {
     }
 }
 
-showQuiz(data);
-showReview(data); // 기존 데이터로 단어 카드 생성
+
 });

@@ -1,13 +1,17 @@
+let wordData = [];
+let userName;
 let access_token = localStorage.getItem("access");
 
-document.addEventListener("DOMContentLoaded", function() {
-    
+const myUserWordContainer = document.getElementsByClassName("userWordCardList");
 
+document.addEventListener("DOMContentLoaded", function() {
     const response = { 
         "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY5MjE5Mjk5NSwiaWF0IjoxNjkyMTA2NTk1LCJqdGkiOiI2ZGQwMDYxZmNkNGU0MzVjYTMyMjBmNzk2MWZjMWUwOCIsInVzZXJfaWQiOjMxfQ.EbkGSDqtK1XcZQ1W6hiB_rSycswLCzx4xZuGT6NFmb8"
     }
     refreshAccessToken(response)
     getUserInfo();
+    getUserWordData();
+    createWordCard()
     let newName = ""; // 수정된 닉네임을 저장하는 변수
 
     const editBtn = document.getElementById("editBtn");
@@ -38,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     changeData(inputBox.value);
                 }
             });
-            
+
 // Refresh Token 재발급 함수
 function refreshAccessToken(response) {
     return new Promise((resolve, reject) => {
@@ -48,7 +52,7 @@ function refreshAccessToken(response) {
             contentType: 'application/json',
             dataType: 'json',
             data: JSON.stringify({
-                "refresh": response.refresh // response 객체에서 refresh token 가져옴
+                "refresh": localStorage.getItem('refresh')
             }),
             success: function(res) {
                 const access = res.access;
@@ -56,8 +60,6 @@ function refreshAccessToken(response) {
                     
                 localStorage.setItem('access', access);
                 localStorage.setItem('refresh', refresh);
-                console.log(2);
-           
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 reject(errorThrown);
@@ -65,7 +67,62 @@ function refreshAccessToken(response) {
         });
     });
 }
-});
+
+function createWordCard(wordData){
+    console.log(wordData)
+    const cardTitleDiv = document.querySelectorAll('.userWord');
+    let cardTitle = wordData.title;
+    let cardAges = wordData.ages;
+    let cardLikes =  wordData.likes;
+
+    let imageHtml = ""; // Initialize imageHtml variable
+    
+    if (cardAges[0] === 10) {
+        imageHtml += `<img src="../static/img/age/age_10.png">`;
+    } else if (cardAges[0] === 20) {
+        imageHtml += `<img src="../static/img/age/age_20.png">`;
+    } else if (cardAges[0] === 30) {
+        imageHtml += `<img src="../static/img/age/age_30.png">`;
+    } else if (cardAges[0] === 40) {
+        imageHtml += `<img src="../static/img/age/age_40.png">`;
+    } else if (cardAges[0] === 50) {
+        imageHtml += `<img src="../static/img/age/age_50.png">`;
+    }
+
+    if (cardAges[1]) {
+        if (cardAges[1] === 10) {
+            imageHtml += `<img src="../static/img/age/age_10.png">`;
+        } else if (cardAges[1] === 20) {
+            imageHtml += `<img src="../static/img/age/age_20.png">`;
+        } else if (cardAges[1] === 30) {
+            imageHtml += `<img src="../static/img/age/age_30.png">`;
+        } else if (cardAges[1] === 40) {
+            imageHtml += `<img src="../static/img/age/age_40.png">`;
+        } else if (cardAges[1] === 50) {
+            imageHtml += `<img src="../static/img/age/age_50.png">`;
+        }
+    }
+
+    cardItem.innerHTML = `
+    <li class="userWordCard">
+    <p>${wordData.title}</p>
+    <div class="wordCardTop">
+        ${imageHtml}
+    </div>
+    </li>
+    <li class="word_heart">
+        <img src="../static/img/imoge/heartred.png">
+        <p>${wordData.likes}</p>
+    </li>
+    `;
+
+    cardItem.setAttribute("id", `${wordData.id}`); // id 값을 설정
+}
+
+function displayWord(wordData){
+    myUserWordContainer.innerHtml = "";
+    createWordCard(wordData);
+}
 
 
 function changeData(newName) {
@@ -113,8 +170,8 @@ function getUserInfo() {
             xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
         },
         success: function(response) {
-            alert('불러오기 성공');
-            console.log("data : ", response);
+            alert('유저 정보 불러오기 성공');
+            console.log("유저 data : ", response);
 
             var user_age = response.age;
             var user_nickname = response.nickname;
@@ -139,11 +196,11 @@ function loadUserInfo(age, nickname, image, level, point){
     const pointDiv = document.getElementById("myPoint");
 
 
-    var myPageAge = age+"대";
-    var myPageName = nickname;
-    var myPageProfile = image;
-    var myPageLevel = level;
-    var pointNum = point;
+    let myPageAge = age+"대";
+    let myPageName = nickname;
+    let myPageProfile = image;
+    let myPageLevel = level;
+    let pointNum = point;
 
     ageDiv.innerText = myPageAge;
     nameDiv.innerText = myPageName;
@@ -160,50 +217,110 @@ function userInfo(nickname, age){
     infoAgeInput.innerText = age+"대";
 }
 
+// function userWordData(){
+//     // 등록한 단어 목록 삽입
+//     var wordList = jsonData.my_words;
+//     var wordListContainer = document.querySelector(".detail_tab#word_register_tab .tab_content");
+//     for (var i = 0; i < Math.min(wordList.length,4); i++) { //최대 4개의 list만 뜨게 제한
+//         var wordElement = document.createElement("p");
+//         wordElement.textContent = wordList[i];
+//         wordListContainer.appendChild(wordElement);
+//     }
+// }
 
-// //   const wordContainer = document.getElementById("wordContainer");
-// //     // 함수를 통해 단어 카드 생성
-// //     function createWordCard(data) {
-// //         const wordItem = document.createElement("ul");
-// //         wordItem.classList.add("word");
-    
-// //         let imageHtml = `<img src="${data.image}">`;
-    
-// //         if (data.image_snd) {
-// //             imageHtml += `<img src="${data.image_snd}">`;
-// //         }
-    
-// //         wordItem.innerHTML = `
-// //             <li class="word_name">
-// //                 <p>${data.name}</p>
-// //                 <div class="img_container">
-// //                     ${imageHtml}
-// //                 </div>
-// //             </li>
-// //             <li class="word_what"><p>${data.what}</p></li>
-// //             <li class="word_heart">
-// //                 <img src="${data.heart_img}">
-// //                 <p>${data.heart}</p>
-// //             </li>
-// //         `;
+function getUserWordData(){
+    $.ajax({
+        type: 'GET',
+        url: 'http://3.34.3.84/api/account/user/word/',
+        contentType: 'application/json',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+        },
+        success: function(response) {
+            alert('단어 데이터 불러오기 성공');
+            console.log("단어 data : ", response);
+            const userWordData = response;
+            for (var i = 0; i < Math.min(userWordData.length,3); i++){
+                wordData = response[i]
+                createWordCard(wordData)
+            }
+        },
+        error: function(request, status, error) {
+            alert('데이터 불러오기 실패');
+        }
+    });
+}
 
-// //         // 클릭 이벤트 처리
-// //         wordItem.addEventListener("click", function() {
-// //             // 해당 단어 카드의 링크로 이동
-// //             window.location.href = data.link;
-// //         });
-    
-// //         wordContainer.appendChild(wordItem);
+// //단어 상세에서 훔쳐온거
 
-// //         var savedWord = wordsData.length;
+// function createElement(jsonData){
+//     // 단어와 단어 뜻 삽입
+// document.getElementById("word_title").textContent = jsonData.title;
+// document.getElementById("word_age_icon1").src = "/static/img/age/age_" + jsonData.age[0] + ".png";
+// document.getElementById("word_age_icon2").src = "/static/img/age/age_" + jsonData.age[1] + ".png";
+// if(jsonData.image != null){
+//     document.getElementById("word_img").src = jsonData.image;
+// } else{
+//     document.getElementById("word_img").style.display = "none";
+// }
 
-// //     }
-    
-// //     // 기존 데이터로 단어 카드 생성
-// //         wordsData.forEach(data => {
-// //         createWordCard(data);
-// //      });
+// document.getElementById("word_mean").textContent = jsonData.mean;
+// document.getElementById("word_detail_content").textContent = jsonData.content;
+
+// // 좋아요 및 작성자 정보 삽입
+// document.getElementById("like_count").textContent = jsonData.likes;
+// document.querySelector(".word_detail_userinfo p").textContent = "작성자 : " + jsonData.author.nickname;
+// var authorTitle = document.querySelector(".detail_tab#word_register_tab .tab_title");
+// authorTitle.textContent = jsonData.author.nickname + " 님의 등록 단어";
+
+// // 수정 요청 목록 삽입
+// var editList = jsonData.edits;
+// var editListContainer = document.querySelector(".detail_tab#changing_inform_tab .tab_content");
+// for (var i = 0; i < Math.min(editList.length, 4); i++) {
+//     var editContainer = document.createElement("div");
+//     editContainer.className = "tab_content_container";
+
+//     var titleElement = document.createElement("div");
+//     titleElement.className = "tab_content_title";
+//     titleElement.textContent = editList[i].title;
+
+//     var dateElement = document.createElement("div");
+//     dateElement.className = "tab_content_date";
+//     dateElement.textContent = editList[i].created_at;
+
+//     editContainer.appendChild(titleElement);
+//     editContainer.appendChild(dateElement);
+//     editListContainer.appendChild(editContainer);
+// }
+
+// // 관련 질문 목록 삽입
+// var questionList = jsonData.questions;
+// var questionListContainer = document.querySelector(".detail_tab#relative_question_tab");
+// for (var i = 0; i < Math.min(questionList.length, 4); i++){
+//     var questionContainer = document.createElement("div");
+//     questionContainer.className = "tab_content_container";
+
+//     var titleElement = document.createElement("div");
+//     titleElement.className = "tab_content_title";
+//     titleElement.textContent = questionList[i].title;
+
+//     var dateElement = document.createElement("div");
+//     dateElement.className = "tab_content_date";
+//     dateElement.textContent = questionList[i].created_at;
+
+//     questionContainer.appendChild(titleElement);
+//     questionContainer.appendChild(dateElement);
+//     questionListContainer.appendChild(questionContainer);
+// }
+
+// // 등록한 단어 목록 삽입
+// var wordList = jsonData.my_words;
+// var wordListContainer = document.querySelector(".detail_tab#word_register_tab .tab_content");
+// for (var i = 0; i < Math.min(wordList.length,4); i++) { //최대 4개의 list만 뜨게 제한
+//     var wordElement = document.createElement("p");
+//     wordElement.textContent = wordList[i];
+//     wordListContainer.appendChild(wordElement);
+// }
+
 // });
-
-
-
+});
