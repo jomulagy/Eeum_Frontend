@@ -27,6 +27,58 @@ function refreshAccessToken(response) {
 
 //질문 넘어가기에 대한 js
 $(document).ready(function () {
+    if (localStorage.getItem("refresh") == null){
+        alert("로그인이 필요한 서비스 입니다.")
+        window.location.href="index.html";
+    }
+    var userData;
+
+    $.ajax({
+        type:"GET",
+        url: "http://3.34.3.84/api/account/user/",
+        headers: {
+            'Authorization' : `Bearer ${localStorage.getItem('access')}`
+        },
+        dataType: 'json',
+        success: function(response){
+               // 서버로부터의 응답을 처리
+               if (response.status === 401) {
+                refreshAccessToken(response)
+                .then(function (access_token) {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'http://3.34.3.84/api/account/user/',
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access"));
+                        },
+                        success: function (response) {
+                            console.log('성공')
+                            
+                        },
+                        error: function (request, status, error) {
+                            console.log('실패')
+                        }
+                    });
+                })
+                .catch(function (error) {
+                    console.error('Refresh token 재발급 실패:', error);
+                });
+              } 
+              else{
+                userData = response;
+                console.log(userData);
+                document.getElementById("usernickname").textContent = userData.nickname;
+              }
+             
+        },
+        error: function(xhr, status, error) {
+            console.log("데이터를 불러오지 못함");
+        }
+    })
+
+
     $(".nextButton").on("click", function () {
         var currentQuestion = $(this).closest(".word_register_question");
         var nextQuestion = $(this).data("next");
@@ -60,13 +112,82 @@ $(document).ready(function () {
     $('#word_register_input').on('input', function () {
         var inputVal = $(this).val(); // 입력된 텍스트 값
         var nextButton = $('#word_register_nextbtn');
+        var successMessage = $('#success');
+        var failMessage = $('#fail');
+
 
         // 텍스트 값이 비어있지 않다면 버튼 활성화, 비어있다면 비활성화
         if (inputVal.trim() !== '') { //trim 함수는 비어있는지 확인해주는 함수 
             nextButton.prop('disabled', false);
         } else {
             nextButton.prop('disabled', true);
+            successMessage.hide();
+            failMessage.hide();
+            return;
         }
+
+        $.ajax({
+            type: "POST",
+            url: "http://3.34.3.84/api/search/word/exists/",
+            data: JSON.stringify({
+                keyword: document.getElementById('word_register_input').value
+            }),
+            contentType: 'application/json',
+            success: function (response){
+                console.log("성공")
+                console.log(response);
+
+                var successMessage = $('#success');
+                var failMessage = $('#fail');
+                var button = $('#word_register_nextbtn');
+                
+                if (response.is_exists === true) {
+                    //등록 불가능한 단어인 경우
+                    console.log("if");
+                    successMessage.hide();
+                    failMessage.show();
+                    button.prop('disabled',true);
+                    $('#word_container').show();
+
+                    var wordName = response.word.title;
+                    var wordDescription = response.word.mean;
+                    var wordLikes = response.word.likes;
+                    var wordAges = response.word.age;
+                    
+
+                    // 해당 요소에 데이터를 삽입
+                    $('#word_container .word_name p').text(wordName);
+                    $('#word_container .word_what p').text(wordDescription);
+                    $('#word_container .word_heart p').text(wordLikes);
+
+                    if (wordAges.length >= 1) {
+                        $('#word_age_icon1').attr('src', "/static/img/age/age_" + wordAges[0] + ".png");
+                        $('#word_age_icon1').show();
+                    } else {
+                        $('#word_age_icon1').hide();
+                    }
+                    
+                    if (wordAges.length >= 2) {
+                        $('#word_age_icon2').attr('src', "/static/img/age/age_" + wordAges[1] + ".png");
+                        $('#word_age_icon2').show();
+                    } else {
+                        $('#word_age_icon2').hide();
+                    }
+
+                } else {
+                    // 등록 가능한 단어인 경우
+                    console.log("else");
+                    successMessage.show();
+                    failMessage.hide();
+                    button.prop('disabled',false);
+                    $('#word_container').hide();
+                }
+            },
+            error: function(xhr, status, error) {  // 요청 실패 시 실행되는 함수
+                console.log('실패');
+            }
+            
+        })
     });
     // 질문 2 체크 박스 선택 최대 2개 제한 및 버튼 활성화/비활성화
     var maxChecked = 2; // 최대 선택 가능한 체크 박스 개수

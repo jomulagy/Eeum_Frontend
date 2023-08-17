@@ -4,42 +4,86 @@ function clearPlaceholder() {
     searchInput.placeholder = '';
 }
 
-let isLiked = false;
-let isBookmarked = false;
-
   
-function toggleHeart() {
-    isLiked = !isLiked;
+// function toggleHeart(isLiked) {
 
+//     const heartIcon = document.getElementById('heart_icon');
+
+//     if (isLiked) {
+//         heartIcon.classList.remove('fa-regular');
+//         heartIcon.classList.add('fa-solid');
+        
+//     } else {
+//         heartIcon.classList.remove('fa-solid');
+//         heartIcon.classList.add('fa-regular');
+//     }
+// }
+
+// function filledHeart(isLiked) {
+
+//     const heartIcon = document.getElementById('heart_icon');
+
+//     if (isLiked){
+//         heartIcon.classList.remove('fa-solid');
+//         heartIcon.classList.add('fa-regular');
+//     } else {
+//         heartIcon.classList.remove('fa-regular');
+//         heartIcon.classList.add('fa-solid');
+//     }
+
+// }
+
+// //단어장 담기 함수
+// function toggleBookmark(isBookmarked) {
+//     const bookmarkIcon = document.getElementById('bookmark_icon');
+//     var bookmarkText = document.getElementById("bookmark_text");
+//     if(isBookmarked){
+//         bookmarkIcon.classList.add('fa-solid');
+//         bookmarkIcon.classList.remove('fa-regular');
+//         bookmarkText.textContent = "단어장에서 제거";
+
+//     } else{
+//         bookmarkIcon.classList.remove('fa-solid');
+//         bookmarkIcon.classList.add('fa-regular');
+//         bookmarkText.textContent = "단어장에 담기";
+//     }
+// }
+
+// function filledBookmark(isBookmarked) {
+//     const bookmarkIcon = document.getElementById('bookmark_icon');
+//     var bookmarkText = document.getElementById("bookmark_text");
+//     if(isBookmarked){
+//         bookmarkIcon.classList.remove('fa-solid');
+//         bookmarkIcon.classList.add('fa-regular');
+//         bookmarkText.textContent = "단어장에 담기";
+//     } else{
+//         bookmarkIcon.classList.add('fa-solid');
+//         bookmarkIcon.classList.remove('fa-regular');
+//         bookmarkText.textContent = "단어장에서 제거";
+//     }
+// }
+
+function initializeUI(isLiked, isBookmarked) {
     const heartIcon = document.getElementById('heart_icon');
-    const likeCountElement = document.getElementById('like_count');
+    const bookmarkIcon = document.getElementById('bookmark_icon');
+    const bookmarkText = document.getElementById("bookmark_text");
 
     if (isLiked) {
-        heartIcon.classList.add('filled-heart');
         heartIcon.classList.remove('fa-regular');
         heartIcon.classList.add('fa-solid');
-        
     } else {
-        heartIcon.classList.remove('filled-heart');
         heartIcon.classList.remove('fa-solid');
         heartIcon.classList.add('fa-regular');
     }
 
-
-}
-
-//단어장 담기 함수
-function toggleBookmark() {
-    isBookmarked = !isBookmarked;
-
-    const bookmarkIcon = document.getElementById('bookmark_icon');
-
-    if(isBookmarked){
+    if (isBookmarked) {
         bookmarkIcon.classList.add('fa-solid');
         bookmarkIcon.classList.remove('fa-regular');
-    } else{
+        bookmarkText.textContent = "단어장에서 제거";
+    } else {
         bookmarkIcon.classList.remove('fa-solid');
         bookmarkIcon.classList.add('fa-regular');
+        bookmarkText.textContent = "단어장에 담기";
     }
 }
 
@@ -73,10 +117,22 @@ function refreshAccessToken(response) {
 $(document).ready(function () {
     var jsonData;
     var userData;
+    const heartIcon = document.getElementById('heart_icon');
+    const bookmarkIcon = document.getElementById('bookmark_icon');
+    const bookmarkText = document.getElementById("bookmark_text");
+
 
     var response = {
         "refresh": localStorage.getItem("refresh")
     };
+
+    var iconContainer = $('.word_detail_iconcontainer') //아이콘 컨테이너 선언
+
+    if(localStorage.getItem("refresh")){ //로그인을 했을 때,
+        iconContainer.show();
+    }else{
+        iconContainer.hide();
+    }
 
     //하트 클릭 이벤트
     $('#heart_icon').click(function (){
@@ -134,6 +190,14 @@ $(document).ready(function () {
                 }
             }
         });
+
+        if(heartIcon.classList.contains('fa-regular')){
+            heartIcon.classList.remove('fa-regular');
+            heartIcon.classList.add('fa-solid');
+        }else{
+            heartIcon.classList.add('fa-regular');
+            heartIcon.classList.remove('fa-solid');
+        }
     })
 
     //단어장 담기 클릭 이벤트
@@ -190,54 +254,69 @@ $(document).ready(function () {
                 }
             }
         });
-    });
-
-    refreshAccessToken(response)
-    .then(function (access_token) {
-        $.ajax({
-            type: 'GET',
-            url: 'http://3.34.3.84/api/account/user/',
-            contentType: 'application/json',
-            dataType: 'json',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access"));
-            },
-            success: function (response) {
-                console.log('성공')
-                userData = response;
-                console.log(userData);
-            },
-            error: function (request, status, error) {
-                console.log('실패')
-            }
-        });
-    })
-    .catch(function (error) {
-        console.error('Refresh token 재발급 실패:', error);
-    });
-
-    $.ajax({
-        type:"GET",
-        url: "http://3.34.3.84/api/account/user/",
-        headers: {
-            'Authorization' : `Bearer ${localStorage.getItem('access')}`
-        },
-        dataType: 'json',
-        success: function(response){
-               // 서버로부터의 응답을 처리
-               if (response.status === 401) {
-                refreshAccessToken(refresh)
-              } 
-              else{
-                userData = response;
-                console.log(userData);
-              }
-             
-        },
-        error: function(xhr, status, error) {
-            console.log("데이터를 불러오지 못함");
+        if(bookmarkIcon.classList.contains('fa-regular')){
+            bookmarkIcon.classList.remove('fa-regular');
+            bookmarkIcon.classList.add('fa-solid');
+            bookmarkText.textContent = "단어장에 제거"
+        }else{
+            bookmarkIcon.classList.add('fa-regular');
+            bookmarkIcon.classList.remove('fa-solid');
+            bookmarkText.textContent = "단어장에서 담기";
         }
-    })
+    });
+
+    if(localStorage.getItem("refresh")){
+        $.ajax({
+            type:"GET",
+            url: "http://3.34.3.84/api/account/user/",
+            headers: {
+                'Authorization' : `Bearer ${localStorage.getItem('access')}`
+            },
+            dataType: 'json',
+            success: function(response){
+                   // 서버로부터의 응답을 처리
+                   if (response.status === 401) {
+                    refreshAccessToken(response)
+                    .then(function (access_token) {
+                        $.ajax({
+                            type: 'GET',
+                            url: 'http://3.34.3.84/api/account/user/',
+                            contentType: 'application/json',
+                            dataType: 'json',
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access"));
+                            },
+                            success: function (response) {
+                                console.log('성공')
+                                userData = response;
+                                console.log(userData);
+                            },
+                            error: function (request, status, error) {
+                                console.log('실패')
+                            }
+                        });
+                    })
+                    .catch(function (error) {
+                        console.error('Refresh token 재발급 실패:', error);
+                    });
+                  } 
+                  else{
+                    userData = response;
+                    console.log(userData);
+                  }
+                 
+            },
+            error: function(xhr, status, error) {
+                console.log("데이터를 불러오지 못함");
+            }
+        })
+    } else{//로그인을 하지 않았을 경우에
+        userData = {
+            "id" : 0
+        }
+    }
+
+    
 
     function displayhrefElement(userData,jsonData){
         console.log(userData.id);
@@ -277,6 +356,7 @@ $(document).ready(function () {
             displayhrefElement(userData,jsonData);
             //data localstorage에 저장
             localStorage.setItem('modifyData', JSON.stringify(jsonData));
+            initializeUI(jsonData.is_likes, jsonData.is_vocabulary);
         }
     });
    
