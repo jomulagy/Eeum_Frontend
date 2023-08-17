@@ -1,6 +1,4 @@
 Kakao.init('97a167bfd45fe1d3f9180e159b4a147d');
-var id;
-var age;
 
 function onclickLogin() {
   Kakao.Auth.login({
@@ -9,8 +7,8 @@ function onclickLogin() {
         url: '/v2/user/me',
         success: function(result){
           alert("로그인 성공!");
-          id = result.id;
-          age = result.kakao_account.age_range;
+          var id = result.id;
+          var age = result.kakao_account.age_range;
 
           $.ajax({
             type: 'POST',

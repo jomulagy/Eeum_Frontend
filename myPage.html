@@ -21,7 +21,7 @@
                     <li><a href="board/list.html">게시판</a></li>
                 </ul>
             </div>
-            <div class="userInfo">
+            <div id="logout" class="userInfo">
                 <div class="navicon">
                     <ul class="naviconList">
                         <li>
@@ -32,8 +32,8 @@
                         </li>
                     </ul>
                 </div>
-            <div class="profileNavDiv">
-            <img id="navProfile" class="userProfile" src="../static/img/profile/원숭이.png" alt="유저프로필 사진">
+                <div class="profileNavDiv">
+                <img id="navProfile" class="userProfile" src="../static/img/profile/원숭이.png" alt="유저프로필 사진">
                         <ul class="btnWrap">
                         <li class="profileBrowserBtn">
                             <a href="myPage.html">마이페이지</a>
@@ -42,9 +42,19 @@
                             <p>로그아웃</p>
                         </li>
                         </ul>
+                </div>
+            </div>
+            <div id="login" class="userInfo" style="display: none;">
+                <div class="loginBtn" onclick="onclickLogin()" >
+                    <div class="loginContent">
+                        <img class="loginBtnImg"src="../static/img/kakao.png" alt="카카오톡 로고">
+                        <p class="loginBtnTxt">카카오톡으로 시작하기</p>
+                    </div>
+            </div>
             </div>
         </div>
     </nav>
+
 
     <div class="container">
         <div class="myPageInfo">
@@ -59,14 +69,17 @@
                 <div class="pointWrap">
                     <p class="myPagePoint">나의 경험치:</p>
                     <p id="myPoint" class="pointNum"></p>
-                    <a href="../templates/level_detail.html">등급 설명</a>
+                    <a href="level_detail.html">등급 설명</a>
                 </div>
 
             </div>
         </div>
         <div class="gridContainer">
             <div class="myUserInfo">
-                <p class="gridTitle">개인정보</p>
+                <div class="titleWrap">
+                    <p class="gridTitle">개인정보</p>
+                    <button type="button">더보기</button>
+                </div>
                 <div class="inputContainer">
                     <div class="nameInput">
                         <p class="inputTitle">닉네임</p>
@@ -86,16 +99,18 @@
                 </div>
             </div>
             <div class="myUserWord">
-                <p class="gridTitle">등록한 단어</p>
+                <div class="titleWrap">
+                    <p class="gridTitle">등록한 단어</p>
+                    <button type="button">더보기</button>
+                </div>
                     <ul class="userWordCardList">
-                        <li class="userWordCard">
+                        <!-- <li class="userWordCard">
                             <div class="wordCardTop">
                                 <img src="../static/img/age/age_20.png" alt="20대" class="userWordAge">
                             </div>
                             <div class="wordCardBottom">
                                 <div class="wordCardBottomTxt">
                                     <p class="userWord">어쩔티비</p>
-                                    <p class="userWordName">귀여운 원숭이</p>
                                 </div>
                                 <div class="userWordLike">
                                     <svg class="userWordLikeHeart" xmlns="http://www.w3.org/2000/svg" width="1.233rem" height="1rem" viewBox="0 0 21 16" fill="none">
@@ -104,13 +119,16 @@
                                     <p class="userWordLikeNum">24</p>
                                 </div>
                             </div>
-                        </li>
+                        </li> -->
                     </ul>
             </div>
             <div class="myUserQuest">
-                <p class="gridTitle">등록한 질문</p>
+                <div class="titleWrap">
+                    <p class="gridTitle">등록한 질문</p>
+                    <button type="button">더보기</button>
+                </div>
                     <ul class="userQuestCardList">
-                        <li class="userQuestCard">
+                        <!-- <li class="userQuestCard">
                             <div class="userQuestText">
                                 <p class="userQuestTitle">
                                     움짤이 무슨 뜻인가요?
@@ -139,13 +157,16 @@
                                     2023/07/25 11:30
                                 </p>
                             </div>
-                        </li>
+                        </li> -->
                     </ul>
             </div>
             <div class="myUserRequest">
-                <p class="gridTitle">수정 요청 목록</p>
+                <div class="titleWrap">
+                    <p class="gridTitle">수정 요청 목록</p>
+                    <button type="button">더보기</button>
+                </div>
                 <ul class="userRequestCardList">
-                    <li class="userRequestCard">
+                    <!-- <li class="userRequestCard">
                         <div class="userRequestText">
                             <p class="userRequestTitle">
                                 움짤이 무슨 뜻인가요?
@@ -174,13 +195,14 @@
                                 2023/07/25 11:30
                             </p>
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
     </div>
-    <script src="/static/js/logout.js"></script>
     <script src="../static/js/navList_check.js"></script>
+    <script src="/static/js/login.js"></script>
+    <script src="/static/js/logout.js"></script>
     <script src="../static/js/myPage/userData.js"></script>
 </body>
 </html>

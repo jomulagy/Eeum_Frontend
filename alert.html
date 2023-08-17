@@ -22,7 +22,7 @@
                     <li><a href="board/list.html">게시판</a></li>
                 </ul>
             </div>
-            <div class="userInfo">
+            <div id="logout" class="userInfo">
                 <div class="navicon">
                     <ul class="naviconList">
                         <li>
@@ -33,8 +33,8 @@
                         </li>
                     </ul>
                 </div>
-            <div class="profileNavDiv">
-            <img id="navProfile" class="userProfile" src="../static/img/profile/원숭이.png" alt="유저프로필 사진">
+                <div class="profileNavDiv">
+                <img id="navProfile" class="userProfile" src="../static/img/profile/원숭이.png" alt="유저프로필 사진">
                         <ul class="btnWrap">
                         <li class="profileBrowserBtn">
                             <a href="myPage.html">마이페이지</a>
@@ -43,6 +43,15 @@
                             <p>로그아웃</p>
                         </li>
                         </ul>
+                </div>
+            </div>
+            <div id="login" class="userInfo" style="display: none;">
+                <div class="loginBtn" onclick="onclickLogin()" >
+                    <div class="loginContent">
+                        <img class="loginBtnImg"src="../static/img/kakao.png" alt="카카오톡 로고">
+                        <p class="loginBtnTxt">카카오톡으로 시작하기</p>
+                    </div>
+            </div>
             </div>
         </div>
     </nav>
@@ -50,7 +59,7 @@
         <div class="container">
             <div class="guideContainer">
                 <div class="guideTxt">
-                    귀여운 원숭이님의<br>알림 목록입니다.
+                    <!-- 귀여운 원숭이님의<br>알림 목록입니다. -->
                 </div>
                 <!-- <div class="guideBtn">
                         <input type="button" class="delAll" value="전체삭제" id="deleteAllBtn">
@@ -71,6 +80,7 @@
                     </ul> -->
             </ul>
         </div>
+        <script src="/static/js/login.js"></script>
         <script src="/static/js/logout.js"></script>
         <script src="/static/js/navList_check.js"></script>
         <script src="/static/js/alert/alert_data.js"></script>

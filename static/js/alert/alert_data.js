@@ -4,12 +4,17 @@ let access_token = localStorage.getItem("access");
 const alertContainer = document.querySelector(".alertCardList");
 
 document.addEventListener("DOMContentLoaded", function () {
-        const response = { 
-                "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY5MjE5Mjk5NSwiaWF0IjoxNjkyMTA2NTk1LCJqdGkiOiI2ZGQwMDYxZmNkNGU0MzVjYTMyMjBmNzk2MWZjMWUwOCIsInVzZXJfaWQiOjMxfQ.EbkGSDqtK1XcZQ1W6hiB_rSycswLCzx4xZuGT6NFmb8"
-        }
-
+    if (localStorage.getItem("refresh") == null){
+        alert("로그인이 필요한 서비스 입니다.")
+        window.location.href="index.html";
+    }
+    const response = { 
+        "refresh": localStorage.refresh
+    }
+    
     refreshAccessToken(response)
     getAlertData();
+    getUserInfo();
 
 const deleteAllBtn = document.getElementById("deleteAllBtn");
 const deleteSelectBtn = document.getElementById("deleteSelectBtn");
@@ -126,6 +131,7 @@ function getAlertData(){
         }
 });
 
+
 //dom 끝
 function removeSelectedAlerts(id){
         $.ajax({
@@ -165,10 +171,42 @@ function readPost(id){
         },
         success: function (res) {
             console.log(res)
-            alert('보내기 성공');
+            alert('알림을 읽었습니다.');
         },
         error: function (request, status, error) {
-            alert('보내기 실패');
+            alert('알림을 읽지 못했습니다.');
         }
     });
+}
+
+function getUserInfo() {
+    $.ajax({
+        type: 'GET',
+        url: 'http://3.34.3.84/api/account/user/',
+        contentType: 'application/json',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+        },
+        success: function(response) {
+            alert('유저 정보 불러오기 성공');
+            console.log("유저 data : ", response);
+            var user_nickname = response.nickname;
+            userInfo(user_nickname);
+        },
+        error: function(request, status, error) {
+            alert('불러오기 실패');
+        }
+    });
+}
+
+function userInfo(nickname){
+    var infoNameInput = document.querySelector(".guideTxt");
+    var username = document.createElement('p');
+    var currentNickname = nickname;
+    username.innerHTML = `
+    ${currentNickname}님의 <br>
+    알림 목록 입니다.
+    `    
+    infoNameInput.append(username);
+
 }

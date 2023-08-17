@@ -128,8 +128,6 @@ body{
     border-radius: 50%;
 }
 
-
-/* 호버 구현 css
 .userProfile {
     width: 3rem;
     height: 3rem;
@@ -181,7 +179,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items : center;
-} */
+}
 
 .container{
     min-width: 1200px;
@@ -288,6 +286,28 @@ body{
     padding: 1.25rem;
     border-radius: 1.25rem;
     background: #FFEEB0;
+}
+
+.titleWrap{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+.titleWrap button{
+    border-radius: 1.25rem;
+    width: 6rem;
+    height: 1.875rem;
+    background: #FFF;
+
+    color: #232427;
+    text-align: center;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    line-height: 130%; /* 1.21875rem */
+    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
+    cursor: pointer;
 }
 
 .gridTitle{
@@ -420,18 +440,18 @@ body{
     box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
 }
 
+.wordCardTop{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 0.125rem;
+}
+
 .wordCardBottom{
     display: flex;  
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
-}
-
-.wordCardBottomTxt{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
+    gap: 5.75rem;
 }
 
 .userWord{
