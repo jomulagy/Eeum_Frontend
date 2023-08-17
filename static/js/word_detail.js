@@ -251,6 +251,14 @@ $(document).ready(function () {
         }
     }
 
+    function displayiconContainer(){
+        if(localStorage.getItem(access)){
+            document.querySelector(".word_detail_iconcontainer").style.display = "block"
+        } else {
+            document.querySelector(".word_detail_iconcontainer").style.display = "none"
+        }
+    }
+
     $.ajax({
         type:"POST",
         url: "http://3.34.3.84/api/word/detail/",

@@ -201,6 +201,7 @@ $(document).ready(function () {
             console.log(value);
           
         }
+
         console.log(answer1);
         console.log(answer2);
 
@@ -217,7 +218,7 @@ $(document).ready(function () {
                 // 서버로부터의 응답을 처리
                 
                 console.log("데이터 성공적으로 변경");
-                // window.location.href = "modify_complete.html";
+                window.location.href = "modify_complete.html";
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 if (jqXHR.status === 401) {
