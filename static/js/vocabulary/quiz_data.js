@@ -1,12 +1,25 @@
-let access_token = localStorage.getItem("access");
+
+let quizData
+let fullData = [];
+let cardID = [];
+let titleID = [];
+let funcquizData = []
 
 document.addEventListener("DOMContentLoaded", function() {
+    var quizes = []
+
+    if (localStorage.getItem("refresh") == null){
+        alert("로그인이 필요한 서비스 입니다.")
+        window.location.href="index.html";
+    }
+
     const response = { 
-        "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY5MjE5Mjk5NSwiaWF0IjoxNjkyMTA2NTk1LCJqdGkiOiI2ZGQwMDYxZmNkNGU0MzVjYTMyMjBmNzk2MWZjMWUwOCIsInVzZXJfaWQiOjMxfQ.EbkGSDqtK1XcZQ1W6hiB_rSycswLCzx4xZuGT6NFmb8"
+        "refresh": localStorage.refresh
     }
 
     refreshAccessToken(response)
     getQuizData();
+
 
 // Refresh Token 재발급 함수
     function refreshAccessToken(response) {
@@ -37,71 +50,8 @@ document.addEventListener("DOMContentLoaded", function() {
 var reviewContainer = document.getElementById("review");
 var quizContainer = document.getElementById('quiz');
 
-var currentQuizIndex = 0;
+var currentQuizIndex = 0
 var score = 0;
-var buttonIds = ["A", "B", "C"];
-
-function showQuiz(data) {
-  var quizes = data.quizes;
-  console.log(quizes);
-
-  quizContainer.innerHTML = '';
-
-  var quiz = quizes[currentQuizIndex];
-  var choices = quiz.choices;
-
-  var quizDiv = document.createElement('div');
-  quizDiv.setAttribute("class", "quizWrap");
-
-  var titleElement = document.createElement('p');
-  titleElement.setAttribute("class", "quizQuestion");
-  titleElement.textContent = quiz.title;
-  quizDiv.appendChild(titleElement);
-
-  var choiceContainer = document.createElement('ul');
-  choiceContainer.setAttribute("class", "choiceContainer");
-
-  for (var j = 0; j < choices.length; j++) {
-      var choice = choices[j].choice;
-
-      var choiceCard = document.createElement('li');
-
-      var button = document.createElement('button');
-      button.setAttribute("type", "button");
-      button.setAttribute("class", "choiceCard");
-      button.setAttribute("id", buttonIds[j]); // Set unique button id
-
-      // 넘어가기
-      button.addEventListener('click', onChoiceClick);
-
-      var choiceTxt = document.createElement('p');
-      choiceTxt.setAttribute("class", "choiceTxt");
-      choiceTxt.textContent = choice;
-
-      button.appendChild(choiceTxt);
-      choiceCard.appendChild(button);
-      choiceContainer.appendChild(choiceCard);
-  }
-
-  quizDiv.appendChild(choiceContainer);
-  quizContainer.appendChild(quizDiv);
-}
-
-// 퀴즈 완료 시 호출되는 함수
-function completeQuiz() {
-    // 퀴즈 섹션을 숨김
-    document.getElementById('quiz').style.display = 'none';
-    // 결과 섹션을 표시
-    document.getElementById('result').removeAttribute('hidden');
-
-    var totalScore = document.querySelector(".quizScore");
-    var scoreContent = document.querySelector(".scoreContent");
-    var expContent = document.querySelector(".expContent");
-    
-    totalScore.textContent = (score*20)+"점";
-    scoreContent.textContent = "5문제 중 "+score+"문제 맞췄어요!";
-    expContent.textContent = "(경험치 "+(score*10)+"이 적립되었습니다.)";
-}
 
 function getQuizData(){
     $.ajax({
@@ -109,12 +59,13 @@ function getQuizData(){
         url: 'http://3.34.3.84/api/vocabulary/quiz/',
         contentType: 'application/json',
         beforeSend: function(xhr) {
-            xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+            xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access"));
         },
         success: function(response){
             alert('불러오기 성공');
             console.log("data : ", response);
-            showQuiz(response);
+            fullData = response.quizes;
+            createQuizFunc()
         },
         error: function(request, status, error){
             alert('불러오기 실패');
@@ -123,68 +74,117 @@ function getQuizData(){
     });
 }
 
-    // 함수를 통해 단어 카드 생성
-function showReview(data) {
-      const reviewData = data.words;
-    
-      for (var i = 0; i < reviewData.length; i++){
-        const wordItem = document.createElement("ul");
-        wordItem.classList.add("word");
-    
-        // let imageHtml = `<img src="${data.image}">`;
-    
-        // if (data.image_snd) {
-        //     imageHtml += `<img src="${data.image_snd}">`;
-        // }
-    
-      const word = reviewData[i];
-      wordItem.innerHTML = `
-      <li class="word_name">
-          <p>${reviewData.title}</p>
-      </li>
-      <li class="word_what"><p>${reviewData.content}</p></li>
-      <li class="word_heart">
-          <p>${reviewData.likes}</p>
-      </li>
-  `;
+function createChoiceCard(data, index) {
+    for (var j=0; j<3; j++){
+        var choiceContainer = document.getElementById('quiz'+index);
+        const choiceCard = document.createElement('li');
+        choiceCard.classList.add("choiceCard");
+        if (data[j].is_answer){
+            choiceCard.classList.add("answer");
+        } else{
+            choiceCard.classList.add("noAnswer");
+        }
 
-      // 클릭 이벤트 처리
-      wordItem.addEventListener("click", function() {
-          // 해당 단어 카드의 링크로 이동
-          window.location.href = "detail.html";
-      });
-  
-      reviewContainer.appendChild(wordItem);
-    }
-  }
-  
+      
+        choiceCard.innerHTML = `
+        <button type="button" class="choiceBtn">
+        <p>
+        ${data[j].choice}
+        </p>
+        </button>
+        `  
 
-// 선택지를 클릭했을 때 실행될 함수
-function onChoiceClick(event) {
-    var clickedChoice = event.target; // Get the clicked button
-    var choiceIndex = buttonIds.indexOf(clickedChoice.id);
-    var choices = data.quizes[currentQuizIndex].choices;
-    var isCorrect = choices[choiceIndex].is_answer; // Check if the choice is correct
+        choiceCard.addEventListener("click", function (){
+            var choiceBtn = choiceCard.getElementsByClassName("choiceBtn")[0]
+            if(choiceCard.classList.contains("answer")){
+                score ++;
+                choiceBtn.style.borderColor = "rgba(0,0,250,0.5)"
+                console.log("정답")
+                console.log(score)
+            } else{
+                choiceBtn.style.borderColor = "rgba(250,0,0,0.5)"
+                console.log("오답")
+            }
 
-    // Add color to choice based on correctness
-    if (isCorrect) {
-        score++;
-        clickedChoice.style.borderColor = '#87CEEB';
-        clickedChoice.querySelector('.choiceTxt').style.color = '#1EBEFF';
-    } else {
-        clickedChoice.style.borderColor = '#FF83A8';
-        clickedChoice.querySelector('.choiceTxt').style.color = '#F70A8D';
-    }
+        if (index < 5){
+            var nextIndex = document.getElementById("quiz"+(index+1));
+            nextIndex.style.display = 'block';
+            document.getElementById("quiz"+(index)).style.display = 'none';   
+        } else {
+            localStorage.setItem("point", score*10)
+    
+            $.ajax({
+                type: 'POST',
+                url: 'http://3.34.3.84/api/vocabulary/quiz/',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "point" : score*10
+                }), // 데이터를 JSON 문자열로 변환
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access"));
+                },
+                success: function (response) {
+                    if(response.status === 401){
+                        refreshAccessToken(response)
+                        .then(function (access_token) {
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: 'http://3.34.3.84/api/vocabulary/quiz/',
+                                        contentType: 'application/json',
+                                        data: JSON.stringify({
+                                            "point": score*10
+                                           }),
+                                        beforeSend: function (xhr) {
+                                            xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access"));
+                                        },
+                                        success: function (response) {
+                                            console.log("토큰 재발급, 이동 완료")
+                                            window.location.href = "quiz_complete.html";            
+                                        },
+                                        error: function (request, status, error) {
+                                            console.log('실패')
+                                        }
+                                    });
+                         })
+                        .catch(function (error) {
+                                    console.error('Refresh token 재발급 실패:', error);
+                        });
+                        }
+                        else{
+                            console.log("토큰 ok, 이동 완료")
+                            window.location.href = "quiz_complete.html"; 
+                        }
+                        },
+                        error: function (request, status, error) {
+                            console.log('점수 보내기 실패')
+                        },
+                error: function(request, status, error) {
+                    alert('보내기 실패');
+                }
+            });
+        }
 
-    // Move to the next quiz or complete the quiz
-    currentQuizIndex++;
-    if (currentQuizIndex < data.quizes.length) {
-        showQuiz(data);
-    } else {
-        document.body.style.backgroundColor = '#FFEEB0';
-        completeQuiz();
+        });
+      
+        choiceContainer.appendChild(choiceCard);
     }
 }
 
+function createQuizTitle(data, index){
+    var quizContainer = document.getElementById('quiz'+index);
+    const quizCard = document.createElement('p');
+    quizCard.classList.add("quizQuestion")
+    quizCard.setAttribute("id", "title")
+    quizCard.textContent = data;
+  
+    quizContainer.appendChild(quizCard);
+  }  
+
+function createQuizFunc(){
+    for (var i=0; i <5; i++){
+        createQuizTitle(fullData[i].title, i+1);
+        createChoiceCard(fullData[i].choices, i+1);
+    }
+}
 
 });

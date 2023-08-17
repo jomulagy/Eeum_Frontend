@@ -24,8 +24,9 @@ body{
 
 }
 
+
+
 .navBar {
-    z-index: 1000;
     position: fixed;
     display: flex;
     justify-content: space-between;
@@ -55,6 +56,7 @@ body{
     font-weight: bold;
 }
 
+
 /* nav icon list를 수평으로 표시하기 위해 수정 */
 .navicon {
     display: flex;
@@ -71,10 +73,11 @@ body{
 }
 
 .naviconList li img {
-    width: 24px;
-    height: 26px;
+    width: 30px;
+    height: 32px;
     fill: #232427;
 }
+
 
 .navList li {
     font-size: 1.2rem;
@@ -92,12 +95,10 @@ body{
     padding: 8px 12px;
 }
 
-.mainLogo > img {
+.mainLogo {
     font-size: 1.8rem;
     font-weight: bold;
     text-decoration: none;
-    width: 48px;
-    height: 25.12px;
 }
 
 .navList {
@@ -129,6 +130,7 @@ body{
     height: 3rem;
     border-radius: 50%;
 }
+
 
 /*container*/
 .container{
@@ -242,7 +244,7 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    gap: 0.56rem;
+    gap: 0.125em;
 }
 
 .img_container > img{

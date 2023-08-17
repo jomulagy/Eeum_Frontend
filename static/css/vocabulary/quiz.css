@@ -10,7 +10,6 @@
     font-family: 'Pretendard-Regular';
     font-style: normal;
     text-decoration-line: none;
-    border-style: none;
     margin: 0;
     padding: 0;
 }
@@ -140,11 +139,17 @@ body{
 }
 
 .quizWrap{
+
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 3rem;
     margin-top: 6rem;
+}
+
+.quizWrap div{
+    display: flex;
+    flex-direction: column;
 }
 
 .quizQuestion{
@@ -154,23 +159,37 @@ body{
     font-style: normal;
     font-weight: 600;
     line-height: 130%; /* 2.6rem */
+    margin-bottom: 3rem;
 }
 
 .choiceContainer{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+
 }
 
 .choiceCard{
+}
+
+.choiceBtn{
+    color: #232427;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%; /* 1.4625rem */
+    
+    border-style: solid;
+    border-width: 2px;
     width: 36.4375rem;
     height: 3.75rem;
+    margin-bottom: 1.5rem;
     border-color: #FFF;
     border-radius: 1.875rem;
     background: #FFF;
     box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -179,12 +198,12 @@ body{
     cursor: pointer;
 }
 
-.choiceCard:hover{
+.choiceBtn:hover{
     opacity: 0.8;
     background-color: #FFE173;
 }
 
-.choiceCard:active{
+.choiceBtn:active{
     position: relative;
     top: 2px;
 }
@@ -243,98 +262,9 @@ body{
     align-items: center;
 }
 
-.reviewContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.5rem;
-}
-
-.reviewTxt{
-    color: #232427;
-    font-size: 1.75rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 130%; /* 2.275rem */
-}
-
-.reviewWordList{
-    display: grid;  
-    grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 5rem;
-    row-gap: 3rem;
-}
-
-.word{
-    width: 17.375rem;
-    height: 12.5rem;
-    border-radius: 1.25rem;
-    background: #FFF;
-    box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
-}
-
-.word:hover{
-    opacity: 0.8;
-}
-
-.word:active{
-    position: relative;
-    top: 2px;
-}
-
-.word_name{
-    margin-top: 0.86rem;
-    margin-left: 1.48rem;
-    column-count: 2;
-    column-gap: 8rem;
-}
-
-.word_name > p{
-    width: 9.455rem;
-    height: 1.5rem;
-    color: #232427;
-    font-size: 1.25rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-
-.word_name > img{
-    width: 2.36931rem;
-    height: 2.25rem;
-}
-
-.word_what{
-    width: 14.35644rem;
-    height: 5rem;
-}
-
-.word_what > p{
-    color: #232427;
-    font-size: 1.125rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 150%; /* 1.6875rem */
-    margin-left: 1.5rem;
-}
-
-.word_heart{
-    width: 1.233rem;
-    height: 1rem;
-    margin-left: 1.48rem;
-    column-count: 2;
-}
-
-.word_heart > p{
-    margin-left: 0.62rem;
-    color: #232427;
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
 
 .wordBrowserBtn{
+    border-style: none;
     cursor: pointer;
     border-radius: 1.875rem;
     background: #FFF;

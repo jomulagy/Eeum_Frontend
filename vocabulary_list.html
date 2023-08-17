@@ -6,8 +6,7 @@
     <title>이음 : 세대와 세대를 이어주는 단어 사전</title>
     <link rel="stylesheet" href="../static/css/vocabulary/vocabulary.css">
     <link rel="stylesheet" href="../static/css/nav_logout.css">
-    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 </head>
 <body>
   <nav class="navBar">
@@ -21,7 +20,7 @@
                 <li><a href="board/list.html">게시판</a></li>
             </ul>
         </div>
-        <div class="userInfo">
+        <div id="logout" class="userInfo">
             <div class="navicon">
                 <ul class="naviconList">
                     <li>
@@ -32,8 +31,8 @@
                     </li>
                 </ul>
             </div>
-        <div class="profileNavDiv">
-        <img id="navProfile" class="userProfile" src="../static/img/profile/원숭이.png" alt="유저프로필 사진">
+            <div class="profileNavDiv">
+            <img id="navProfile" class="userProfile" src="../static/img/profile/원숭이.png" alt="유저프로필 사진">
                     <ul class="btnWrap">
                     <li class="profileBrowserBtn">
                         <a href="myPage.html">마이페이지</a>
@@ -42,6 +41,15 @@
                         <p>로그아웃</p>
                     </li>
                     </ul>
+            </div>
+        </div>
+        <div id="login" class="userInfo" style="display: none;">
+            <div class="loginBtn" onclick="onclickLogin()" >
+                <div class="loginContent">
+                    <img class="loginBtnImg"src="../static/img/kakao.png" alt="카카오톡 로고">
+                    <p class="loginBtnTxt">카카오톡으로 시작하기</p>
+                </div>
+        </div>
         </div>
     </div>
 </nav>
@@ -49,7 +57,7 @@
   <div class="container">
   <section id="vocabulary" style="display: block;">
     <div class="fix">
-      <p>귀여운 원숭이님의<br>단어장 입니다.</p>
+      <!-- <p>귀여운 원숭이님의<br>단어장 입니다.</p> -->
   </div>
   <div class="main">
       <div class="main_left">
@@ -140,8 +148,12 @@
         <input type="button" class="wordBrowserBtn" value="단어 저장하러 가기">
   </section>
 </div>
+
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="/static/js/login.js"></script>
 <script src="/static/js/logout.js"></script>
-<script src="../static/js/navList_check.js"></script>
-<script src="../static/js/vocabulary/vocabulary_data.js"></script>
+<script src="/static/js/navList_check.js"></script>
+<script src="/static/js/vocabulary/vocabulary_data.js"></script>
 </body>
 </html>

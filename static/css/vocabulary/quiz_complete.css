@@ -1,0 +1,11 @@
+.container{
+    min-width: 994px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10vh;
+    padding: 6rem;
+}
+
+body{
+    background-color: #FFEEB0;
+}

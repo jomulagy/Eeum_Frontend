@@ -1,17 +1,27 @@
 let wordData = [];
+let myQuest = [];
+let myRequest = [];
 let userName;
 let access_token = localStorage.getItem("access");
 
 const myUserWordContainer = document.getElementsByClassName("userWordCardList");
 
 document.addEventListener("DOMContentLoaded", function() {
-    const response = { 
-        "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY5MjE5Mjk5NSwiaWF0IjoxNjkyMTA2NTk1LCJqdGkiOiI2ZGQwMDYxZmNkNGU0MzVjYTMyMjBmNzk2MWZjMWUwOCIsInVzZXJfaWQiOjMxfQ.EbkGSDqtK1XcZQ1W6hiB_rSycswLCzx4xZuGT6NFmb8"
+    if (localStorage.getItem("refresh") == null){
+        alert("로그인이 필요한 서비스 입니다.")
+        window.location.href="index.html";
     }
+
+    const response = { 
+        "refresh": localStorage.refresh
+    }
+
     refreshAccessToken(response)
     getUserInfo();
     getUserWordData();
-    createWordCard()
+    getUserQuestionData();
+    getUserReuestData();
+
     let newName = ""; // 수정된 닉네임을 저장하는 변수
 
     const editBtn = document.getElementById("editBtn");
@@ -69,11 +79,10 @@ function refreshAccessToken(response) {
 }
 
 function createWordCard(wordData){
-    console.log(wordData)
-    const cardTitleDiv = document.querySelectorAll('.userWord');
-    let cardTitle = wordData.title;
+    const wordCardContainer = document.querySelector('.userWordCardList');
+    const wordCard = document.createElement('li');
+    wordCard.classList.add("userWordCard")
     let cardAges = wordData.ages;
-    let cardLikes =  wordData.likes;
 
     let imageHtml = ""; // Initialize imageHtml variable
     
@@ -103,27 +112,88 @@ function createWordCard(wordData){
         }
     }
 
-    cardItem.innerHTML = `
-    <li class="userWordCard">
-    <p>${wordData.title}</p>
+    wordCard.innerHTML = `
     <div class="wordCardTop">
-        ${imageHtml}
+    ${imageHtml}
+    </div>  
+    <div class = "contentWrap">
+    <div class="wordCardBottom">
+    <p class="userWord">${wordData.title}</p>
+        <div class="userWordLike">
+            <img class="userWordLikeHeart" src="../static/img/imoge/heartred.png">
+            <p class="userWordLikeNum">${wordData.likes}</p>
+        </div>
     </div>
-    </li>
-    <li class="word_heart">
-        <img src="../static/img/imoge/heartred.png">
-        <p>${wordData.likes}</p>
-    </li>
+    </div>
     `;
 
-    cardItem.setAttribute("id", `${wordData.id}`); // id 값을 설정
+    wordCard.addEventListener("click", function () {
+        const index = wordData.id;
+        console.log(index)
+        localStorage.setItem('word_id', index);
+        window.location.href = "/word/detail.html";
+    });
+
+    wordCardContainer.appendChild(wordCard);
 }
 
-function displayWord(wordData){
-    myUserWordContainer.innerHtml = "";
-    createWordCard(wordData);
+function createQuestCard(questData){
+    const questCardContainer = document.querySelector('.userQuestCardList');
+    const questCard = document.createElement('li');
+    questCard.classList.add("userQuestCard")
+
+    questCard.innerHTML = `
+    <div class="userQuestText">
+        <p class="userQuestTitle">
+            ${questData.title}
+        </p>
+        <p class="userQuestDate">
+            ${questData.created_at}
+        </p>
+    </div>
+    `;
+
+    questCard.addEventListener("click", function () {
+        const index = questData.id;
+        console.log(index)
+        localStorage.setItem('question_id', index);
+        // window.location.href = "/word/detail.html";
+        console.log(123123)
+    });
+
+
+
+    questCardContainer.appendChild(questCard);
 }
 
+function createRequestCard(requestData){
+    const requestCardContainer = document.querySelector('.userRequestCardList');
+    const requestCard = document.createElement('li');
+    requestCard.classList.add("userRequestCard")
+
+    requestCard.innerHTML = `
+    <div class="userRequestText">
+        <p class="userRequestTitle">
+            ${requestData.title}
+        </p>
+        <p class="userRequestDate">
+            ${requestData.created_at}
+        </p>
+    </div>
+    `;
+
+    requestCard.addEventListener("click", function () {
+        const index = requestData.id;
+        console.log(index)
+        localStorage.setItem('edit_id', index);
+        // window.location.href = "/word/detail.html";
+        console.log("수정요청")
+    });
+
+
+
+    requestCardContainer.appendChild(requestCard);
+}
 
 function changeData(newName) {
     var requestData = {
@@ -217,17 +287,6 @@ function userInfo(nickname, age){
     infoAgeInput.innerText = age+"대";
 }
 
-// function userWordData(){
-//     // 등록한 단어 목록 삽입
-//     var wordList = jsonData.my_words;
-//     var wordListContainer = document.querySelector(".detail_tab#word_register_tab .tab_content");
-//     for (var i = 0; i < Math.min(wordList.length,4); i++) { //최대 4개의 list만 뜨게 제한
-//         var wordElement = document.createElement("p");
-//         wordElement.textContent = wordList[i];
-//         wordListContainer.appendChild(wordElement);
-//     }
-// }
-
 function getUserWordData(){
     $.ajax({
         type: 'GET',
@@ -239,7 +298,7 @@ function getUserWordData(){
         success: function(response) {
             alert('단어 데이터 불러오기 성공');
             console.log("단어 data : ", response);
-            const userWordData = response;
+            let userWordData = response;
             for (var i = 0; i < Math.min(userWordData.length,3); i++){
                 wordData = response[i]
                 createWordCard(wordData)
@@ -251,27 +310,53 @@ function getUserWordData(){
     });
 }
 
-// //단어 상세에서 훔쳐온거
+function getUserQuestionData(){
+    $.ajax({
+        type: 'GET',
+        url: 'http://3.34.3.84/api/account/user/question/',
+        contentType: 'application/json',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+        },
+        success: function(response) {
+            alert('질문 데이터 불러오기 성공');
+            console.log("질문 data : ", response);
+            const userQuestData = response;
+            for (var i = 0; i < Math.min(userQuestData.length,10); i++){
+                myQuest = response[i]
+                createQuestCard(myQuest)
+            }
+        },
+        error: function(request, status, error) {
+            alert('질문 불러오기 실패');
+        }
+    });
+}
 
-// function createElement(jsonData){
-//     // 단어와 단어 뜻 삽입
-// document.getElementById("word_title").textContent = jsonData.title;
-// document.getElementById("word_age_icon1").src = "/static/img/age/age_" + jsonData.age[0] + ".png";
-// document.getElementById("word_age_icon2").src = "/static/img/age/age_" + jsonData.age[1] + ".png";
-// if(jsonData.image != null){
-//     document.getElementById("word_img").src = jsonData.image;
-// } else{
-//     document.getElementById("word_img").style.display = "none";
-// }
+function getUserReuestData(){
+    $.ajax({
+        type: 'GET',
+        url: 'http://3.34.3.84/api/account/user/edit/',
+        contentType: 'application/json',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+        },
+        success: function(response) {
+            alert('수정 요청 데이터 불러오기 성공');
+            console.log("수정 요청 data : ", response);
+            const userRequestData = response;
+            for (var i = 0; i < Math.min(userRequestData.length,10); i++){
+                myRequest = response[i]
+                createRequestCard(myRequest)
+            }
+        },
+        error: function(request, status, error) {
+            alert('수정요청 불러오기 실패');
+        }
+    });
+}
 
-// document.getElementById("word_mean").textContent = jsonData.mean;
-// document.getElementById("word_detail_content").textContent = jsonData.content;
 
-// // 좋아요 및 작성자 정보 삽입
-// document.getElementById("like_count").textContent = jsonData.likes;
-// document.querySelector(".word_detail_userinfo p").textContent = "작성자 : " + jsonData.author.nickname;
-// var authorTitle = document.querySelector(".detail_tab#word_register_tab .tab_title");
-// authorTitle.textContent = jsonData.author.nickname + " 님의 등록 단어";
 
 // // 수정 요청 목록 삽입
 // var editList = jsonData.edits;

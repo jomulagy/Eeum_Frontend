@@ -1,5 +1,6 @@
+
 let access_token = localStorage.getItem("access");
-let age = [];
+let data;
 let wordData = [];
 
 const itemsPerPage = 12; // 페이지당 보여줄 아이템 개수
@@ -9,12 +10,21 @@ const paginationContainer = document.getElementById("paginationContainer");
 let vocaLength;
 
 document.addEventListener("DOMContentLoaded", function() {
+
+    console.log(localStorage)
+    if (localStorage.getItem("refresh") == null){
+        alert("로그인이 필요한 서비스 입니다.")
+        window.location.href="index.html";
+    }
+    
     const response = { 
-        "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY5MjE5Mjk5NSwiaWF0IjoxNjkyMTA2NTk1LCJqdGkiOiI2ZGQwMDYxZmNkNGU0MzVjYTMyMjBmNzk2MWZjMWUwOCIsInVzZXJfaWQiOjMxfQ.EbkGSDqtK1XcZQ1W6hiB_rSycswLCzx4xZuGT6NFmb8"
+        "refresh": localStorage.refresh
     }
 
+    console.log(response)
     refreshAccessToken(response)
     getWordData();
+    getUserInfo();
     
     function createWordCard_snd(item) {
         wordData = item;
@@ -22,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const wordItem = document.createElement("ul");
         wordItem.classList.add("word");
     
+        let age = [];
         age = wordData.ages;
         console.log(age)
 
@@ -184,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (vocaLength === 0){
                     updateWordContainerVisibility()
                 } else {
-                    const data = response;
+                    data = response;
                     console.log(data);
                     createPaginationButtons(Math.ceil(data.length / itemsPerPage), initialPageNumber); // 초기 페이지는 1로 설정
                     displayPageItems(initialPageNumber, data);
@@ -224,6 +235,38 @@ function refreshAccessToken(response) {
             }
         });
     });
+}
+
+function getUserInfo() {
+    $.ajax({
+        type: 'GET',
+        url: 'http://3.34.3.84/api/account/user/',
+        contentType: 'application/json',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+        },
+        success: function(response) {
+            alert('유저 정보 불러오기 성공');
+            console.log("유저 data : ", response);
+            var user_nickname = response.nickname;
+            userInfo(user_nickname);
+        },
+        error: function(request, status, error) {
+            alert('불러오기 실패');
+        }
+    });
+}
+
+function userInfo(nickname){
+    var infoNameInput = document.querySelector(".fix");
+    var username = document.createElement('p');
+    var currentNickname = nickname;
+    username.innerHTML = `
+    ${currentNickname}님의 <br>
+    단어장 입니다.
+    `    
+    infoNameInput.append(username);
+
 }
 
 });
