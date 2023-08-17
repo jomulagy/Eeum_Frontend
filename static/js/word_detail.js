@@ -192,29 +192,7 @@ $(document).ready(function () {
         });
     });
 
-    refreshAccessToken(response)
-    .then(function (access_token) {
-        $.ajax({
-            type: 'GET',
-            url: 'http://3.34.3.84/api/account/user/',
-            contentType: 'application/json',
-            dataType: 'json',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access"));
-            },
-            success: function (response) {
-                console.log('성공')
-                userData = response;
-                console.log(userData);
-            },
-            error: function (request, status, error) {
-                console.log('실패')
-            }
-        });
-    })
-    .catch(function (error) {
-        console.error('Refresh token 재발급 실패:', error);
-    });
+   
 
     $.ajax({
         type:"GET",
@@ -226,7 +204,29 @@ $(document).ready(function () {
         success: function(response){
                // 서버로부터의 응답을 처리
                if (response.status === 401) {
-                refreshAccessToken(refresh)
+                refreshAccessToken(response)
+                .then(function (access_token) {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'http://3.34.3.84/api/account/user/',
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access"));
+                        },
+                        success: function (response) {
+                            console.log('성공')
+                            userData = response;
+                            console.log(userData);
+                        },
+                        error: function (request, status, error) {
+                            console.log('실패')
+                        }
+                    });
+                })
+                .catch(function (error) {
+                    console.error('Refresh token 재발급 실패:', error);
+                });
               } 
               else{
                 userData = response;
