@@ -24,6 +24,7 @@ function refreshAccessToken(response) {
       });
   });
 }   
+
 //드롭 다운 버튼 js
 const dropdownButton = document.getElementById("dropdown-btn");
 const dropdownContent = document.getElementById("dropdown-content");
@@ -84,7 +85,7 @@ $(document).ready(function () {
       }
   });
   $('#changing_inform_submitbtn').click(function () {
-    var answer1 = $('#changing_inform_textarea').val(); // 선택된 드롭다운 값 저장
+    var answer1 = $('.dropdown-btn').text(); 
     var answer2 = $('#changing_inform_textarea').val();
 
     var questionData = {
@@ -98,7 +99,45 @@ $(document).ready(function () {
       "refresh": localStorage.getItem("refresh")
     };
 
-    refreshAccessToken(response)
+    console.log(questionData);
+    
+
+    // refreshAccessToken(response)
+    //   .then(function (access_token) {
+    //     $.ajax({
+    //       type: 'POST',
+    //       url: 'http://3.34.3.84/api/word/edit/create/',
+    //       contentType: 'application/json',
+    //       data:JSON.stringify(questionData),
+    //       beforeSend: function () {
+    //         xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access"));
+    //       },
+    //       success: function (response) {
+    //         alert('성공');
+    //       },
+    //       error: function (request, status, error) {
+    //         alert('실패')
+    //       }
+    //     });
+    //   })
+    //   .catch(function (error) {
+    //     console.error('Refresh token 재발급 실패:', error);
+    //   });
+
+    $.ajax({
+      type: "POST",
+      url: "http://3.34.3.84/api/word/edit/create/", // 실제 URL로 변경해야 합니다.
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('access')}`
+      },
+      data: JSON.stringify(questionData),
+      contentType: 'application/json', // 필요한 경우 Content-Type 설정 방지
+      success: function (response) {
+        // 서버로부터의 응답을 처리
+        if (response.status === 401) {
+          console.error("Unauthorized:", jqXHR.responseText);
+          // refreshAccessToken(refresh)
+          refreshAccessToken(response)
       .then(function (access_token) {
         $.ajax({
           type: 'POST',
@@ -119,20 +158,6 @@ $(document).ready(function () {
       .catch(function (error) {
         console.error('Refresh token 재발급 실패:', error);
       });
-
-    $.ajax({
-      type: "POST",
-      url: "http://3.34.3.84/api/word/edit/create/", // 실제 URL로 변경해야 합니다.
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('access')}`
-      },
-      data: JSON.stringify(questionData),
-      contentType: 'application/json', // 필요한 경우 Content-Type 설정 방지
-      success: function (response) {
-        // 서버로부터의 응답을 처리
-        if (response.status === 401) {
-          console.error("Unauthorized:", jqXHR.responseText);
-          refreshAccessToken(refresh)
         }
         console.log("데이터가 성공적으로 전송");
         window.location.href = "inform_complete.html";
