@@ -46,6 +46,10 @@ for (const item of dropdownItems) {
 
 //질문 id를 받아서 다음 질문으로 넘어갈 수 있도록 하는 js
 $(document).ready(function () {
+    if (localStorage.getItem("refresh") == null){
+    alert("로그인이 필요한 서비스 입니다.")
+    window.location.href="index.html";
+    }
     $(".nextButton").on("click", function () {
         // 현재 표시되고 있는 질문의 ID를 가져옴
         var currentQuestion = $(this).closest(".changing_inform_question").attr("id");

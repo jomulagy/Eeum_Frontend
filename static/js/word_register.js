@@ -27,7 +27,10 @@ function refreshAccessToken(response) {
 
 //질문 넘어가기에 대한 js
 $(document).ready(function () {
-    
+    if (localStorage.getItem("refresh") == null){
+        alert("로그인이 필요한 서비스 입니다.")
+        window.location.href="index.html";
+    }
     var userData;
 
     $.ajax({
@@ -156,7 +159,7 @@ $(document).ready(function () {
                     $('#word_container .word_name p').text(wordName);
                     $('#word_container .word_what p').text(wordDescription);
                     $('#word_container .word_heart p').text(wordLikes);
-                    
+
                     if (wordAges.length >= 1) {
                         $('#word_age_icon1').attr('src', "/static/img/age/age_" + wordAges[0] + ".png");
                         $('#word_age_icon1').show();
