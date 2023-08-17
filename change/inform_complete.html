@@ -38,8 +38,15 @@
         <img class="logo" src="/static/img/icon/check_mark_3d.png" alt="체크 로고">
         <p class="complete_content">등록 감사합니다. 땡큐</p>
         <p class="complete_content">(50 경험치가 적립되었습니다)</p>
-        <button class="go_back_btn">사전으로 돌아가기</button>
+        <button class="go_back_btn" id="go_back_btn_inform">사전으로 돌아가기</button>
     </div>
 </body>
+<script>
+    const Button = document.getElementById('go_back_btn_inform');
+
+    Button.addEventListener('click', function () {
+        window.location.href = '/dictionary/list.html';
+    })
+</script>
 <script src="/static/js/navList_check.js"></script>
 </html>

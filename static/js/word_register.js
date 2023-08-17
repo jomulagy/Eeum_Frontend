@@ -159,28 +159,30 @@ $(document).ready(function () {
         var response = {
             "refresh": localStorage.getItem('refresh')
         };
-    
-        refreshAccessToken(response)
-            .then(function (access_token) {
-                $.ajax({
-                    type: 'POST',
-                    url: 'http://3.34.3.84/api/word/create/',
-                    contentType: 'application/json',
 
-                    beforeSend: function () {
-                        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('access'));
-                    },
-                    success: function (response) {
-                        alert('성공')
-                    },
-                    error: function (request, status, error) {
-                        alert('실패')
-                    }
-                });
-            })
-            .catch(function (error) {
-                console.error('Refresh token 재발급 실패:', error);
-            });
+        console.log(answer2);
+    
+        // refreshAccessToken(response)
+        //     .then(function (access_token) {
+        //         $.ajax({
+        //             type: 'POST',
+        //             url: 'http://3.34.3.84/api/word/create/',
+        //             contentType: 'application/json',
+
+        //             beforeSend: function () {
+        //                 xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('access'));
+        //             },
+        //             success: function (response) {
+        //                 alert('성공')
+        //             },
+        //             error: function (request, status, error) {
+        //                 alert('실패')
+        //             }
+        //         });
+        //     })
+        //     .catch(function (error) {
+        //         console.error('Refresh token 재발급 실패:', error);
+        //     });
 
         $.ajax({
             type: "POST",
@@ -199,7 +201,29 @@ $(document).ready(function () {
             error: function (jqXHR, textStatus, errorThrown) {
                 if (jqXHR.status === 401) {
                   console.error("Unauthorized:", jqXHR.responseText);
-                  refreshAccessToken(refresh)
+                //   refreshAccessToken(refresh)
+                  refreshAccessToken(response)
+                  .then(function (access_token) {
+                      $.ajax({
+                          type: 'POST',
+                          url: 'http://3.34.3.84/api/word/create/',
+                          contentType: 'application/json',
+      
+                          beforeSend: function () {
+                              xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('access'));
+                          },
+                          success: function (response) {
+                              alert('성공')
+                          },
+                          error: function (request, status, error) {
+                              alert('실패')
+                          }
+                      });
+                  })
+                  .catch(function (error) {
+                      console.error('Refresh token 재발급 실패:', error);
+                  });
+      
                 } else if (jqXHR.status === 404) {
                   console.error("Not found:", jqXHR.responseText);
                   alert("사용자가 존재하지 않습니다.");
