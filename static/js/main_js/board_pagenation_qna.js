@@ -96,7 +96,13 @@ function createQnaCard(data) {
 
 function displayPageItems(pageNumber, data) {
     const startIndex = (pageNumber - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
+    var endPage;
+    if (totalPages == 0){
+        endPage=1
+    }
+    else{
+        endPage = Math.min(startPage + 4, totalPages);
+    }
     console.log(pageNumber);
     qnaCardContainer.innerHTML = ""; // 기존 아이템 초기화
     console.log(data);
@@ -151,7 +157,7 @@ function createPaginationButtons(totalPages, currentPage) {
 var formData = new FormData();
 formData.append("type", "질문");
 formData.append("sort", "최신");
-formData.append("word_id", 16);
+formData.append("word_id", localStorage.getItem('word_id'));
 var response = {
     "refresh": localStorage.getItem('refresh')
 };

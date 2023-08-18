@@ -78,13 +78,15 @@ function getWords() {
             paginationHtml += '<button id="prevButton" class="pag_btn">&lt;</button>';
 
             const startPage = Math.max(currentPage - 2, 1);
-            if (totalPages == 0){
-                endPage=1
+            var endPage;
+            if (totalPages == 0) {
+                endPage = 1
             }
-            else{
-                const endPage = Math.min(startPage + 4, totalPages);
+            else {
+                endPage = Math.min(startPage + 4, totalPages);
             }
-        
+
+
 
             for (let i = startPage; i <= endPage; i++) {
                 if (i === currentPage) {

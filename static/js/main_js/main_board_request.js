@@ -112,7 +112,13 @@ function createPaginationButtons(totalPages, currentPage) {
     paginationHtml += '<button id="prevButton" class="pag_btn">&lt;</button>';
 
     const startPage = Math.max(currentPage - 2, 1);
-    const endPage = Math.min(startPage + 4, totalPages);
+    var endPage;
+    if (totalPages == 0){
+        endPage=1
+    }
+    else{
+        endPage = Math.min(startPage + 4, totalPages);
+    }
 
     for (let i = startPage; i <= endPage; i++) {
         if (i === currentPage) {
