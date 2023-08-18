@@ -4,7 +4,7 @@
 
 /* 로그인 */
 
-.loginBtn{
+.loginBtn {
     border-radius: 1.25rem;
     background: #FFE173;
     filter: drop-shadow(0px 4px 4px rgba(160, 160, 160, 0.25));
@@ -14,35 +14,36 @@
     cursor: pointer;
 }
 
-.loginBtn:hover{
+.loginBtn:hover {
     opacity: 0.8;
 }
 
-.loginBtn:active{
+.loginBtn:active {
     position: relative;
     top: 2px;
 }
 
-.loginContent{
+.loginContent {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 0.5rem;
 }
 
-.loginBtnImg{
+.loginBtnImg {
     width: 1.12rem;
     height: 1.12rem;
 }
 
-.loginBtnTxt{
+.loginBtnTxt {
     margin-top: 0.9rem;
     margin-bottom: 0.9rem;
     color: #232427;
     text-align: center;
     font-size: 0.8rem;
     font-weight: 500;
-    line-height: 130%; /* 1.625rem */
+    line-height: 130%;
+    /* 1.625rem */
 }
 
 /* 로그아웃 */
@@ -57,7 +58,7 @@
 
 .profileNavDiv .btnWrap {
     visibility: hidden;
-    position: absolute; 
+    position: absolute;
     background-color: rgba(255, 225, 115, 0.25);
     width: 6rem;
     height: 6.75rem;
@@ -75,7 +76,7 @@
     gap: 1rem;
 }
 
-.profileBrowserBtn{
+.profileBrowserBtn {
     display: flex;
     width: 5.25rem;
     height: 2rem;
@@ -87,23 +88,24 @@
     align-items: center;
 }
 
-.profileBrowserBtn *{
+.profileBrowserBtn * {
     cursor: pointer;
     color: #232427;
     font-size: 0.75rem;
     font-weight: 600;
 }
 
-.profileNavDiv{
+.profileNavDiv {
     display: flex;
     flex-direction: column;
-    align-items : center;
+    align-items: center;
 }
 
-li{
+li {
     list-style: none;
 }
 
-.userProfile{
-    
+.userProfile {
+    width: 2,25rem;
+    height: 2.25rem;
 }

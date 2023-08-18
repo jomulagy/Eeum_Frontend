@@ -196,7 +196,7 @@ $.ajax({
                         url: 'http://3.34.3.84/api/word/edit/recent/',
                         contentType: 'application/json',
 
-                        beforeSend: function () {
+                        beforeSend: function (xhr) {
                             xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('access'));
                         },
                         success: function (response) {
