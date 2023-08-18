@@ -203,6 +203,7 @@ body {
     color: #232427;
     text-align: center;
     font-family: 'Pretendard-regular';
+    width: 24rem;
     padding: 0.5rem 0.8rem 0.5rem;
     margin-left: 0.5rem;
     font-size: 0.9rem;
@@ -317,6 +318,9 @@ body {
 #floating_button_wrap {
     text-align: right;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .floating_icon {
@@ -340,13 +344,13 @@ body {
 
 .floating_button_name{
     display: inline-block;
-    width: 100px;
+    width: 130px;
     height: 100px;
     position: sticky;
     top: 28rem;
     font-weight: bold;
     font-size: 1.1rem;
-    margin-right: 0.1rem;
+    margin-right: 1rem;
 }
 
 .floating_button img {
