@@ -73,6 +73,7 @@ function createAlertCard(alertData){
         
         if(type === "포인트") {
             readPost(index);
+            window.location.href = "myPage.html";
         } else if (type === "수정 요청") {
             console.log("수정 요청 클릭됨:", index);
             localStorage.setItem('qnafixCard_id', index);
