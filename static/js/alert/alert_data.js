@@ -51,7 +51,7 @@ function createAlertCard(alertData){
     const alertItem = document.createElement('ul');
     alertItem.classList.add("alertCard");
 
-    alertItem.setAttribute("id", `wordCard_${alertItemData.id}`); // id 값을 설정
+    alertItem.setAttribute("id", `wordCard_${alertItemData.target_id}`); // id 값을 설정
 
     alertItem.innerHTML = `
     <div class="cardInfo">
@@ -71,35 +71,28 @@ function createAlertCard(alertData){
 
         console.log("Clicked:", type); 
         
-        if (!read) {
-            removeSelectedAlerts(index);
-        } else{
         if(type === "포인트") {
             readPost(index);
         } else if (type === "수정 요청") {
             console.log("수정 요청 클릭됨:", index);
-            localStorage.setItem('word_id', index);
+            localStorage.setItem('qnafixCard_id', index);
             readPost(index);
-            window.location.href = "/request/list.html";
+            window.location.href = "wordfix/detail.html";
         }else if (type === "등록 요청") {
             console.log("등록 요청 클릭됨:", index);
-            localStorage.setItem('word_id', index);
-            readPost(index);
-            window.location.href = "/request/list.html";
+            localStorage.setItem('qnaCardid', index);
+            readPost(index, "/registrationrequest/detail.html");
         }else if (type === "단어") {
             console.log("단어 클릭됨:", index);
             localStorage.setItem('word_id', index);
-            readPost(index);
-            window.location.href = "/word/detail.html";
+            readPost(index, "/word/detail.html");
         }
         else if (type === "질문") {
             console.log("질문 클릭됨:", index);
-            localStorage.setItem('word_id', index);
-            readPost(index);
-            window.location.href = "/qna/list.html";
+            localStorage.setItem('qnaqnaCard_id', index);
+            readPost(index,"/qna/detail.html" );
         }
 
-        } 
     });
 
     alertContainer.appendChild(alertItem);
@@ -120,7 +113,6 @@ function getAlertData(){
                     xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
                 },
                 success: function(response) {
-                    alert('불러오기 성공');
                     console.log("data : ", response);
                     displayAlert(response)
                 },
@@ -151,6 +143,7 @@ function removeSelectedAlerts(id){
                 if (alertCard) {
                     alertCard.remove();
                 }
+
             },
             error: function (request, status, error) {
                 alert('삭제 실패');
@@ -158,7 +151,7 @@ function removeSelectedAlerts(id){
         });
 }
 
-function readPost(id){
+function readPost(id, url){
     $.ajax({
         type: 'POST',
         url: `http://3.34.3.84/api/message/`, // 각 알림 카드의 id에 해당하는 URL로 삭제 요청
@@ -172,6 +165,8 @@ function readPost(id){
         success: function (res) {
             console.log(res)
             alert('알림을 읽었습니다.');
+            console.log(url)
+            window.location.href = url;
         },
         error: function (request, status, error) {
             alert('알림을 읽지 못했습니다.');
@@ -188,7 +183,6 @@ function getUserInfo() {
             xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
         },
         success: function(response) {
-            alert('유저 정보 불러오기 성공');
             console.log("유저 data : ", response);
             var user_nickname = response.nickname;
             userInfo(user_nickname);

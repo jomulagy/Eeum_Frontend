@@ -156,9 +156,8 @@ function createQuestCard(questData){
     questCard.addEventListener("click", function () {
         const index = questData.id;
         console.log(index)
-        localStorage.setItem('question_id', index);
-        // window.location.href = "/word/detail.html";
-        console.log(123123)
+        localStorage.setItem('qnaqnaCard_id', index);
+        window.location.href = "/qna/detail.html";
     });
 
 
@@ -185,9 +184,8 @@ function createRequestCard(requestData){
     requestCard.addEventListener("click", function () {
         const index = requestData.id;
         console.log(index)
-        localStorage.setItem('edit_id', index);
-        // window.location.href = "/word/detail.html";
-        console.log("수정요청")
+        localStorage.setItem('qnafixCard_id', index);
+        window.location.href = "wordfix/detail.html";
     });
 
 
