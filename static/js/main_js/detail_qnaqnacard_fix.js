@@ -36,34 +36,33 @@ function refreshAccessToken(response) {
 }
 
 function createQnaCard(data) {
-    console.log(data);
     const qnaCard = document.createElement("div");
     qnaCard.classList.add("qna_card");
-
+    const item = data.data.edit;
     qnaCard.innerHTML = `
-            <div class="qna_card_img"><img src="${data.question.author.image}"></div>
+            <div class="qna_card_img"><img src="${item.author.image}"></div>
             <div class="qna_card_inf">
                 <div class="qna_card_name">
-                    <p>${data.question.author.nickname}</p>
+                    <p>${item.author.nickname}</p>
                 </div>
                 <div class="qna_card_date">
-                    <p>&nbsp;· ${data.question.created_at}</p>
+                    <p>&nbsp;· ${item.created_at}</p>
                 </div>
                 <div class="qna_card_view">
-                    <p>&nbsp;· 조회수 ${data.question.views}</p>
+                    <p>&nbsp;· 조회수 ${item.views}</p>
                 </div>
                 <div class="qna_card_a_view">
-                    <p>&nbsp;· 답변수 ${data.question.answers}</p>
+                    <p>&nbsp;· 답변수 ${item.comment_count}</p>
                 </div>
             </div>
             <div class="qna_card_a_text">
-                <h1>${data.question.title}</h1>
-                <h2>${data.question.content}</h2>
+                <h1>${item.title}</h1>
+                <h2>${item.content}</h2>
             </div>
             <div class="qna_card_q">
                 <button id="likeBtn" class="like-button" onclick="countqView();">
                     <img src="/static/img/imoge/thinking_face_color.png">
-                    <p>나도 궁금해요 ${data.question.likes}</p>
+                    <p>나도 궁금해요 ${item.likes}</p>
                 </button>
             </div>
             <div class="qna_card_background"></div>
@@ -72,90 +71,20 @@ function createQnaCard(data) {
     qnaCardContainer.appendChild(qnaCard);
 }
 
-function wordReal(data) {
-    if (data.word === null) {
-        commentTxt.style.display = "none"; // "질문한 단어가 등록되었습니다." 문구 감춤
-    } else {
-        createWordCard(data);
-    }
-}
-//단어가 있는지 없는지 검사
 
-function createWordCard(item) {
-    console.log(item)
-
-    const wordItem = document.createElement("ul");
-    wordItem.classList.add("word");
-
-    const age = item.word.age; // Assume age is an array containing age values
-
-    let imageHtml = ""; // Initialize imageHtml variable
-
-    if (age[0] === 10) {
-        imageHtml += `<img src="../static/img/age/age_10.png">`;
-    } else if (age[0] === 20) {
-        imageHtml += `<img src="../static/img/age/age_20.png">`;
-    } else if (age[0] === 30) {
-        imageHtml += `<img src="../static/img/age/age_30.png">`;
-    } else if (age[0] === 40) {
-        imageHtml += `<img src="../static/img/age/age_40.png">`;
-    } else if (age[0] === 50) {
-        imageHtml += `<img src="../static/img/age/age_50.png">`;
-    }
-
-    if (age[1]) {
-        if (age[1] === 10) {
-            imageHtml += `<img src="../static/img/age/age_10.png">`;
-        } else if (age[1] === 20) {
-            imageHtml += `<img src="../static/img/age/age_20.png">`;
-        } else if (age[1] === 30) {
-            imageHtml += `<img src="../static/img/age/age_30.png">`;
-        } else if (age[1] === 40) {
-            imageHtml += `<img src="../static/img/age/age_40.png">`;
-        } else if (age[1] === 50) {
-            imageHtml += `<img src="../static/img/age/age_50.png">`;
-        }
-    }
-
-    wordItem.innerHTML = `
-            <li class="word_name">
-                <p>${item.word.title}</p>
-                <div class="img_container">
-                    ${imageHtml}
-                </div>
-            </li>
-            <li class="word_what"><p>${item.word.content}</p></li>
-            <li class="word_heart">
-                <img src="../static/img/imoge/heartred.png">
-                <p>${item.word.likes}</p>
-            </li>
-        `;
-
-    // 클릭 이벤트 처리
-    wordItem.addEventListener("click", function () {
-        // 해당 단어 카드의 링크로 이동
-        var wordId = item.id;
-        localStorage.setItem('word_id', wordId);
-        window.location.href = "/word/detail.html";
-    });
-    wordContainer.appendChild(wordItem);
-
-}
 //=============================================================
 
 function createQna_answer(data) {
-    for (let i = 0; i < data.comments.length; i++) {
+    for (let i = 0; i < data.comment.length; i++) {
         const qnaCard = document.createElement("div");
         qnaCard.classList.add("qna_card");
-        qnaCard.classList.add("qna_card");
-        qnaCard.setAttribute("id", "comment"+data.comments[i].id);
-        const dataimage = data.comments[i].author.image;
-        const datanickname = data.comments[i].author.nickname;
-        const datacreat = data.comments[i].created_at;
-        const datacontent = data.comments[i].content;
-        const datalikes = data.comments[i].likes;
-        const commentId = data.comments[i].id; // 댓글의 ID 가져오기
-        console.log(commentId);
+        qnaCard.setAttribute("id", "comment"+data.comment[i].id);
+        const dataimage = data.comment[i].author.image;
+        const datanickname = data.comment[i].author.nickname;
+        const datacreat = data.comment[i].created_at;
+        const datacontent = data.comment[i].content;
+        const datalikes = data.comment[i].likes;
+        const commentId = data.comment[i].id; // 댓글의 ID 가져오기
         qnaCard.innerHTML = `
             <div class="qna_card_img"><img src="${dataimage}"></div>
             <div class="qna_card_inf">
@@ -184,13 +113,13 @@ function createQna_answer(data) {
 
 
 function createQna_answer_plus(data) {
-
+    console.log(data);
     const qnaCard = document.createElement("div");
     qnaCard.classList.add("qna_card");
     qnaCard.setAttribute("id", "comment"+data.id);
     qnaCard.innerHTML = `
             <div class="qna_card_img"><img src="${data.author.image}"></div>
-            <div cla    ss="qna_card_inf">
+            <div class="qna_card_inf">
                 <div class="qna_card_name">
                     <p>${data.author.nickname}</p>
                 </div>
@@ -220,7 +149,7 @@ function createQna_answer_plus(data) {
 function addComment() {
     const commentContent = commentInput.value.trim();
     var formData = new FormData();
-    formData.append("question_id", localStorage.getItem('qnaCard_id'));
+    formData.append("edit_id", localStorage.getItem('qnafixCard_id'));
     formData.append("content", commentContent);
 
     var response = {
@@ -231,7 +160,7 @@ function addComment() {
 
     $.ajax({
         type: "POST",
-        url: "http://3.34.3.84/api/question/commentcreate/", // 실제 URL로 변경해야 합니다.
+        url: "http://3.34.3.84/api/word/comment/create/", // 실제 URL로 변경해야 합니다.
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('access')}`
         },
@@ -242,7 +171,7 @@ function addComment() {
             // 서버로부터의 응답을 처리
             console.log("데이터가 성공적으로 전송");
             console.log(response);
-            createQna_answer_plus(response);
+            createQna_answer_plus(response.data.edit);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             if (jqXHR.status === 401) {
@@ -253,7 +182,7 @@ function addComment() {
 
                         $.ajax({
                             type: 'POST',
-                            url: 'http://3.34.3.84/api/question/commentcreate/',
+                            url: 'http://3.34.3.84/api/word/comment/create/',
                             contentType: 'application/json',
 
                             beforeSend: function () {
@@ -288,19 +217,18 @@ commentBtn.addEventListener("click", addComment);
 
 //ajax시작===================================================
 $.ajax({
-    url: 'http://3.34.3.84/api/question/detail/',
+    url: 'http://3.34.3.84/api/word/edit/detail/',
     type: "POST",
     dataType: 'json',
     data: {
-        "question_id": localStorage.getItem('qnaCard_id'),
+        "edit_id": localStorage.getItem('qnafixCard_id'),
     },
     headers: {},
 
     success: function (result) {
         console.log(result);
         createQnaCard(result);
-        wordReal(result);
-        createQna_answer(result);
+        createQna_answer(result.data.edit);
     },
 
     error: function (xhr) {
@@ -321,6 +249,7 @@ $.ajax({
 //=========================댓글 등록================================================
 function countqhelpView(data) {
     var formData = new FormData();
+    console.log(data)
     formData.append("comment_id", data);
     console.log(data)
 
@@ -332,7 +261,7 @@ function countqhelpView(data) {
 
     $.ajax({
         type: "POST",
-        url: "http://3.34.3.84/api/question/commentlike/", // 실제 URL로 변경해야 합니다.
+        url: "http://3.34.3.84/api/word/comment/like/", // 실제 URL로 변경해야 합니다.
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('access')}`
         },
@@ -341,11 +270,11 @@ function countqhelpView(data) {
         contentType: false,
         success: function (response) {
             // 서버로부터의 응답을 처리
-            
+            console.log(response);
             const likeCountElement = document.querySelector("#comment"+data+">.qna_card_q>button");
             var currentText = likeCountElement.innerHTML;
             var startIndex = currentText.indexOf("도움이 되었어요 ") + 9;
-            var newText = currentText.slice(0, startIndex) + response.like;
+            var newText = currentText.slice(0, startIndex) + response;
             
             likeCountElement.innerHTML = newText;
 
@@ -360,10 +289,10 @@ function countqhelpView(data) {
 
                         $.ajax({
                             type: 'POST',
-                            url: 'http://3.34.3.84/api/question/commentlike/',
+                            url: 'http://3.34.3.84/api/word/comment/like/',
                             contentType: 'application/json',
 
-                            beforeSend: function () {
+                            beforeSend: function (xhr) {
                                 xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('access'));
                             },
                             success: function (response) {
@@ -391,7 +320,7 @@ function countqhelpView(data) {
 
 function countqView() {
     var formData = new FormData();
-    formData.append("question_id", localStorage.getItem('qnaCard_id'));
+    formData.append("edit_id", localStorage.getItem('qnafixCard_id'));
 
     var response = {
         "refresh": localStorage.getItem('refresh')
@@ -401,7 +330,7 @@ function countqView() {
 
     $.ajax({
         type: "POST",
-        url: "http://3.34.3.84/api/question/questionlike/", // 실제 URL로 변경해야 합니다.
+        url: "http://3.34.3.84/api/word/edit/like/", // 실제 URL로 변경해야 합니다.
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('access')}`
         },
@@ -411,9 +340,9 @@ function countqView() {
         success: function (response) {
             // 서버로부터의 응답을 처리
             console.log("데이터가 성공적으로 전송");
-            console.log(response.like);
+            console.log(response);
             const likeCountElement = document.querySelector(".like-button p");
-            likeCountElement.innerText = `나도 궁금해요 ${response.like}`;
+            likeCountElement.innerText = `나도 궁금해요 ${response}`;
         },
 
         error: function (jqXHR, textStatus, errorThrown) {
@@ -425,7 +354,7 @@ function countqView() {
 
                         $.ajax({
                             type: 'POST',
-                            url: 'http://3.34.3.84/api/question/questionlike/',
+                            url: 'http://3.34.3.84/api/word/edit/like/',
                             contentType: 'application/json',
 
                             beforeSend: function () {

@@ -1,8 +1,16 @@
+
+
+
 const wordContainer = document.getElementById("wordContainer");
 
 function createWordCard(item) {
     console.log(item)
+    let cardCount = 0; // 데이터가 몇개 들어 왔는지 카운트
     $.each(item, function (index, data) {
+        if (cardCount >= 8) {
+            return false; //데이터 개수 
+        }
+        
         const wordItem = document.createElement("ul");
         wordItem.classList.add("word");
 
@@ -61,6 +69,7 @@ function createWordCard(item) {
 
 
         wordContainer.appendChild(wordItem);
+        cardCount++; // 데이터 증가
     })
 
 

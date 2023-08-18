@@ -1,12 +1,11 @@
 var data;
 
-
-
 function getWords() {
 
     const searchInput = document.getElementById("searchInput");
     if (searchInput.value === "") {
         window.location.href = "/dictionary/detail.html";
+        localStorage.clear();
     } else {
         resultTitle.textContent = "검색 결과";
         console.log(searchInput);
@@ -65,13 +64,15 @@ function getWords() {
         `;
 
             // 클릭 이벤트 처리
+            wordItem.setAttribute("id", `wordCard_${data.id}`); // id 값을 설정
             wordItem.addEventListener("click", function () {
                 // 해당 단어 카드의 링크로 이동
-                var wordId = wordItem.id;
-                localStorage.setItem('word_id', wordId);
-            });
-            console.log(localStorage.getItem('word_id'));
+                const index = data.id;
+                console.log(data.id)
+                localStorage.setItem('word_id', index);
+                window.location.href = "/word/detail.html";
 
+            });
             wordContainer.appendChild(wordItem);
         }
 
@@ -133,7 +134,7 @@ function getWords() {
 
     //ajax시작===================================================
     $.ajax({
-        url: 'http://3.34.3.84/api/search/list/',
+        url: 'http://3.34.3.84/api/search/word/',
         type: "POST",
         data: {
             "keyword": searchInput.value,

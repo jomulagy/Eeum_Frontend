@@ -3,7 +3,11 @@ const wordContainerRecent = document.getElementById("wordContainerRecent");
 
 function createWordCard_snd(item) {
     console.log(item)
+    let cardCount = 0; // 데이터가 몇개 들어 왔는지 카운트
     $.each(item, function (index, data) {
+        if (cardCount >= 8) {
+            return false; //데이터 개수 
+        }
         const wordItem = document.createElement("ul");
         wordItem.classList.add("word");
 
@@ -54,14 +58,15 @@ function createWordCard_snd(item) {
         // 클릭 이벤트 처리
         wordItem.addEventListener("click", function () {
             // 해당 단어 카드의 링크로 이동
-            if (data.link) {
-                window.location.href = data.link;
-            }
+            var wordId = data.id;
+            localStorage.setItem('word_id', wordId);
+            window.location.href = "/word/detail.html";
         });
 
 
 
         wordContainerRecent.appendChild(wordItem);
+        cardCount++; // 데이터 증가
     })
 
 

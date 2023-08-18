@@ -1,230 +1,160 @@
-//단어 카드 추가
+var data;
+const itemsPerPage = 12; // 페이지당 보여줄 아이템 개수
+let initialPageNumber = 1;
+let currentPage = 1; // 현재 페이지 번호
+const wordContainer = document.getElementById("wordContainer");
+const paginationContainer = document.getElementById("paginationContainer");
 
-document.addEventListener("DOMContentLoaded", function() {
-    const wordContainer = document.getElementById("wordContainer");
+function createWordCard_snd(item) {
 
-    // 예시 데이터 - 실제로는 서버에서 가져오는 데이터로 대체해야 합니다.
-    const wordsData = [
-        {
-            index: 1,
-            name: "~라고 할뻔",
-            image: "/static/img/age/age_10.png",
-            image_snd: "/static/img/age/age_30.png",
-            what: "하고싶은 말 뒤에 쓴다",
-            heart: 30,
-            heart_img: "/static/img/imoge/heartred.png",
-            link: "practice.html"
-        },
-        {
-            index: 2,
-            name: "차도남",
-            image: "/static/img/age/age_10.png",
-            image_snd: "/static/img/age/age_20.png",
-            what: "차가운 도시 남자",
-            heart_img: "/static/img/imoge/heartred.png",
-            heart: 21,
-        },
-        {
-            index: 3,
-            name: "차도남",
-            image: "/static/img/age/age_10.png",
-            image_snd: "/static/img/age/age_30.png",
-            what: "차가운 도시 남자",
-            heart_img: "/static/img/imoge/heartred.png",
-            heart: 25,
-        },
-        {
-            index: 4,
-            name: "차도남",
-            image: "/static/img/age/age_10.png",
-            image_snd: "/static/img/age/age_30.png",
-            what: "차가운 도시 남자",
-            heart_img: "/static/img/imoge/heartred.png",
-            heart: 27,
-        },
-        {
-            index: 5,
-            name: "차도남",
-            image: "/static/img/age/age_10.png",
-            what: "차가운 도시 남자",
-            heart_img: "/static/img/imoge/heartred.png",
-            heart: 29,
-        },
-        {
-            index: 6,
-            name: "~라고 할뻔",
-            image: "/static/img/age/age_10.png",
-            image_snd: "/static/img/age/age_30.png",
-            what: "하고싶은 말 뒤에 쓴다",
-            heart_img: "/static/img/imoge/heartred.png",
-            heart: 28,
-        },
-        {
-            index: 7,
-            name: "차도남",
-            image: "/static/img/age/age_10.png",
-            image_snd: "/static/img/age/age_30.png",
-            what: "차가운 도시 남자",
-            heart_img: "/static/img/imoge/heartred.png",
-            heart: 24,
-        },
-        {
-            index: 8,
-            name: "차도남",
-            image: "/static/img/age/age_10.png",
-            image_snd: "/static/img/age/age_30.png",
-            what: "차가운 도시 남자",
-            heart_img: "/static/img/imoge/heartred.png",
-            heart: 24,
-        },
-        {
-            index: 9,
-            name: "차도남",
-            image: "/static/img/age/age_10.png",
-            image_snd: "/static/img/age/age_30.png",
-            what: "차가운 도시 남자",
-            heart_img: "/static/img/imoge/heartred.png",
-            heart: 24,
-        },
-        {
-            index: 10,
-            name: "차도남",
-            image: "/static/img/age/age_10.png",
-            what: "차가운 도시 남자",
-            heart_img: "/static/img/imoge/heartred.png",
-            heart: 24,
-        },
-        {
-            index: 11,
-            name: "~라고 할뻔",
-            image: "/static/img/age/age_10.png",
-            image_snd: "/static/img/age/age_30.png",
-            what: "하고싶은 말 뒤에 쓴다",
-            heart: 24,
-            heart_img: "/static/img/imoge/heartred.png",
-            link: "practice.html"
-        },
-        {
-            index: 12,
-            name: "차도남",
-            image: "/static/img/age/age_10.png",
-            image_snd: "/static/img/age/age_30.png",
-            what: "차가운 도시 남자",
-            heart_img: "/static/img/imoge/heartred.png",
-            heart: 24,
-        },
-        {
-            index: 13,
-            name: "차도남",
-            image: "/static/img/age/age_10.png",
-            image_snd: "/static/img/age/age_30.png",
-            what: "차가운 도시 남자",
-            heart_img: "/static/img/imoge/heartred.png",
-            heart: 24,
-        },
-        {
-            index: 14,
-            name: "차도남",
-            image: "/static/img/age/age_10.png",
-            image_snd: "/static/img/age/age_30.png",
-            what: "차가운 도시 남자",
-            heart_img: "/static/img/imoge/heartred.png",
-            heart: 24,
-        },
-        {
-            index: 15,
-            name: "차도남",
-            image: "/static/img/age/age_10.png",
-            image_snd: "/static/img/age/age_30.png",
-            what: "차가운 도시 남자",
-            heart_img: "/static/img/imoge/heartred.png",
-            heart: 24,
-        },
-        {
-            index: 16,
-            name: "~라고 할뻔",
-            image: "/static/img/age/age_10.png",
-            image_snd: "/static/img/age/age_30.png",
-            what: "하고싶은 말 뒤에 쓴다",
-            heart_img: "/static/img/imoge/heartred.png",
-            heart: 24,
-        },
-        {
-            index: 17,
-            name: "차도남",
-            image: "/static/img/age/age_10.png",
-            image_snd: "/static/img/age/age_30.png",
-            what: "차가운 도시 남자",
-            heart_img: "/static/img/imoge/heartred.png",
-            heart: 24,
-        },
-        {
-            index: 18,
-            name: "차도남",
-            image: "/static/img/age/age_10.png",
-            image_snd: "/static/img/age/age_30.png",
-            what: "차가운 도시 남자",
-            heart_img: "/static/img/imoge/heartred.png",
-            heart: 24,
-        },
-        {
-            index: 19,
-            name: "차도남",
-            image: "/static/img/age/age_10.png",
-            image_snd: "/static/img/age/age_30.png",
-            what: "차가운 도시 남자",
-            heart_img: "/static/img/imoge/heartred.png",
-            heart: 24,
-        },
-        {
-            index: 20,
-            name: "차도남",
-            image: "/static/img/age/age_10.png",
-            what: "차가운 도시 남자",
-            heart_img: "/static/img/imoge/heartred.png",
-            heart: 24,
-        },
-        
-        // ... 이하 데이터 추가
-    ];
+    const data = item;
+    const wordItem = document.createElement("ul");
+    wordItem.classList.add("word");
 
-    // 함수를 통해 단어 카드 생성
-    function createWordCard(data) {
-        const wordItem = document.createElement("ul");
-        wordItem.classList.add("word");
-    
-        let imageHtml = `<img src="${data.image}">`;
-    
-        if (data.image_snd) {
-            imageHtml += `<img src="${data.image_snd}">`;
+    const age = data.age; // Assume age is an array containing age values
+
+    let imageHtml = ""; // Initialize imageHtml variable
+
+    if (age[0] === 10) {
+        imageHtml += `<img src="../static/img/age/age_10.png">`;
+    } else if (age[0] === 20) {
+        imageHtml += `<img src="../static/img/age/age_20.png">`;
+    } else if (age[0] === 30) {
+        imageHtml += `<img src="../static/img/age/age_30.png">`;
+    } else if (age[0] === 40) {
+        imageHtml += `<img src="../static/img/age/age_40.png">`;
+    } else if (age[0] === 50) {
+        imageHtml += `<img src="../static/img/age/age_50.png">`;
+    }
+
+    if (age[1]) {
+        if (age[1] === 10) {
+            imageHtml += `<img src="../static/img/age/age_10.png">`;
+        } else if (age[1] === 20) {
+            imageHtml += `<img src="../static/img/age/age_20.png">`;
+        } else if (age[1] === 30) {
+            imageHtml += `<img src="../static/img/age/age_30.png">`;
+        } else if (age[1] === 40) {
+            imageHtml += `<img src="../static/img/age/age_40.png">`;
+        } else if (age[1] === 50) {
+            imageHtml += `<img src="../static/img/age/age_50.png">`;
         }
-    
-        wordItem.innerHTML = `
+    }
+
+    wordItem.innerHTML = `
             <li class="word_name">
-                <p>${data.name}</p>
+                <p>${data.title}</p>
                 <div class="img_container">
                     ${imageHtml}
                 </div>
             </li>
-            <li class="word_what"><p>${data.what}</p></li>
+            <li class="word_what"><p>${data.mean}</p></li>
             <li class="word_heart">
-                <img src="${data.heart_img}">
-                <p>${data.heart}</p>
+                <img src="../static/img/imoge/heartred.png">
+                <p>${data.likes}</p>
             </li>
         `;
 
-        // 클릭 이벤트 처리
-        wordItem.addEventListener("click", function() {
-            // 해당 단어 카드의 링크로 이동
-            window.location.href = data.link;
-        });
-    
-        wordContainer.appendChild(wordItem);
-    }
-    
-    // 기존 데이터로 단어 카드 생성
-    wordsData.forEach(data => {
-        createWordCard(data);
-    });
-});
+    // 클릭 이벤트 처리
+    wordItem.setAttribute("id", `wordCard_${data.id}`); // id 값을 설정
+    wordItem.addEventListener("click", function () {
+        // 해당 단어 카드의 링크로 이동
+        const index = data.id;
+        console.log(data.id)
+        localStorage.setItem('word_id', index);
+        window.location.href = "/word/detail.html";
 
+    });
+
+    wordContainer.appendChild(wordItem);
+}
+
+function displayPageItems(data) {
+    wordContainer.innerHTML = ""; // 기존 아이템 초기화
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+
+    for (let i = startIndex; i < endIndex && i < data.length; i++) {
+        createWordCard_snd(data[i]);
+    }
+}
+
+function createPaginationButtons(totalPages) {
+    let paginationHtml = '';
+
+    paginationHtml += '<button id="prevButton" class="pag_btn">&lt;</button>';
+
+    const startPage = Math.max(currentPage - 2, 1);
+    if (totalPages == 0){
+        endPage=1
+    }
+    else{
+        const endPage = Math.min(startPage + 4, totalPages);
+    }
+
+
+    for (let i = startPage; i <= endPage; i++) {
+        if (i === currentPage) {
+            paginationHtml += `<button class="pag_btn current">${i}</button>`;
+        } else {
+            paginationHtml += `<button class="pag_btn">${i}</button>`;
+        }
+    }
+
+    paginationHtml += '<button id="nextButton" class="pag_btn">&gt;</button>';
+
+    paginationContainer.innerHTML = paginationHtml;
+
+    const pageButtons = paginationContainer.querySelectorAll(".pag_btn");
+
+    pageButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+            if (button.textContent === "<") {
+                currentPage = Math.max(currentPage - 1, 1);
+            } else if (button.textContent === ">") {
+                currentPage = Math.min(currentPage + 1, totalPages);
+            } else {
+                currentPage = parseInt(button.textContent);
+            }
+            updatePage();
+        });
+    });
+}
+
+// 데이터 업데이트 및 페이지네이션 호출 함수
+function updatePage() {
+    displayPageItems(data);
+    createPaginationButtons(Math.ceil(data.length / itemsPerPage));
+}
+
+// 옵션 선택에 따른 페이지 업데이트 함수
+function updatePageByOption(selectedOption) {
+    const ajaxUrl = selectedOption === "recency"
+        ? "http://3.34.3.84/api/word/recent/"
+        : "http://3.34.3.84/api/word/most_views/";
+
+    $.ajax({
+        url: ajaxUrl,
+        type: "GET",
+        dataType: "JSON",
+        headers: {},
+        success: function (result) {
+            data = result.data;
+            updatePage();
+        },
+        error: function (xhr, textStatus, thrownError) {
+            alert("Django로 URL을 보내지 못했습니다. 오류: " + xhr.status + ": " + xhr.responseText);
+        },
+    });
+}
+
+// 초기 페이지 업데이트 (최신순으로 시작)
+updatePageByOption("recency");
+
+// 옵션 선택 요소 이벤트 리스너
+const sortingSelect = document.getElementById("sortingSelect");
+sortingSelect.addEventListener("change", function () {
+    const selectedOption = sortingSelect.value;
+    updatePageByOption(selectedOption);
+});

@@ -1,11 +1,42 @@
+
 var data;
-const itemsPerPage = 12; // 페이지당 보여줄 아이템 개수
+const itemsPerPage = 6; // 페이지당 보여줄 아이템 개수
 let initialPageNumber = 1;
 const wordContainer = document.getElementById("wordContainer");
 const paginationContainer = document.getElementById("paginationContainer");
+const fixcontainer = document.getElementById("fixcontainer");
 
-// const storedArray = JSON.parse(localStorage.getItem('wordsearchresult'));
-// console.log(storedArray)
+function refreshAccessToken(response) {
+    return new Promise((resolve, reject) => {
+        console.log(response.refresh)
+        $.ajax({
+            type: 'POST',
+            url: 'http://3.34.3.84/api/account/refresh/',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify({
+                refresh: localStorage.getItem('refresh') // response 객체에서 refresh token 가져옴
+            }),
+            success: function (res) {
+                var access = res.access;
+                var refresh = res.refresh;
+
+                localStorage.setItem('access', access);
+                localStorage.setItem('refresh', refresh);
+                resolve(access);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                reject(errorThrown);
+            }
+        });
+    });
+}
+function createPcard(data) {
+    fixcontainer.innerHTML = `
+        <p class = "fix_p" id = "fix_p">${data} 님의<br>등록 단어 목록 입니다</p>
+    `;
+}
+
 
 
 function createWordCard_snd(item) {
@@ -14,7 +45,7 @@ function createWordCard_snd(item) {
     const wordItem = document.createElement("ul");
     wordItem.classList.add("word");
 
-    const age = data.age; // Assume age is an array containing age values
+    const age = data.ages; // Assume age is an array containing age values
 
     let imageHtml = ""; // Initialize imageHtml variable
 
@@ -72,16 +103,17 @@ function createWordCard_snd(item) {
     wordContainer.appendChild(wordItem);
 }
 
-function displayPageItems(pageNumber, data) {
-    const startIndex = (pageNumber - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-
+function displayPageItems(currentPage,data) {
     wordContainer.innerHTML = ""; // 기존 아이템 초기화
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
 
     for (let i = startIndex; i < endIndex && i < data.length; i++) {
         createWordCard_snd(data[i]);
     }
 }
+
 
 function createPaginationButtons(totalPages, currentPage) {
     let paginationHtml = '';
@@ -125,27 +157,67 @@ function createPaginationButtons(totalPages, currentPage) {
 }
 
 
-// ajax 시작=========================================
-$.ajax({
-    url: 'http://3.34.3.84/api/word/all/',
-    type: "GET",
-    dataType: "JSON",
-    headers: {},
-    success: function (result) {
-        data = result.data.word;
-        console.log(result);
-        createPaginationButtons(Math.ceil(data.length / itemsPerPage), initialPageNumber); // 초기 페이지는 1로 설정
-        displayPageItems(initialPageNumber, data);
-        (initialPageNumber);
-    },
-    error: function (xhr, textStatus, thrownError) {
-        alert(
-            "Could not send URL to Django. Error: " +
-            xhr.status +
-            ": " +
-            xhr.responseText
-        );
-    },
-})
-// ajax 끝===========================================
 
+// var formData = new FormData();
+// formData.append("word_id", 16);
+// //아이디값을 넣어 줘야된다
+var response = {
+    "refresh": localStorage.getItem('refresh')
+};
+
+
+$.ajax({
+    type: "GET",
+    url: "http://3.34.3.84/api/account/user/word/list/", // 실제 URL로 변경해야 합니다.
+    headers: {
+        'Authorization': `Bearer ${localStorage.getItem('access')}`
+    },
+    // data: formData,
+    processData: false, // 필요한 경우 FormData 처리 방지
+    contentType: false,
+    success: function (response) {
+        // 서버로부터의 응답을 처리
+        data = response.words;
+        console.log(response);
+        console.log(data);
+        createPaginationButtons(Math.ceil(data.length / itemsPerPage), initialPageNumber); // 초기 페이지는 1로 설정
+        createPcard(response.user)
+        displayPageItems(initialPageNumber, data);
+        console.log("데이터가 성공적으로 전송");
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+        if (jqXHR.status === 401) {
+            console.error("Unauthorized:", jqXHR.responseText);
+            refreshAccessToken(response)
+                //.then은 함수를 성공
+                .then(function (access_token) {
+
+                    $.ajax({
+                        type: 'GET',
+                        url: 'http://3.34.3.84/api/account/user/word/list/',
+                        contentType: 'application/json',
+
+                        beforeSend: function () {
+                            xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('access'));
+                        },
+                        success: function (response) {
+                            alert('성공')
+
+                        },
+                        error: function (request, status, error) {
+                            alert('실패')
+                        }
+                    });
+                })
+                .catch(function (error) {
+                    console.error('Refresh token 재발급 실패:', error);
+                });
+        } else if (jqXHR.status === 404) {
+            console.error("Not found:", jqXHR.responseText);
+            alert("사용자가 존재하지 않습니다.");
+        } else {
+            console.error("Error:", jqXHR.status, errorThrown);
+            alert("서버 에러");
+        }
+    }
+})

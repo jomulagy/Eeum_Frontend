@@ -1,7 +1,7 @@
 // Refresh Token 재발급 함수
 function refreshAccessToken(response) {
     return new Promise((resolve, reject) => {
-            console.log(response.refresh)
+        console.log(response.refresh)
         $.ajax({
             type: 'POST',
             url: 'http://3.34.3.84/api/account/refresh/',
@@ -10,20 +10,20 @@ function refreshAccessToken(response) {
             data: JSON.stringify({
                 refresh: response.refresh // response 객체에서 refresh token 가져옴
             }),
-            success: function(res) {
+            success: function (res) {
                 var access = res.access;
                 var refresh = res.refresh;
-                    
+
                 localStorage.setItem('access', access);
                 localStorage.setItem('refresh', refresh);
                 resolve(access);
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 reject(errorThrown);
             }
         });
     });
-}   
+}
 
 //질문 넘어가기에 대한 js
 $(document).ready(function () {
@@ -99,7 +99,7 @@ $(document).ready(function () {
             $('#wordToDefine3').text(wordToDefine);
         }
     });
-    $(".backButton").click(function() {
+    $(".backButton").click(function () {
         // 현재 표시되고 있는 단계를 숨깁니다.
         var currentStep = $(".word_register_question:visible");
         currentStep.hide();
@@ -194,7 +194,7 @@ $(document).ready(function () {
     var checkboxes = $("input[name='age']");
     var nextButton = $("#word_register_nextbtn1");
 
-    checkboxes.on("click", function() {
+    checkboxes.on("click", function () {
         var checkedCount = checkboxes.filter(":checked").length;
 
         if (checkedCount > maxChecked) {
@@ -212,20 +212,20 @@ $(document).ready(function () {
         if (checkedCount === 3) {
             // 세 번째 체크박스가 선택되었을 때 해제하고 알림창을 띄웁니다.
             alert("최대 2개까지 선택해주시기 바랍니다.");
-            checkboxes.filter(":checked").last().prop("checked", false);   
-          }
+            checkboxes.filter(":checked").last().prop("checked", false);
+        }
     });
 
     // 질문 3 입력값 감지하여 버튼 활성화/비활성화
-     // 텍스트 영역에 입력이 있을 때
-     $('#q3_word_register_textarea').on('input', function () {
+    // 텍스트 영역에 입력이 있을 때
+    $('#q3_word_register_textarea').on('input', function () {
         var inputVal = $(this).val(); // 입력된 텍스트 값
         var nextButton = $('#word_register_nextbtn2');
-        
+
         // 입력된 텍스트 길이 계산
         var textLength = inputVal.length;
         var maxLength = 40; // 최대 길이
-        
+
         // 텍스트 길이 정보 업데이트
         $('.q3_text-length-cnt').text(textLength);
         $('.q3_text-length-total').text(maxLength);
@@ -242,11 +242,11 @@ $(document).ready(function () {
     $('#q4_word_register_textarea').on('input', function () {
         var inputVal = $(this).val(); // 입력된 텍스트 값
         var nextButton = $('#word_register_nextbtn3');
-        
+
         // 입력된 텍스트 길이 계산
         var textLength = inputVal.length;
         var maxLength = 300; // 최대 길이
-        
+
         // 텍스트 길이 정보 업데이트
         $('.q4_text-length-cnt').text(textLength);
         $('.q4_text-length-total').text(maxLength);
@@ -269,7 +269,7 @@ $(document).ready(function () {
         var answer5 = document.querySelector('#image-input'); // 이미지 관련 데이터를 추가
         console.log(answer5.files[0]);
         var formData = new FormData();
-    
+
         formData.append("title", answer1);
         formData.append("age", answer2);
         formData.append("mean", answer3);
@@ -346,17 +346,17 @@ $(document).ready(function () {
                   });
       
                 } else if (jqXHR.status === 404) {
-                  console.error("Not found:", jqXHR.responseText);
-                  alert("사용자가 존재하지 않습니다.");
+                    console.error("Not found:", jqXHR.responseText);
+                    alert("사용자가 존재하지 않습니다.");
                 } else {
-                  console.error("Error:", jqXHR.status, errorThrown);
-                  alert("서버 에러");
+                    console.error("Error:", jqXHR.status, errorThrown);
+                    alert("서버 에러");
                 }
-            }          
+            }
         });
     });
-    
-    
+
+
     // $('#word_register_submitbtn').click(function (formData) {
     //     var answer1 = $('#word_register_input').val();
     //     var answer2 = [];

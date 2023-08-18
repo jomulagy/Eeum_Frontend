@@ -1,9 +1,9 @@
-const qnaCardContainerMostViewed = document.getElementById("qnaCardContainerMostViewed");
+const qnaCardContainerRecent = document.getElementById("qnaCardContainerRecent");
 
 // 함수를 통해 Q&A 카드 생성
-function createQnaCard(item) {
-
+function createQnaCard_snd(item) {
     let cardCount = 0; // 데이터가 몇개 들어 왔는지 카운트
+
     $.each(item, function (index, data) {
         if (cardCount >= 4) {
             return false; //데이터 개수 
@@ -45,7 +45,7 @@ function createQnaCard(item) {
             <div class="qna_card_background"></div>
         `;
 
-        qnaCard.setAttribute("id", `qnaCard_${data.id}`); // id 값을 설정
+        qnaCardContainerRecent.appendChild(qnaCard);
         qnaCard.addEventListener("click", function () {
             // 해당 단어 카드의 링크로 이동
             const index = data.id;
@@ -55,12 +55,23 @@ function createQnaCard(item) {
 
         });
 
-
-        qnaCardContainerMostViewed.appendChild(qnaCard);
         cardCount++; // 데이터 증가
+
     })
 }
 
+
+// // 좋아요 순으로 정렬된 데이터를 가장 좋아요가 많은 8개만 표시
+// qnaData.sort((a, b) => b.viewCount - a.viewCount);
+// qnaData.slice(0, 4).forEach(data => {
+//     createQnaCard(data, qnaCardContainerMostViewed);
+// });
+
+// // 최근 등록된 데이터를 인덱스 순으로 정렬하여 1번부터 8번까지 표시
+// qnaData.sort((a, b) => a.index - b.index);
+// qnaData.slice(0, 4).forEach(data => {
+//     createQnaCard(data, qnaCardContainerRecent);
+// });
 
 
 //ajax 시작=========================================
@@ -68,13 +79,13 @@ $.ajax({
     url: 'http://3.34.3.84/api/question/list/',
     type: "POST",
     dataType: "JSON",
-    data: { sort: "최신", type: "등록 요청" },
+    data: { sort: "조회수", type: "등록 요청" },
     headers: {},
 
     success: function (result) {
         console.log(JSON.stringify(result));
         console.log(result);
-        createQnaCard(result);
+        createQnaCard_snd(result);
     },
 
     error: function (xhr, textStatus, thrownError) {
