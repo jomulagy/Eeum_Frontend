@@ -190,7 +190,7 @@ function createQna_answer_plus(data) {
     qnaCard.setAttribute("id", "comment"+data.id);
     qnaCard.innerHTML = `
             <div class="qna_card_img"><img src="${data.author.image}"></div>
-            <div cla    ss="qna_card_inf">
+            <div class="qna_card_inf">
                 <div class="qna_card_name">
                     <p>${data.author.nickname}</p>
                 </div>

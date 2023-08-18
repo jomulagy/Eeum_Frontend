@@ -81,7 +81,13 @@ function createPaginationButtons(totalPages, currentPage) {
     paginationHtml += '<button id="prevButton" class="pag_btn">&lt;</button>';
 
     const startPage = Math.max(currentPage - 2, 1);
-    const endPage = Math.min(startPage + 4, totalPages);
+    var endPage;
+    if (totalPages == 0) {
+        endPage = 1
+    }
+    else {
+        endPage = Math.min(startPage + 4, totalPages);
+    }
 
     for (let i = startPage; i <= endPage; i++) {
         if (i === currentPage) {
@@ -123,7 +129,7 @@ sortingSelect.addEventListener("change", function () {
 
     // 선택한 정렬 방식에 따라 데이터를 가져오는 로직
     const sortType = (selectedValue === "recency") ? "최신" : "인기"; // 예시로만 작성되었습니다. 실제 방식에 맞게 수정하세요.
-    
+
     // Ajax 요청을 통해 새로운 데이터 가져오기
     $.ajax({
         url: 'http://3.34.3.84/api/question/list/',

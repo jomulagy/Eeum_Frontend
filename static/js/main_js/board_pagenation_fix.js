@@ -154,8 +154,10 @@ function createPaginationButtons(totalPages, currentPage) {
 }
 
 
+
+
 var formData = new FormData();
-formData.append("word_id", 16);
+formData.append("word_id", localStorage.getItem('word_id'));
 //아이디값을 넣어 줘야된다
 var response = {
     "refresh": localStorage.getItem('refresh')

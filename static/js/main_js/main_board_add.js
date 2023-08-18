@@ -96,7 +96,13 @@ function createQnaCard(data) {
 
 function displayPageItems(pageNumber, data) {
     const startIndex = (pageNumber - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
+    var endPage;
+    if (totalPages == 0){
+        endPage=1
+    }
+    else{
+        endPage = Math.min(startPage + 4, totalPages);
+    }
     console.log(pageNumber);
     qnaCardContainer.innerHTML = ""; // 기존 아이템 초기화
     console.log(data);
