@@ -79,7 +79,7 @@ $.ajax({
     url: 'http://3.34.3.84/api/question/list/',
     type: "POST",
     dataType: "JSON",
-    data: { sort: "조회수", type: "등록 요청" },
+    data: { sort: "최신", type: "등록 요청" },
     headers: {},
 
     success: function (result) {
