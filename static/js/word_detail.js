@@ -1,3 +1,4 @@
+var userData;
 
 function clearPlaceholder() {
     const searchInput = document.getElementById('searchInput');
@@ -116,7 +117,6 @@ function refreshAccessToken(response) {
 
 $(document).ready(function () {
     var jsonData;
-    var userData;
     const heartIcon = document.getElementById('heart_icon');
     const bookmarkIcon = document.getElementById('bookmark_icon');
     const bookmarkText = document.getElementById("bookmark_text");
