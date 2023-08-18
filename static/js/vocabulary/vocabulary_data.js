@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
         if (vocaLength === 0){
             vocabularySection.style.display = 'none';
-            noWordSection.removeAttribute('hidden');
+            noWordSection.style.display = 'block';
         } else{
             vocabularySection.style.display = 'block';
             noWordSection.style.display = 'none';
