@@ -167,6 +167,7 @@ body{
     height: 3.75rem;
     border-radius: 1.25rem;
     background: #FFF;
+    padding: 0 0 0 1rem ; 
     box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
     justify-content: center;
 }
