@@ -5,6 +5,9 @@ let initialPageNumber = 1;
 const qnaCardContainer = document.getElementById("qnaCardContainer");
 const paginationContainer = document.getElementById("paginationContainer");
 
+
+
+
 // 함수를 통해 Q&A 카드 생성
 function createQnaCard(data) {
 

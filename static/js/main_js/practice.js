@@ -4,6 +4,13 @@ let initialPageNumber = 1;
 let currentPage = 1; // 현재 페이지 번호
 const wordContainer = document.getElementById("wordContainer");
 const paginationContainer = document.getElementById("paginationContainer");
+function truncateText(text, maxLength) {
+    if (text.length > maxLength) {
+        return text.slice(0, maxLength) + '...';
+    }
+    return text;
+}
+
 
 function createWordCard_snd(item) {
 
@@ -43,7 +50,7 @@ function createWordCard_snd(item) {
 
     wordItem.innerHTML = `
             <li class="word_name">
-                <p>${data.title}</p>
+                <p>${truncateText(data.title, 8)}</p>
                 <div class="img_container">
                     ${imageHtml}
                 </div>
