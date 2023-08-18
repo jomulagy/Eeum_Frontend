@@ -1,5 +1,11 @@
 const wordContainerRecent = document.getElementById("wordContainerRecent");
 
+function truncateText(text, maxLength) {
+    if (text.length > maxLength) {
+        return text.slice(0, maxLength) + '...';
+    }
+    return text;
+}
 
 function createWordCard_snd(item) {
     console.log(item)
@@ -43,7 +49,7 @@ function createWordCard_snd(item) {
 
         wordItem.innerHTML = `
             <li class="word_name">
-                <p>${data.title}</p>
+                <p>${truncateText(data.title, 8)}</p>
                 <div class="img_container">
                     ${imageHtml}
                 </div>
@@ -74,14 +80,14 @@ function createWordCard_snd(item) {
 
 //ajax 시작=========================================
 $.ajax({
-    url: 'http://3.34.3.84/api/word/all/',
+    url: 'http://3.34.3.84/api/word/recent/',
     type: "GET",
     dataType: "JSON",
     headers: {},
 
     success: function (result) {
         console.log(JSON.stringify(result));
-        createWordCard_snd(result.data.word);
+        createWordCard_snd(result.data);
     },
 
     error: function (xhr, textStatus, thrownError) {

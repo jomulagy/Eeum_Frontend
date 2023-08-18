@@ -1,4 +1,12 @@
 var data;
+function truncateText(text, maxLength) {
+    if (text.length > maxLength) {
+        return text.slice(0, maxLength) + '...';
+    }
+    return text;
+}
+
+
 
 function getWords() {
 
@@ -51,7 +59,7 @@ function getWords() {
 
             wordItem.innerHTML = `
             <li class="word_name">
-                <p>${data.title}</p>
+                <p>${truncateText(data.title, 8)}</p>
                 <div class="img_container">
                     ${imageHtml}
                 </div>

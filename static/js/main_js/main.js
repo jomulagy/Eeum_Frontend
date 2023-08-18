@@ -3,6 +3,13 @@
 
 const wordContainer = document.getElementById("wordContainer");
 
+function truncateText(text, maxLength) {
+    if (text.length > maxLength) {
+        return text.slice(0, maxLength) + '...';
+    }
+    return text;
+}
+
 function createWordCard(item) {
     console.log(item)
     let cardCount = 0; // 데이터가 몇개 들어 왔는지 카운트
@@ -46,7 +53,7 @@ function createWordCard(item) {
 
         wordItem.innerHTML = `
             <li class="word_name">
-                <p>${data.title}</p>
+                <p>${truncateText(data.title, 8)}</p>
                 <div class="img_container">
                     ${imageHtml}
                 </div>
@@ -77,14 +84,15 @@ function createWordCard(item) {
 
 //ajax 시작=========================================
 $.ajax({
-    url: 'http://3.34.3.84/api/word/all/',
+    url: 'http://3.34.3.84/api/word/most_views/',
     type: "GET",
     dataType: "JSON",
     headers: {},
 
     success: function (result) {
+        console.log(result);
         console.log(JSON.stringify(result));
-        createWordCard(result.data.word);
+        createWordCard(result.data);
     },
 
     error: function (xhr, textStatus, thrownError) {
