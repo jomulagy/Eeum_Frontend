@@ -240,8 +240,8 @@ function getUserInfo() {
             xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
         },
         success: function(response) {
-            alert('유저 정보 불러오기 성공');
-            console.log("유저 data : ", response);
+            // alert('유저 정보 불러오기 성공');
+            // console.log("유저 data : ", response);
 
             var user_age = response.age;
             var user_nickname = response.nickname;
@@ -296,8 +296,8 @@ function getUserWordData(){
             xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
         },
         success: function(response) {
-            alert('단어 데이터 불러오기 성공');
-            console.log("단어 data : ", response);
+            // alert('단어 데이터 불러오기 성공');
+            // console.log("단어 data : ", response);
             let userWordData = response;
             for (var i = 0; i < Math.min(userWordData.length,3); i++){
                 wordData = response[i]
@@ -319,8 +319,8 @@ function getUserQuestionData(){
             xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
         },
         success: function(response) {
-            alert('질문 데이터 불러오기 성공');
-            console.log("질문 data : ", response);
+            // alert('질문 데이터 불러오기 성공');
+            // console.log("질문 data : ", response);
             const userQuestData = response;
             for (var i = 0; i < Math.min(userQuestData.length,10); i++){
                 myQuest = response[i]
@@ -342,8 +342,8 @@ function getUserReuestData(){
             xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
         },
         success: function(response) {
-            alert('수정 요청 데이터 불러오기 성공');
-            console.log("수정 요청 data : ", response);
+            // alert('수정 요청 데이터 불러오기 성공');
+            // console.log("수정 요청 data : ", response);
             const userRequestData = response;
             for (var i = 0; i < Math.min(userRequestData.length,10); i++){
                 myRequest = response[i]
@@ -356,56 +356,24 @@ function getUserReuestData(){
     });
 }
 
+const wordBtn = document.getElementById("wordBtn");
+const qnaBtn = document.getElementById("qnaBtn");
+const requestBtn = document.getElementById("requestBtn");
 
-
-// // 수정 요청 목록 삽입
-// var editList = jsonData.edits;
-// var editListContainer = document.querySelector(".detail_tab#changing_inform_tab .tab_content");
-// for (var i = 0; i < Math.min(editList.length, 4); i++) {
-//     var editContainer = document.createElement("div");
-//     editContainer.className = "tab_content_container";
-
-//     var titleElement = document.createElement("div");
-//     titleElement.className = "tab_content_title";
-//     titleElement.textContent = editList[i].title;
-
-//     var dateElement = document.createElement("div");
-//     dateElement.className = "tab_content_date";
-//     dateElement.textContent = editList[i].created_at;
-
-//     editContainer.appendChild(titleElement);
-//     editContainer.appendChild(dateElement);
-//     editListContainer.appendChild(editContainer);
-// }
-
-// // 관련 질문 목록 삽입
-// var questionList = jsonData.questions;
-// var questionListContainer = document.querySelector(".detail_tab#relative_question_tab");
-// for (var i = 0; i < Math.min(questionList.length, 4); i++){
-//     var questionContainer = document.createElement("div");
-//     questionContainer.className = "tab_content_container";
-
-//     var titleElement = document.createElement("div");
-//     titleElement.className = "tab_content_title";
-//     titleElement.textContent = questionList[i].title;
-
-//     var dateElement = document.createElement("div");
-//     dateElement.className = "tab_content_date";
-//     dateElement.textContent = questionList[i].created_at;
-
-//     questionContainer.appendChild(titleElement);
-//     questionContainer.appendChild(dateElement);
-//     questionListContainer.appendChild(questionContainer);
-// }
-
-// // 등록한 단어 목록 삽입
-// var wordList = jsonData.my_words;
-// var wordListContainer = document.querySelector(".detail_tab#word_register_tab .tab_content");
-// for (var i = 0; i < Math.min(wordList.length,4); i++) { //최대 4개의 list만 뜨게 제한
-//     var wordElement = document.createElement("p");
-//     wordElement.textContent = wordList[i];
-//     wordListContainer.appendChild(wordElement);
-// }
-
-// });
+// 단어 버튼 클릭 이벤트 핸들러
+wordBtn.addEventListener("click", function() {
+    window.location.href = '/User/wordlist.html'
 });
+
+// 질문 버튼 클릭 이벤트 핸들러
+qnaBtn.addEventListener("click", function() {
+    window.location.href = '/User/qnalist.html'
+});
+
+// 단어 버튼 클릭 이벤트 핸들러
+requestBtn.addEventListener("click", function() {
+    window.location.href = '/User/requestlist.html'
+});
+
+});
+
