@@ -113,11 +113,12 @@ function createPaginationButtons(totalPages, currentPage) {
 
     const startPage = Math.max(currentPage - 2, 1);
 
+    var endPage;
     if (totalPages == 0){
         endPage=1
     }
     else{
-        const endPage = Math.min(startPage + 4, totalPages);
+        endPage = Math.min(startPage + 4, totalPages);
     }
 
     for (let i = startPage; i <= endPage; i++) {
