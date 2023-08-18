@@ -206,7 +206,20 @@ $(document).ready(function () {
             "refresh": localStorage.getItem("refresh")
         }; //재발급
 
-        refreshAccessToken(response)
+        
+
+        $.ajax({
+            type: "POST",
+            url: "http://3.34.3.84/api/vocabulary/",
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('access')}`
+            },
+            data: JSON.stringify({id:localStorage.getItem("word_id")}),
+            contentType: 'application/json',
+            success: function (response) {
+                // 서버로부터의 응답을 처리
+                if (response.status === 401) {
+                    refreshAccessToken(response)
         .then(function (access_token) {
             $.ajax({
                 type: 'POST',
@@ -227,19 +240,6 @@ $(document).ready(function () {
         .catch(function (error) {
             console.error('Refresh token 재발급 실패:', error);
         });
-
-        $.ajax({
-            type: "POST",
-            url: "http://3.34.3.84/api/vocabulary/",
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('access')}`
-            },
-            data: JSON.stringify({id:localStorage.getItem("word_id")}),
-            contentType: 'application/json',
-            success: function (response) {
-                // 서버로부터의 응답을 처리
-                if (response.status === 401) {
-                    refreshAccessToken(refresh)
                 }
                 console.log("데이터가 성공적으로 전송");
             },

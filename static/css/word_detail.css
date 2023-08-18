@@ -344,7 +344,7 @@ body {
 
 .floating_button_name{
     display: inline-block;
-    width: 130px;
+    width: 120px;
     height: 100px;
     position: sticky;
     top: 28rem;
