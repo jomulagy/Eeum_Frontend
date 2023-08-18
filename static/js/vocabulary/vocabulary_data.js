@@ -246,7 +246,6 @@ function getUserInfo() {
             xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
         },
         success: function(response) {
-            alert('유저 정보 불러오기 성공');
             console.log("유저 data : ", response);
             var user_nickname = response.nickname;
             userInfo(user_nickname);
