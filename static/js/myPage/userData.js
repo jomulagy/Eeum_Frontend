@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         "refresh": localStorage.refresh
     }
 
-    refreshAccessToken(response)
+    
     getUserInfo();
     getUserWordData();
     getUserQuestionData();
@@ -65,6 +65,7 @@ function refreshAccessToken(response) {
                 "refresh": localStorage.getItem('refresh')
             }),
             success: function(res) {
+
                 const access = res.access;
                 const refresh = res.refresh;
                     
@@ -212,7 +213,33 @@ function changeData(newName) {
         success: function(response) {
             alert('변경 성공');
             console.log("data : ", response);
-            changeName(response.nickname);
+            if(response.status === 401){
+                refreshAccessToken(response)
+                .then(
+                    $.ajax({
+                        type: 'PUT',
+                        url: 'http://3.34.3.84/api/account/user/', // 슬래시 하나로 수정
+                        contentType: 'application/json',
+                        data: JSON.stringify(requestData), // 데이터를 JSON 문자열로 변환
+                        beforeSend: function(xhr) {
+                            xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+                        },
+                        success: function(response) {
+                            changeName(response.nickname);
+                        },
+                        error: function(response){
+                            console.log("토큰 재발급 실패")
+                        }
+                    })
+                )
+                .catch(
+                    console.log("error")
+                )
+            }
+            else{
+                changeName(response.nickname);
+            }
+           
         },
         error: function(request, status, error) {
             alert('변경 실패');
@@ -240,15 +267,45 @@ function getUserInfo() {
         success: function(response) {
             // alert('유저 정보 불러오기 성공');
             // console.log("유저 data : ", response);
+            if(response.status === 401){
+                refreshAccessToken(response)
+                .then(
+                    $.ajax({
+                        type: 'GET',
+                        url: 'http://3.34.3.84/api/account/user/', // 슬래시 하나로 수정
+                        contentType: 'application/json',
+                        beforeSend: function(xhr) {
+                            xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+                        },
+                        success: function(response) {
+                            var user_age = response.age;
+                            var user_nickname = response.nickname;
+                            var user_image = response.image;
+                            var user_level = response.level;
+                            var user_point = response.point;
 
-            var user_age = response.age;
-            var user_nickname = response.nickname;
-            var user_image = response.image;
-            var user_level = response.level;
-            var user_point = response.point;
+                            loadUserInfo(user_age, user_nickname, user_image, user_level, user_point);
+                            userInfo(user_nickname, user_age);
+                        },
+                        error: function(response){
+                            console.log("토큰 재발급 실패")
+                        }
+                    })
+                )
+                .catch(
+                    console.log("error")
+                )
+            }
+            else{
+                var user_age = response.age;
+                var user_nickname = response.nickname;
+                var user_image = response.image;
+                var user_level = response.level;
+                var user_point = response.point;
 
-            loadUserInfo(user_age, user_nickname, user_image, user_level, user_point);
-            userInfo(user_nickname, user_age);
+                loadUserInfo(user_age, user_nickname, user_image, user_level, user_point);
+                userInfo(user_nickname, user_age);
+            }
         },
         error: function(request, status, error) {
             alert('불러오기 실패');
@@ -296,11 +353,40 @@ function getUserWordData(){
         success: function(response) {
             // alert('단어 데이터 불러오기 성공');
             // console.log("단어 data : ", response);
-            let userWordData = response;
-            for (var i = 0; i < Math.min(userWordData.length,3); i++){
-                wordData = response[i]
-                createWordCard(wordData)
+            if(response.status === 401){
+                refreshAccessToken(response)
+                .then(
+                    $.ajax({
+                        type: 'GET',
+                        url: 'http://3.34.3.84/api/account/user/word/', // 슬래시 하나로 수정
+                        contentType: 'application/json',
+                        beforeSend: function(xhr) {
+                            xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+                        },
+                        success: function(response) {
+                            let userWordData = response;
+                            for (var i = 0; i < Math.min(userWordData.length,3); i++){
+                                wordData = response[i]
+                                createWordCard(wordData)
+                            }
+                        },
+                        error: function(response){
+                            console.log("토큰 재발급 실패")
+                        }
+                    })
+                )
+                .catch(
+                    console.log("error")
+                )
             }
+            else{
+                let userWordData = response;
+                for (var i = 0; i < Math.min(userWordData.length,3); i++){
+                    wordData = response[i]
+                    createWordCard(wordData)
+                }
+            }
+            
         },
         error: function(request, status, error) {
             alert('데이터 불러오기 실패');
@@ -319,11 +405,40 @@ function getUserQuestionData(){
         success: function(response) {
             // alert('질문 데이터 불러오기 성공');
             // console.log("질문 data : ", response);
-            const userQuestData = response;
-            for (var i = 0; i < Math.min(userQuestData.length,10); i++){
-                myQuest = response[i]
-                createQuestCard(myQuest)
+            if(response.status === 401){
+                refreshAccessToken(response)
+                .then(
+                    $.ajax({
+                        type: 'GET',
+                        url: 'http://3.34.3.84/api/account/user/question/', // 슬래시 하나로 수정
+                        contentType: 'application/json',
+                        beforeSend: function(xhr) {
+                            xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+                        },
+                        success: function(response) {
+                            const userQuestData = response;
+                            for (var i = 0; i < Math.min(userQuestData.length,10); i++){
+                                myQuest = response[i]
+                                createQuestCard(myQuest)
+                            }
+                        },
+                        error: function(response){
+                            console.log("토큰 재발급 실패")
+                        }
+                    })
+                )
+                .catch(
+                    console.log("error")
+                )
             }
+            else{
+                const userQuestData = response;
+                for (var i = 0; i < Math.min(userQuestData.length,10); i++){
+                    myQuest = response[i]
+                    createQuestCard(myQuest)
+                }
+            }
+            
         },
         error: function(request, status, error) {
             alert('질문 불러오기 실패');
@@ -342,13 +457,36 @@ function getUserReuestData(){
         success: function(response) {
             // alert('수정 요청 데이터 불러오기 성공');
             // console.log("수정 요청 data : ", response);
-            const userRequestData = response;
-            for (var i = 0; i < Math.min(userRequestData.length,10); i++){
-                myRequest = response[i]
-                createRequestCard(myRequest)
+            if(response.status === 401){
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://3.34.3.84/api/account/user/edit/',
+                    contentType: 'application/json',
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
+                    },
+                    success: function(response) {
+                        const userRequestData = response;
+                        for (var i = 0; i < Math.min(userRequestData.length,10); i++){
+                            myRequest = response[i]
+                            createRequestCard(myRequest)
+                        }
+                    },
+                    error: function(request, status, error){
+                        alert("수정요청 불러오기 실패")
+                    }
+            })
+            
+            }
+            else{
+                const userRequestData = response;
+                        for (var i = 0; i < Math.min(userRequestData.length,10); i++){
+                            myRequest = response[i]
+                            createRequestCard(myRequest)
+                        }
             }
         },
-        error: function(request, status, error) {
+        error: function(response) {
             alert('수정요청 불러오기 실패');
         }
     });
