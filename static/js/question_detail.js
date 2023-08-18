@@ -50,7 +50,7 @@ $(document).ready(function() {
                     url: 'http://3.34.3.84/api/question/questioncreate/',
                     contentType: 'application/json',
                     data: JSON.stringify(questionData),
-                    beforeSend: function () {
+                    beforeSend: function (xhr) {
                         xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access_token"));
                     },
                     success: function (response) {
