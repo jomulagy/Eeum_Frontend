@@ -265,56 +265,7 @@ $(document).ready(function () {
         }
     });
 
-    if(localStorage.getItem("refresh") !== null){
-        $.ajax({
-            type:"GET",
-            url: "http://3.34.3.84/api/account/user/",
-            headers: {
-                'Authorization' : `Bearer ${localStorage.getItem('access')}`
-            },
-            dataType: 'json',
-            success: function(response){
-                   // 서버로부터의 응답을 처리
-                   if (response.status === 401) {
-                    refreshAccessToken(response)
-                    .then(function (access_token) {
-                        $.ajax({
-                            type: 'GET',
-                            url: 'http://3.34.3.84/api/account/user/',
-                            contentType: 'application/json',
-                            dataType: 'json',
-                            beforeSend: function (xhr) {
-                                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access"));
-                            },
-                            success: function (response) {
-                                console.log('성공')
-                                userData = response;
-                                console.log(userData);
-                            },
-                            error: function (request, status, error) {
-                                console.log('실패')
-                            }
-                        });
-                    })
-                    .catch(function (error) {
-                        console.error('Refresh token 재발급 실패:', error);
-                    });
-                  } 
-                  else{
-                    userData = response;
-                    console.log(userData);
-                  }
-                 
-            },
-            error: function(xhr, status, error) {
-                console.log("데이터를 불러오지 못함");
-            }
-        })
-    } else{//로그인을 하지 않았을 경우에
-        userData = {
-            "id" : 0
-        }
-    }
+    
 
     
 
@@ -361,7 +312,59 @@ $(document).ready(function () {
             localStorage.setItem('image',jsonData.image);
             console.log(localStorage);
             createElement(jsonData);
-            displayhrefElement(userData,jsonData);
+            if(localStorage.getItem("refresh") !== null){
+                $.ajax({
+                    type:"GET",
+                    url: "http://3.34.3.84/api/account/user/",
+                    headers: {
+                        'Authorization' : `Bearer ${localStorage.getItem('access')}`
+                    },
+                    dataType: 'json',
+                    success: function(response){
+                           // 서버로부터의 응답을 처리
+                           if (response.status === 401) {
+                            refreshAccessToken(response)
+                            .then(function (access_token) {
+                                $.ajax({
+                                    type: 'GET',
+                                    url: 'http://3.34.3.84/api/account/user/',
+                                    contentType: 'application/json',
+                                    dataType: 'json',
+                                    beforeSend: function (xhr) {
+                                        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("access"));
+                                    },
+                                    success: function (response) {
+                                        console.log('성공')
+                                        userData = response;
+                                        displayhrefElement(userData,jsonData);
+                                        console.log(userData);
+                                    },
+                                    error: function (request, status, error) {
+                                        console.log('실패')
+                                    }
+                                });
+                            })
+                            .catch(function (error) {
+                                console.error('Refresh token 재발급 실패:', error);
+                            });
+                          } 
+                          else{
+                            userData = response;
+                            displayhrefElement(userData,jsonData);
+                            console.log(userData);
+                          }
+                         
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("데이터를 불러오지 못함");
+                    }
+                })
+            } else{//로그인을 하지 않았을 경우에
+                userData = {
+                    "id" : 0
+                }
+            }
+            
             //data localstorage에 저장
             localStorage.setItem('modifyData', JSON.stringify(jsonData));
             initializeUI(jsonData.is_likes, jsonData.is_vocabulary);
