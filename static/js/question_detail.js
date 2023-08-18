@@ -36,7 +36,7 @@ $(document).ready(function() {
             title: answer1,
             content: answer1,
             type: "질문",
-            word_id: 22
+            word_id: localStorage.getItem('word_id')
         }
     
         var response = {
