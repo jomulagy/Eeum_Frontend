@@ -69,13 +69,13 @@ function initializeUI(isLiked, isBookmarked) {
     const bookmarkText = document.getElementById("bookmark_text");
 
     if (isLiked) {
-        heartIcon.classList.remove('fa-regular');
         heartIcon.classList.add('fa-solid');
+        heartIcon.classList.remove('fa-regular');
     } else {
-        heartIcon.classList.remove('fa-solid');
         heartIcon.classList.add('fa-regular');
+        heartIcon.classList.remove('fa-solid');
     }
-
+    console.log(isLiked);
     if (isBookmarked) {
         bookmarkIcon.classList.add('fa-solid');
         bookmarkIcon.classList.remove('fa-regular');
@@ -265,7 +265,7 @@ $(document).ready(function () {
         }
     });
 
-    if(localStorage.getItem("refresh")){
+    if(localStorage.getItem("refresh") !== null){
         $.ajax({
             type:"GET",
             url: "http://3.34.3.84/api/account/user/",
@@ -337,10 +337,19 @@ $(document).ready(function () {
             document.querySelector(".word_detail_iconcontainer").style.display = "none"
         }
     }
-
+    var headers
+    if(localStorage.getItem('refresh')!== null){
+        headers = {
+            "Authorization" : "Bearer " + localStorage.getItem('access')
+        }
+    }
+    else{
+        headers = {}
+    }
     $.ajax({
         type:"POST",
         url: "http://3.34.3.84/api/word/detail/",
+        headers: headers,
         contentType: 'application/json',
         dataType: 'json',
         data: JSON.stringify({word_id:localStorage.getItem("word_id")}),
