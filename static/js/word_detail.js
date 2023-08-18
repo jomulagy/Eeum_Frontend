@@ -319,8 +319,7 @@ $(document).ready(function () {
     
 
     function displayhrefElement(userData,jsonData){
-        console.log(userData.id);
-        console.log(jsonData.author.id);
+        console.log(userData);
         if(userData.id === jsonData.author.id){
             console.log(userData.id);
             console.log("작성자 일 때")
