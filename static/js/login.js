@@ -26,7 +26,7 @@ function onclickLogin() {
 
               localStorage.setItem('access', access);
               localStorage.setItem('refresh', refresh);
-              window.location.href = 'dictionary/list.html';
+              window.location.reload()
             },
         
             // error: function (jqXHR, textStatus, errorThrown) {
