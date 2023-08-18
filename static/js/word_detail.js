@@ -419,7 +419,7 @@ $(document).ready(function () {
 
         var titleElement = document.createElement("div");
         titleElement.className = "tab_content_title";
-        titleElement.textContent = questionList[i].title;
+        titleElement.textContent = questionList[i].title.slice(0, 9) + '...';;
 
         var dateElement = document.createElement("div");
         dateElement.className = "tab_content_date";
