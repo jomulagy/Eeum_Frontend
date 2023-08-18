@@ -172,6 +172,7 @@ function addComment() {
             console.log("데이터가 성공적으로 전송");
             console.log(response);
             createQna_answer_plus(response);
+            
         },
         error: function (jqXHR, textStatus, errorThrown) {
             if (jqXHR.status === 401) {

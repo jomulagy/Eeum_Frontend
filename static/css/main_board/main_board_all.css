@@ -281,6 +281,7 @@ body{
     position: relative;
     width: 36.625rem;
     height: 15.1435rem;
+    cursor: pointer;
 }
 
 .qna_card_img > img{
