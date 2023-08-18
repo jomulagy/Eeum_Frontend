@@ -96,13 +96,7 @@ function createQnaCard(data) {
 
 function displayPageItems(pageNumber, data) {
     const startIndex = (pageNumber - 1) * itemsPerPage;
-    var endPage;
-    if (totalPages == 0){
-        endPage=1
-    }
-    else{
-        endPage = Math.min(startPage + 4, totalPages);
-    }
+    const endIndex = startIndex + itemsPerPage;
     console.log(pageNumber);
     qnaCardContainer.innerHTML = ""; // 기존 아이템 초기화
     console.log(data);
@@ -118,7 +112,14 @@ function createPaginationButtons(totalPages, currentPage) {
     paginationHtml += '<button id="prevButton" class="pag_btn">&lt;</button>';
 
     const startPage = Math.max(currentPage - 2, 1);
-    const endPage = Math.min(startPage + 4, totalPages);
+    var endPage;
+    if (totalPages == 0){
+        endPage=1
+    }
+    else{
+        endPage = Math.min(startPage + 4, totalPages);
+    }
+
 
     for (let i = startPage; i <= endPage; i++) {
         if (i === currentPage) {

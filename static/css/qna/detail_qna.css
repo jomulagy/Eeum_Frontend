@@ -150,6 +150,7 @@ body{
     box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
     display: flex;
     margin-top: 1.5rem;
+    padding: 0 0 0 1rem ; 
 }
 
 .comment_btn{

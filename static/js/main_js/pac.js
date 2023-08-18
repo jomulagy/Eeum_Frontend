@@ -56,7 +56,7 @@ function getWords() {
                     ${imageHtml}
                 </div>
             </li>
-            <li class="word_what"><p>${data.content}</p></li>
+            <li class="word_what"><p>${data.mean}</p></li>
             <li class="word_heart">
                 <img src="../static/img/imoge/heartred.png">
                 <p>${data.likes}</p>
