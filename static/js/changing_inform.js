@@ -96,7 +96,7 @@ $(document).ready(function () {
       title: answer1,
       content: answer2,
       type:'수정 요청',
-      word_id: 52
+      word_id: localStorage.getItem('word_id')
     }
 
     var response = {
