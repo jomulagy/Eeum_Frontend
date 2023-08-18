@@ -116,24 +116,49 @@ function createPaginationButtons(totalPages, currentPage) {
     });
 }
 
+// 정렬 선택 옵션 변경 이벤트 핸들러
+const sortingSelect = document.getElementById("sortingSelect");
+sortingSelect.addEventListener("change", function () {
+    const selectedValue = sortingSelect.value;
 
-//ajax 시작=========================================
+    // 선택한 정렬 방식에 따라 데이터를 가져오는 로직
+    const sortType = (selectedValue === "recency") ? "최신" : "인기"; // 예시로만 작성되었습니다. 실제 방식에 맞게 수정하세요.
+    
+    // Ajax 요청을 통해 새로운 데이터 가져오기
+    $.ajax({
+        url: 'http://3.34.3.84/api/question/list/',
+        type: "POST",
+        dataType: "JSON",
+        data: { sort: sortType, type: "등록 요청" },
+        headers: {},
+        success: function (result) {
+            data = result;
+            createPaginationButtons(Math.ceil(data.length / itemsPerPage), initialPageNumber);
+            displayPageItems(initialPageNumber, data);
+        },
+        error: function (xhr, textStatus, thrownError) {
+            alert(
+                "Could not send URL to Django. Error: " +
+                xhr.status +
+                ": " +
+                xhr.responseText
+            );
+        },
+    });
+});
+
+
 $.ajax({
     url: 'http://3.34.3.84/api/question/list/',
     type: "POST",
     dataType: "JSON",
     data: { sort: "최신", type: "등록 요청" },
     headers: {},
-
     success: function (result) {
         data = result;
-        console.log(data);
-        createPaginationButtons(Math.ceil(data.length / itemsPerPage), initialPageNumber); // 초기 페이지는 1로 설정
-        console.log(data);
+        createPaginationButtons(Math.ceil(data.length / itemsPerPage), initialPageNumber);
         displayPageItems(initialPageNumber, data);
-        console.log(initialPageNumber);
     },
-
     error: function (xhr, textStatus, thrownError) {
         alert(
             "Could not send URL to Django. Error: " +
@@ -142,5 +167,4 @@ $.ajax({
             xhr.responseText
         );
     },
-})
-//ajax 끝===========================================
+});

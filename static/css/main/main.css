@@ -306,6 +306,8 @@ body{
 }
 
 .word_name{
+    height: 2rem;
+    /* 하트 위치 고정 */
     margin-top: 0.86rem;
     margin-left: 1.48rem;
     column-count: 2;
@@ -353,6 +355,8 @@ body{
     margin-left: 1.48rem;
     column-count: 2;
 }
+
+.word_heart > img{}
 
 .word_heart > p{
     margin-left: 0.62rem;

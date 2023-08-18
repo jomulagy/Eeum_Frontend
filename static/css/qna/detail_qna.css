@@ -158,7 +158,7 @@ body{
     border-radius: 1.25rem;
     background: #232427;
     display: flex;
-    margin-top: 0.88rem;
+    margin-top: -3rem;
     margin-left: 52.06rem;
     cursor: pointer;
 }
@@ -367,7 +367,11 @@ body{
     line-height: 130%; /* 1.3rem */
     margin-left: 0.2rem;
 }
-
+/* 좋아요 색 */
+.liked {
+    background-color: blue; /* 원하는 스타일로 변경하세요 */
+    color: white;
+}
 
 /* 단어 부분 */
 .word_container{

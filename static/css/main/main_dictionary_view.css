@@ -183,6 +183,16 @@ body{
     fill: var(--black, #232427);
 }
 
+.fix_p{
+    color: #232427;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%; 
+    margin-top: 4.5rem;
+}
+
+
 /* 단어 추가 버튼 부분 */
 .rword{
     align-items: flex-start;
@@ -284,6 +294,8 @@ body{
 }
 
 .word_name{
+    height: 2rem;
+    /* 하트 위치 고정 */
     margin-top: 0.86rem;
     margin-left: 1.48rem;
     column-count: 2;
@@ -302,12 +314,14 @@ body{
 
 .img_container{
     display: flex;
+    flex-direction: row;
+    gap: 0.56rem;
 }
 
 
 .word_name > img{
-    width: 2.36931rem;
-    height: 2.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
 }
 
 .word_what{

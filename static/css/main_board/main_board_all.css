@@ -5,14 +5,14 @@
     font-style: normal;
 }
 
-* {
+
+body{
+    background: #FAFAFA;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 0;
-    padding: 0;
-    list-style: none;
-    font-family: 'Pretendard-Regular';
-    font-style: normal;
-    text-decoration-line: none;
-    border-style: none;
 }
 
 .navBar {
@@ -120,6 +120,7 @@
     height: 3rem;
     border-radius: 50%;
 }
+
 /* main container */
 .container{
     display: flex;
@@ -211,12 +212,12 @@
     height: 2rem;
     margin-left: 0.84rem;
     float: left;
-    margin-top: 0.94rem;
+    margin-top: 0.70rem;
 }
 
 .rword > button > p{
     color: #FFF;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-style: normal;
     font-weight: 500;
     margin-left: 0.85rem;
@@ -229,7 +230,7 @@
 }
 
 .option_container > p{
-    width: 17.375rem;
+    width: 20rem;
     color: #232427;
     font-size: 1.75rem;
     font-style: normal;
@@ -246,7 +247,7 @@
     background: #FFE173;
     box-shadow: 0px 4px 4px 0px rgba(160, 160, 160, 0.25);
     margin-top: 4rem;
-    margin-left: 51.81rem;
+    margin-left: 49.185rem;
     color: #232427;
     font-size: 1rem;
     font-style: normal;
@@ -518,3 +519,41 @@
 .search_btn > button:active{
     opacity: 0.8;
 }
+
+
+/*플로팅 버튼 css 시작 부분*/
+#floating_button_wrap {
+    position: fixed; /* 화면 스크롤에 영향 받지 않고 고정 */
+    bottom: 20rem; /* 아래쪽으로 고정 */
+    right: 5rem; /* 오른쪽으로 고정 */
+    z-index: 100; /* 다른 요소 위에 표시 */
+}
+
+.floating_button {
+    width: 100px;
+    height: 100px;
+    background: gold;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s; /* 부드러운 애니메이션 추가 */
+}
+
+.floating_button:hover {
+    transform: scale(1.05); /* 마우스 호버 시 크기 약간 증가 */
+}
+
+.floating_button img {
+    margin-top: -1rem;
+    width: 60%;
+    height: 60%;
+}
+
+.floating_button_name {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-right: 0.1rem;
+}
+/*플로팅 버튼 css 끝 부분*/

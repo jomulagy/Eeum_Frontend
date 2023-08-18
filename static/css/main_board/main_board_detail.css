@@ -15,6 +15,16 @@
     border-style: none;
 }
 
+
+body{
+    background: #FAFAFA;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
 .navBar {
     position: fixed;
     display: flex;
@@ -120,6 +130,8 @@
     height: 3rem;
     border-radius: 50%;
 }
+
+
 /* main container */
 .container{
     display: flex;

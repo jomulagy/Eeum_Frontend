@@ -53,7 +53,7 @@ function createQnaCard(data) {
         const index = data.id;
         console.log(data.id)
         localStorage.setItem('qnaCard_id', index);
-        window.location.href = "/registrationrequest/detail.html";
+        window.location.href = "/qna/list.html";
 
     });
 
@@ -127,7 +127,6 @@ $.ajax({
 
     success: function (result) {
         data = result;
-        console.log(data);
         createPaginationButtons(Math.ceil(data.length / itemsPerPage), initialPageNumber); // 초기 페이지는 1로 설정
         console.log(data);
         displayPageItems(initialPageNumber, data);

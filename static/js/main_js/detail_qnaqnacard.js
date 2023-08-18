@@ -72,81 +72,80 @@ function createQnaCard(data) {
     qnaCardContainer.appendChild(qnaCard);
 }
 
-function wordReal(data) {
-    if (data.word === null) {
-        commentTxt.style.display = "none"; // "질문한 단어가 등록되었습니다." 문구 감춤
-    } else {
-        createWordCard(data);
-    }
-}
-//단어가 있는지 없는지 검사
+// function wordReal(data) {
+//     if (data.word === null) {
+//         commentTxt.style.display = "none"; // "질문한 단어가 등록되었습니다." 문구 감춤
+//     } else {
+//         createWordCard(data);
+//     }
+// }
+// //단어가 있는지 없는지 검사
 
-function createWordCard(item) {
-    console.log(item)
+// function createWordCard(item) {
+//     console.log(item)
 
-    const wordItem = document.createElement("ul");
-    wordItem.classList.add("word");
+//     const wordItem = document.createElement("ul");
+//     wordItem.classList.add("word");
 
-    const age = item.word.age; // Assume age is an array containing age values
+//     const age = item.word.age; // Assume age is an array containing age values
 
-    let imageHtml = ""; // Initialize imageHtml variable
+//     let imageHtml = ""; // Initialize imageHtml variable
 
-    if (age[0] === 10) {
-        imageHtml += `<img src="../static/img/age/age_10.png">`;
-    } else if (age[0] === 20) {
-        imageHtml += `<img src="../static/img/age/age_20.png">`;
-    } else if (age[0] === 30) {
-        imageHtml += `<img src="../static/img/age/age_30.png">`;
-    } else if (age[0] === 40) {
-        imageHtml += `<img src="../static/img/age/age_40.png">`;
-    } else if (age[0] === 50) {
-        imageHtml += `<img src="../static/img/age/age_50.png">`;
-    }
+//     if (age[0] === 10) {
+//         imageHtml += `<img src="../static/img/age/age_10.png">`;
+//     } else if (age[0] === 20) {
+//         imageHtml += `<img src="../static/img/age/age_20.png">`;
+//     } else if (age[0] === 30) {
+//         imageHtml += `<img src="../static/img/age/age_30.png">`;
+//     } else if (age[0] === 40) {
+//         imageHtml += `<img src="../static/img/age/age_40.png">`;
+//     } else if (age[0] === 50) {
+//         imageHtml += `<img src="../static/img/age/age_50.png">`;
+//     }
 
-    if (age[1]) {
-        if (age[1] === 10) {
-            imageHtml += `<img src="../static/img/age/age_10.png">`;
-        } else if (age[1] === 20) {
-            imageHtml += `<img src="../static/img/age/age_20.png">`;
-        } else if (age[1] === 30) {
-            imageHtml += `<img src="../static/img/age/age_30.png">`;
-        } else if (age[1] === 40) {
-            imageHtml += `<img src="../static/img/age/age_40.png">`;
-        } else if (age[1] === 50) {
-            imageHtml += `<img src="../static/img/age/age_50.png">`;
-        }
-    }
+//     if (age[1]) {
+//         if (age[1] === 10) {
+//             imageHtml += `<img src="../static/img/age/age_10.png">`;
+//         } else if (age[1] === 20) {
+//             imageHtml += `<img src="../static/img/age/age_20.png">`;
+//         } else if (age[1] === 30) {
+//             imageHtml += `<img src="../static/img/age/age_30.png">`;
+//         } else if (age[1] === 40) {
+//             imageHtml += `<img src="../static/img/age/age_40.png">`;
+//         } else if (age[1] === 50) {
+//             imageHtml += `<img src="../static/img/age/age_50.png">`;
+//         }
+//     }
 
-    wordItem.innerHTML = `
-            <li class="word_name">
-                <p>${item.word.title}</p>
-                <div class="img_container">
-                    ${imageHtml}
-                </div>
-            </li>
-            <li class="word_what"><p>${item.word.content}</p></li>
-            <li class="word_heart">
-                <img src="../static/img/imoge/heartred.png">
-                <p>${item.word.likes}</p>
-            </li>
-        `;
+//     wordItem.innerHTML = `
+//             <li class="word_name">
+//                 <p>${item.word.title}</p>
+//                 <div class="img_container">
+//                     ${imageHtml}
+//                 </div>
+//             </li>
+//             <li class="word_what"><p>${item.word.content}</p></li>
+//             <li class="word_heart">
+//                 <img src="../static/img/imoge/heartred.png">
+//                 <p>${item.word.likes}</p>
+//             </li>
+//         `;
 
-    // 클릭 이벤트 처리
-    wordItem.addEventListener("click", function () {
-        // 해당 단어 카드의 링크로 이동
-        var wordId = item.id;
-        localStorage.setItem('word_id', wordId);
-        window.location.href = "/word/detail.html";
-    });
-    wordContainer.appendChild(wordItem);
+//     // 클릭 이벤트 처리
+//     wordItem.addEventListener("click", function () {
+//         // 해당 단어 카드의 링크로 이동
+//         var wordId = item.id;
+//         localStorage.setItem('word_id', wordId);
+//         window.location.href = "/word/detail.html";
+//     });
+//     wordContainer.appendChild(wordItem);
 
-}
+// }
 //=============================================================
 
 function createQna_answer(data) {
     for (let i = 0; i < data.comments.length; i++) {
         const qnaCard = document.createElement("div");
-        qnaCard.classList.add("qna_card");
         qnaCard.classList.add("qna_card");
         qnaCard.setAttribute("id", "comment"+data.comments[i].id);
         const dataimage = data.comments[i].author.image;
@@ -188,9 +187,10 @@ function createQna_answer_plus(data) {
     const qnaCard = document.createElement("div");
     qnaCard.classList.add("qna_card");
     qnaCard.setAttribute("id", "comment"+data.id);
+    console.log(data.id);
     qnaCard.innerHTML = `
             <div class="qna_card_img"><img src="${data.author.image}"></div>
-            <div cla    ss="qna_card_inf">
+            <div class="qna_card_inf">
                 <div class="qna_card_name">
                     <p>${data.author.nickname}</p>
                 </div>
@@ -220,7 +220,7 @@ function createQna_answer_plus(data) {
 function addComment() {
     const commentContent = commentInput.value.trim();
     var formData = new FormData();
-    formData.append("question_id", localStorage.getItem('qnaCard_id'));
+    formData.append("question_id", localStorage.getItem('qnaqnaCard_id'));
     formData.append("content", commentContent);
 
     var response = {
@@ -292,14 +292,13 @@ $.ajax({
     type: "POST",
     dataType: 'json',
     data: {
-        "question_id": localStorage.getItem('qnaCard_id'),
+        "question_id": localStorage.getItem('qnaqnaCard_id'),
     },
     headers: {},
 
     success: function (result) {
         console.log(result);
         createQnaCard(result);
-        wordReal(result);
         createQna_answer(result);
     },
 
@@ -321,6 +320,7 @@ $.ajax({
 //=========================댓글 등록================================================
 function countqhelpView(data) {
     var formData = new FormData();
+    console.log(data)
     formData.append("comment_id", data);
     console.log(data)
 
@@ -341,7 +341,6 @@ function countqhelpView(data) {
         contentType: false,
         success: function (response) {
             // 서버로부터의 응답을 처리
-            
             const likeCountElement = document.querySelector("#comment"+data+">.qna_card_q>button");
             var currentText = likeCountElement.innerHTML;
             var startIndex = currentText.indexOf("도움이 되었어요 ") + 9;
@@ -363,7 +362,7 @@ function countqhelpView(data) {
                             url: 'http://3.34.3.84/api/question/commentlike/',
                             contentType: 'application/json',
 
-                            beforeSend: function () {
+                            beforeSend: function (xhr) {
                                 xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('access'));
                             },
                             success: function (response) {
@@ -391,7 +390,7 @@ function countqhelpView(data) {
 
 function countqView() {
     var formData = new FormData();
-    formData.append("question_id", localStorage.getItem('qnaCard_id'));
+    formData.append("question_id", localStorage.getItem('qnaqnaCard_id'));
 
     var response = {
         "refresh": localStorage.getItem('refresh')

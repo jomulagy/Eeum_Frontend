@@ -1,64 +1,70 @@
-//단어 카드 추가
 
-document.addEventListener("DOMContentLoaded", function() {
-    const wordContainer = document.getElementById("wordContainer");
-    const commentTxt = document.querySelector(".comment_txt");
+//===좋아요 버튼============================================
 
-    // 예시 데이터 - 실제로는 서버에서 가져오는 데이터로 대체해야 합니다.
-    const wordsData = [
-        {
-            index: 1,
-            name: "~라고 할뻔",
-            image: "/static/img/age/age_10.png",
-            image_snd: "/static/img/age/age_30.png",
-            what: "하고싶은 말 뒤에 쓴다",
-            heart: 30,
-            heart_img: "/static/img/imoge/heartred.png",
-            link: "practice.html"
+//=========================댓글 등록================================================
+function countqView() {
+    const commentContent = commentInput.value.trim();
+    var formData = new FormData();
+    formData.append("question_id", localStorage.getItem('qnaCard_id'));
+    formData.append("content", commentContent);
+
+    var response = {
+        "refresh": localStorage.getItem('refresh')
+    };
+
+    console.log(formData);
+
+    $.ajax({
+        type: "POST",
+        url: "http://3.34.3.84/api/question/questionlike/", // 실제 URL로 변경해야 합니다.
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('access')}`
         },
-        // ... 이하 데이터 추가
-    ];
+        data: formData,
+        processData: false, // 필요한 경우 FormData 처리 방지
+        contentType: false,
+        success: function (response) {
+            // 서버로부터의 응답을 처리
+            console.log("데이터가 성공적으로 전송");
+            console.log(response);
+            //  
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status === 401) {
+                console.error("Unauthorized:", jqXHR.responseText);
+                refreshAccessToken(response)
+                    //.then은 함수를 성공
+                    .then(function (access_token) {
 
-    // 함수를 통해 단어 카드 생성
-    function createWordCard(data) {
-        const wordItem = document.createElement("ul");
-        wordItem.classList.add("word");
-    
-        let imageHtml = `<img src="${data.image}">`;
-    
-        if (data.image_snd) {
-            imageHtml += `<img src="${data.image_snd}">`;
+                        $.ajax({
+                            type: 'POST',
+                            url: 'http://3.34.3.84/api/question/questionlike/',
+                            contentType: 'application/json',
+
+                            beforeSend: function () {
+                                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('access'));
+                            },
+                            success: function (response) {
+                                alert('성공')
+                            },
+                            error: function (request, status, error) {
+                                alert('실패')
+                            }
+                        });
+                    })
+                    .catch(function (error) {
+                        console.error('Refresh token 재발급 실패:', error);
+                    });
+            } else if (jqXHR.status === 404) {
+                console.error("Not found:", jqXHR.responseText);
+                alert("사용자가 존재하지 않습니다.");
+            } else {
+                console.error("Error:", jqXHR.status, errorThrown);
+                alert("서버 에러");
+            }
         }
-    
-        wordItem.innerHTML = `
-            <li class="word_name">
-                <p>${data.name}</p>
-                <div class="img_container">
-                    ${imageHtml}
-                </div>
-            </li>
-            <li class="word_what"><p>${data.what}</p></li>
-            <li class="word_heart">
-                <img src="${data.heart_img}">
-                <p>${data.heart}</p>
-            </li>
-        `;
+    });
+}
 
-        // 클릭 이벤트 처리
-        wordItem.addEventListener("click", function() {
-            // 해당 단어 카드의 링크로 이동
-            window.location.href = data.link;
-        });
-    
-        wordContainer.appendChild(wordItem);
-    }
-    
-    if (wordsData.length === 0) {
-        commentTxt.style.display = "none"; // "질문한 단어가 등록되었습니다." 문구 감춤
-    } else {
-        commentTxt.style.display = "flex"; // "질문한 단어가 등록되었습니다." 문구 표시
-        wordsData.forEach(data => {
-            createWordCard(data);
-        });
-    }
-});
+// 버튼 클릭 시 댓글 추가 함수 호출
+commentBtn.addEventListener("click", countqView);
