@@ -1,45 +1,26 @@
-Kakao.init('97a167bfd45fe1d3f9180e159b4a147d');
-
 function onclickLogin() {
-  Kakao.Auth.login({
-    success: function(res) {
-      Kakao.API.request({
-        url: '/v2/user/me',
-        success: function(result){
-          alert("로그인 성공!");
-          var id = result.id;
-          var age = result.kakao_account.age_range;
+    fetch('/landing.html', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => {
+      if (response.status === 400) {
+        throw new Error('400 에러 발생: Bad Request');
+      } else if (response.status === 401) {
+        throw new Error('401 에러 발생: Unauthorized');
+      } else if (response.status === 429) {
+        throw new Error('429 에러 발생: Too Many Requests');
+      }
+      console.log('SUCCESS', response);
+      alert("로그인이 완료되었습니다")
+      window.location.replace('/main')
+    })
+    .catch((error) => console.log('ERROR', error));
 
-          $.ajax({
-            type: 'POST',
-            url: 'http://3.34.3.84/api/account/kakao/callback/',
-            dataType: 'json',
-            data: {
-              'id': id,
-              'age': age,
-            },
-        
-            success: function(res){
-              alert('로그인을 진짜 성공했습니다.');
-              var access = res.access;
-              var refresh = res.refresh;
-
-              localStorage.setItem('access', access);
-              localStorage.setItem('refresh', refresh);
-              window.location.reload()
-            },
-        
-            // error: function (jqXHR, textStatus, errorThrown) {
-            //   alert('로그인에 실패했습니다.');
-            //   console.log(jqXHR);
-            // }
-          })
-        }
-      })
-    },
-    
-    fail: (err) => {
-        console.error('카카오 로그인 실패:', err);
-    }
-  });
 }
+userData = {
+  "id" : 0
+}
+"comment"+id
